@@ -1,0 +1,28 @@
+/* Sort */
+
+.wrapper {
+	height: 64px;
+	padding-bottom: 10px;
+
+	&:focus-within {
+		border-bottom-color: var(--mantine-color-purple-0);
+	}
+
+	background-color: light-dark(var(--mantine-color-background-0), var(--mantine-color-background-4));
+}
+
+.control {
+	border-radius: 6px;
+
+	background-color: light-dark(var(--mantine-color-button-0), var(--mantine-color-button-1));
+
+	label {
+		padding: 5px;
+
+		span {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+}

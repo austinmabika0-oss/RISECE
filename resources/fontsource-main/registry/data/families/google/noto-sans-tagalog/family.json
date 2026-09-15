@@ -1,0 +1,72 @@
+{
+	"classifications": [
+		"sans-serif"
+	],
+	"dateAdded": "2020-11-19",
+	"designer": "Google",
+	"family": "Noto Sans Tagalog",
+	"languages": [
+		"fil_Tglg"
+	],
+	"license": {
+		"attribution": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/tagalog)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"primaryScript": "Tglg",
+	"project": {
+		"repository": "https://github.com/notofonts/tagalog",
+		"revision": "3546fa08fc9d624166a1521054c6f3f473ee1485"
+	},
+	"provenance": {
+		"directory": "ofl/notosanstagalog",
+		"repository": "google/fonts",
+		"revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+		"type": "github"
+	},
+	"sourceModified": "2026-03-12",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 362,
+				"colorTables": [],
+				"features": {
+					"gpos": [
+						"kern",
+						"mark",
+						"mkmk"
+					],
+					"gsub": [
+						"aalt",
+						"ccmp",
+						"locl",
+						"ordn"
+					]
+				},
+				"fontVersion": "Version 2.002; ttfautohint (v1.8.4.7-5d5b)",
+				"glyphs": 367,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000, U+000D, U+0020-007E, U+00A0-00A3, U+00A5, U+00A7-00AB, U+00AE-00B0, U+00B4, U+00B6-00B8, U+00BA-00BB, U+00BF-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0133, U+0136-0137, U+0139-013E, U+0141-0148, U+014A-014D, U+0150-015B, U+015E-0161, U+0164-0165, U+016A-017E, U+0218-021B, U+0237, U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030C, U+0312, U+0326-0328, U+1700-1715, U+171F, U+1735-1736, U+1E80-1E85, U+1E9E, U+1EF2-1EF3, U+200B-200D, U+2013-2014, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2039-203A, U+20AC, U+2122, U+2212, U+25CC",
+				"weight": 400
+			},
+			"path": "ofl/notosanstagalog/NotoSansTagalog-Regular.ttf",
+			"sha256": "871a66319d10d1a027eee889f75ea49be0b7d2a4e97acd6bf7f7a0ed1d741aac",
+			"size": 53012,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"expressive/business",
+		"expressive/calm",
+		"expressive/competent",
+		"expressive/rugged",
+		"expressive/sincere",
+		"sans/humanist"
+	]
+}

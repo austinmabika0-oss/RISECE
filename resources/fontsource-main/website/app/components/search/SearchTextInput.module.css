@@ -1,0 +1,20 @@
+/* SearchTextInput */
+
+.wrapper {
+	height: 64px;
+	border-radius: 4px 0 0 0;
+
+	border-bottom: light-dark(1px solid var(--mantine-color-border-0), 1px solid var(--mantine-color-border-1));
+
+	&:focus-within {
+		border-color: var(--mantine-color-purple);
+	}
+}
+
+.left {
+	margin-right: -20px;
+}
+
+.input {
+	height: 100%;
+}

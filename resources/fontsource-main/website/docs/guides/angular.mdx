@@ -1,0 +1,72 @@
+---
+title: Angular
+description: Install, import, and use Fontsource packages in an Angular application.
+---
+
+# Angular
+
+Fontsource packages keep font files versioned with your Angular application and
+let its build pipeline bundle only the variants you import.
+
+## 1. Install the font
+
+<PackageManagerCode cmd="@fontsource-variable/open-sans" />
+
+## 2. Import it globally
+
+Import the font from your application entry point so it is available to every
+component:
+
+```ts
+// src/main.ts
+import "@fontsource-variable/open-sans/wght.css";
+
+import { bootstrapApplication } from "@angular/platform-browser";
+import { AppComponent } from "./app/app.component";
+
+bootstrapApplication(AppComponent).catch((error) => console.error(error));
+```
+
+The `wght.css` entry includes the variable weight axis. If you use a static
+package instead, import only the weights and styles your application needs.
+
+## 3. Apply the font
+
+Use the package's font family name in your global stylesheet:
+
+```css
+/* src/styles.css */
+body {
+  margin: 0;
+  font-family: "Open Sans Variable", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+```
+
+## Existing NgModule applications
+
+NgModules remain supported for existing Angular applications. The same import
+can live in `main.ts` or alongside the root `AppModule`; Fontsource does not
+require standalone components.
+
+```ts
+import "@fontsource-variable/open-sans/wght.css";
+
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { AppComponent } from "./app.component";
+
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+See Angular's
+[NgModule guide](https://angular.dev/guide/ngmodules/overview) for the current
+recommendation for new and existing applications.

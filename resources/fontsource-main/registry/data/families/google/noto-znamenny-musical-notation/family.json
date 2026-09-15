@@ -1,0 +1,76 @@
+{
+	"classifications": [
+		"sans-serif",
+		"symbols"
+	],
+	"dateAdded": "2023-12-11",
+	"designer": "Google",
+	"family": "Noto Znamenny Musical Notation",
+	"languages": [],
+	"license": {
+		"attribution": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/znamenny)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"project": {
+		"repository": "https://github.com/notofonts/znamenny",
+		"revision": "342a8039c2317865d203a448d118c384f2b51313"
+	},
+	"provenance": {
+		"directory": "ofl/notoznamennymusicalnotation",
+		"repository": "google/fonts",
+		"revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+		"type": "github"
+	},
+	"sampleText": {
+		"long": "𜿁𜾒𜼰𜼇 𜾓𜼱𜼳𜼇𜼣 𜾢𜼄𜼤",
+		"short": "𜿁𜾒𜼰𜼇 𜾓𜼱𜼳𜼇𜼣 𜾢𜼄𜼤"
+	},
+	"sourceModified": "2026-03-12",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 515,
+				"colorTables": [
+					"COLR",
+					"CPAL"
+				],
+				"features": {
+					"gpos": [
+						"kern",
+						"mark",
+						"mkmk"
+					],
+					"gsub": [
+						"aalt",
+						"ccmp",
+						"dlig",
+						"liga",
+						"locl",
+						"ordn"
+					]
+				},
+				"fontVersion": "Version 1.003; ttfautohint (v1.8.4.7-5d5b)",
+				"glyphs": 527,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020-007E, U+00A0-00A3, U+00A5, U+00A7-00AB, U+00AE-00B0, U+00B4, U+00B6-00B8, U+00BA-00BB, U+00BF-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0131, U+0136-0137, U+0139-013E, U+0141-0148, U+014A-014D, U+0150-015B, U+015E-0161, U+0164-0165, U+016A-017E, U+0218-021B, U+0237, U+02C6-02C7, U+02C9, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030C, U+0312, U+0326-0328, U+1E80-1E85, U+1E9E, U+1EF2-1EF3, U+2013-2014, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2039-203A, U+20AC, U+2122, U+2212, U+25CC, U+1CF00-1CF2D, U+1CF30-1CF46, U+1CF50-1CFC3",
+				"weight": 400
+			},
+			"path": "ofl/notoznamennymusicalnotation/NotoZnamennyMusicalNotation-Regular.ttf",
+			"sha256": "38b7bd32372d35f7601e8cc485c5b04d0a023c75ecebe9543a7916e3c0626c32",
+			"size": 104040,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"expressive/business",
+		"expressive/competent",
+		"sans/humanist"
+	]
+}

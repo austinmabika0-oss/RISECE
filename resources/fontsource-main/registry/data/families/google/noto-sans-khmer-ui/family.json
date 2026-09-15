@@ -1,0 +1,88 @@
+{
+	"classifications": [
+		"sans-serif"
+	],
+	"dateAdded": "2020-11-19",
+	"designer": "Google",
+	"family": "Noto Sans Khmer UI",
+	"languages": [
+		"km_Khmr"
+	],
+	"license": {
+		"attribution": "Copyright 2016 Google Inc. All Rights Reserved.",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"primaryScript": "Khmr",
+	"project": {
+		"repository": "https://github.com/notofonts/khmer",
+		"revision": "63b7c368a24767787e5b2665f43b726f01b81430"
+	},
+	"provenance": {
+		"directory": "ofl/notosanskhmerui",
+		"repository": "google/fonts",
+		"revision": "1f0660eae773e32fd6c606e8f112d5bb2b63d26d",
+		"type": "github"
+	},
+	"sourceModified": "2026-06-02",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [
+					{
+						"default": 100,
+						"max": 100,
+						"min": 62.5,
+						"tag": "wdth"
+					},
+					{
+						"default": 400,
+						"max": 900,
+						"min": 100,
+						"tag": "wght"
+					}
+				],
+				"codepoints": 175,
+				"colorTables": [],
+				"features": {
+					"gpos": [
+						"abvm",
+						"blwm",
+						"dist"
+					],
+					"gsub": [
+						"abvf",
+						"abvs",
+						"blwf",
+						"blws",
+						"clig",
+						"liga",
+						"pref",
+						"pres",
+						"pstf",
+						"psts"
+					]
+				},
+				"fontVersion": "Version 2.001",
+				"glyphs": 381,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000, U+000D, U+0020-0022, U+0027-0029, U+002C-002F, U+003A-003B, U+003F, U+00A0, U+00AB, U+00AD, U+00BB, U+1780-17DD, U+17E0-17E9, U+17F0-17F9, U+19E0-19FF, U+200B-200D, U+2010, U+2018-2019, U+201C-201D, U+2026, U+25CC",
+				"weight": {
+					"default": 400,
+					"max": 900,
+					"min": 100
+				}
+			},
+			"path": "ofl/notosanskhmerui/NotoSansKhmerUI[wdth,wght].ttf",
+			"sha256": "1467a1828bfbfe6598127482e7c3d3d7c82bed213d4d54e3066dce5d980db77b",
+			"size": 269660,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": []
+}

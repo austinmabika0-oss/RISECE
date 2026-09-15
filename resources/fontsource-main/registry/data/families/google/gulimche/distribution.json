@@ -1,0 +1,37 @@
+{
+	"characters": {
+		"defaultSubset": "korean",
+		"slicing": {
+			"definition": "korean-web",
+			"subset": "korean"
+		},
+		"subsets": [
+			{
+				"definition": "cyrillic",
+				"id": "cyrillic"
+			},
+			{
+				"definition": "greek",
+				"id": "greek"
+			},
+			{
+				"definition": "korean",
+				"id": "korean"
+			},
+			{
+				"definition": "latin",
+				"id": "latin"
+			},
+			{
+				"definition": "latin-ext",
+				"id": "latin-ext"
+			}
+		]
+	},
+	"static": [
+		{
+			"style": "normal",
+			"weight": 400
+		}
+	]
+}

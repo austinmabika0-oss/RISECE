@@ -1,0 +1,38 @@
+packages:
+  - packages/*
+  - api
+  - website
+  - registry
+
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  sharp: true
+  workerd: true
+
+catalog:
+  '@biomejs/biome': 2.5.4
+  '@cloudflare/vite-plugin': 1.50.0
+  '@vitest/coverage-v8': 4.1.10
+  esbuild: 0.28.1
+  knip: 6.32.0
+  tsdown: 0.22.9
+  tsx: 4.23.1
+  typescript: 7.0.2
+  vite: 8.2.0
+  vitest: 4.1.10
+  wrangler: 4.118.0
+
+catalogs:
+  node20:
+    '@types/node': 20.19.43
+  node24:
+    '@types/node': 24.13.3
+
+catalogMode: manual
+cleanupUnusedCatalogs: true
+engineStrict: true
+injectWorkspacePackages: true
+strictPeerDependencies: true
+syncInjectedDepsAfterScripts:
+  - build

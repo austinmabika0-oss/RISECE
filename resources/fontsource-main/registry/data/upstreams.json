@@ -1,0 +1,18 @@
+{
+	"fontFiles": {
+		"repository": "fontsource/font-files",
+		"revision": "a705f41795a2f4bb8ffe0cc94ed998c731927245"
+	},
+	"googleFonts": {
+		"repository": "google/fonts",
+		"revision": "ade3d1533e06b2b1462ffcde8e08b129627ca360"
+	},
+	"googleIcons": {
+		"repository": "google/material-design-icons",
+		"revision": "84ccef280841abfac506afc4ad4a2782f6d0a1d0"
+	},
+	"namFiles": {
+		"repository": "googlefonts/nam-files",
+		"revision": "1d38a7d77ce11452ccbfe8fa9a0cb728ee6d7cd3"
+	}
+}

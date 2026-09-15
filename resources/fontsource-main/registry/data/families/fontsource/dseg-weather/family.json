@@ -1,0 +1,58 @@
+{
+	"classifications": [
+		"symbols"
+	],
+	"designer": "keshikan",
+	"family": "DSEG Weather",
+	"languages": [],
+	"license": {
+		"attribution": "keshikan",
+		"id": "OFL-1.1",
+		"url": "https://raw.githubusercontent.com/keshikan/DSEG/a5019e1351dfa7b3c52aa3eff52ffb9c49538719/DSEG-LICENSE.txt"
+	},
+	"primaryScript": "Zsym",
+	"project": {
+		"repository": "https://github.com/keshikan/DSEG",
+		"revision": "a5019e1351dfa7b3c52aa3eff52ffb9c49538719"
+	},
+	"provenance": {
+		"directory": "sources/dseg-weather",
+		"repository": "fontsource/font-files",
+		"revision": "93268966dede3a18cc2a199ca0fcd4e6ddfa2b95",
+		"type": "github"
+	},
+	"sampleText": {
+		"short": "0123456789ABCabc"
+	},
+	"sourceModified": "2026-07-27",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 20,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": []
+				},
+				"fontVersion": "Version 0.3",
+				"glyphs": 23,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020, U+002F-003B, U+0041-0043, U+0061-0063",
+				"weight": 400
+			},
+			"path": "sources/dseg-weather/files/DSEGWeather.ttf",
+			"sha256": "7aa2787c4ff0749d5b69e46aa5b5f09994bdccbc9c1ac42eb046c38bb4847bd4",
+			"size": 23396,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"theme/techno"
+	]
+}

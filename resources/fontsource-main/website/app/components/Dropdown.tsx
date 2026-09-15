@@ -1,0 +1,204 @@
+import {
+	Badge,
+	Checkbox,
+	Combobox,
+	Group,
+	InputBase,
+	rem,
+	ScrollArea,
+	useCombobox,
+} from '@mantine/core';
+import { useState } from 'react';
+
+import { IconCaret } from '@/components/icons';
+
+import classes from './Dropdown.module.css';
+
+interface DropdownBaseProps {
+	options: JSX.Element[];
+	label: string;
+	refine?: (value: string) => void;
+	w?: number | string;
+	noBorder?: boolean;
+	search?: (query: string) => void;
+	disabled?: boolean;
+	closeOnSelect?: boolean;
+}
+interface DropdownItems {
+	label: string;
+	value: string;
+	isRefined: boolean;
+	count?: number;
+}
+interface DropdownProps {
+	label: string;
+	items: DropdownItems[];
+	refine?: (value: string) => void;
+	w?: number | string;
+	noBorder?: boolean;
+	showCount?: boolean;
+	search?: (query: string) => void;
+}
+
+const DropdownBase = ({
+	label,
+	options,
+	w,
+	noBorder,
+	refine,
+	search,
+	disabled,
+	closeOnSelect,
+}: DropdownBaseProps) => {
+	const [searchQuery, setSearchQuery] = useState('');
+
+	const combobox = useCombobox({
+		onDropdownClose: () => {
+			combobox.resetSelectedOption();
+			setSearchQuery('');
+		},
+		onDropdownOpen: () => {
+			combobox.updateSelectedOptionIndex('active');
+		},
+	});
+
+	const handleValueSelect = (val: string) => {
+		if (refine) refine(val);
+		if (closeOnSelect) combobox.closeDropdown();
+	};
+
+	const handleSearchQuery = (query: string) => {
+		if (search) {
+			search(query);
+			setSearchQuery(query);
+		}
+	};
+
+	return (
+		<Combobox
+			store={combobox}
+			onOptionSubmit={handleValueSelect}
+			transitionProps={{ duration: 100, transition: 'fade' }}
+			width={w ?? rem(250)}
+			disabled={disabled}
+		>
+			<Combobox.DropdownTarget>
+				<InputBase
+					component="button"
+					classNames={{ input: classes.input }}
+					pointer
+					rightSection={<IconCaret aria-hidden="true" />}
+					onClick={() => {
+						combobox.toggleDropdown();
+					}}
+					rightSectionPointerEvents="none"
+					w={w ?? rem(250)}
+					data-no-border={noBorder}
+					disabled={disabled}
+				>
+					{label}
+				</InputBase>
+			</Combobox.DropdownTarget>
+
+			<Combobox.Dropdown>
+				{search && (
+					<Combobox.Search
+						aria-label="Search languages"
+						value={searchQuery}
+						onChange={(event) => {
+							handleSearchQuery(event.currentTarget.value);
+						}}
+						placeholder="Search languages"
+					/>
+				)}
+				<Combobox.Options>
+					<ScrollArea.Autosize type="scroll" mah={240} scrollbars="y">
+						{options}
+					</ScrollArea.Autosize>
+				</Combobox.Options>
+			</Combobox.Dropdown>
+		</Combobox>
+	);
+};
+
+const DropdownSimple = ({
+	label,
+	items,
+	w,
+	noBorder,
+	refine,
+}: DropdownProps) => {
+	const options = items.map((item) => (
+		<Combobox.Option
+			value={item.value}
+			key={item.value}
+			active={item.isRefined}
+		>
+			{item.label ?? item.value}
+		</Combobox.Option>
+	));
+
+	return (
+		<DropdownBase
+			label={label}
+			options={options}
+			refine={refine}
+			w={w}
+			noBorder={noBorder}
+			closeOnSelect
+		/>
+	);
+};
+
+const DropdownCheckbox = ({
+	label,
+	items,
+	w,
+	noBorder,
+	refine,
+	showCount,
+	search,
+}: DropdownProps) => {
+	const options = items.map((item) => (
+		<Combobox.Option
+			value={item.value}
+			key={item.value}
+			active={item.isRefined}
+		>
+			<Group gap="sm" justify="flex-start">
+				<Checkbox
+					checked={item.isRefined}
+					aria-hidden
+					tabIndex={-1}
+					style={{ pointerEvents: 'none' }}
+					readOnly
+				/>
+				<span className={classes.option}>{item.label ?? item.value}</span>
+				{showCount && item.count && (
+					<Badge
+						variant="light"
+						color="gray"
+						size="sm"
+						className={classes.count}
+					>
+						{item.count}
+					</Badge>
+				)}
+			</Group>
+		</Combobox.Option>
+	));
+
+	return (
+		<DropdownBase
+			label={label}
+			options={options}
+			w={w}
+			noBorder={noBorder}
+			refine={refine}
+			search={search}
+			disabled={items.length === 0 && !search}
+		/>
+	);
+};
+
+export { DropdownCheckbox, DropdownSimple };

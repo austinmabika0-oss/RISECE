@@ -1,0 +1,159 @@
+import {
+	type BlockquoteProps,
+	type BoxProps,
+	type CodeProps,
+	Divider,
+	type DividerProps,
+	List,
+	type ListItemProps,
+	type ListProps,
+	Table,
+	type TableProps,
+	type TableTbodyProps,
+	type TableTdProps,
+	type TableTfootProps,
+	type TableTheadProps,
+	type TableThProps,
+	type TableTrProps,
+	Text,
+	type TextProps,
+	Title,
+	type TitleProps,
+} from '@mantine/core';
+import { IconExternalLink } from '@tabler/icons-react';
+import cx from 'clsx';
+import type { ComponentProps } from 'react';
+import { Link } from 'react-router';
+
+import { Blockquote } from '@/components/Blockquote';
+import { CodeMdx, CodePre } from '@/components/code/Code';
+import { PackageManagerCode } from '@/components/code/PackageManagerCode';
+import docsMdxClasses from '@/components/docs/Mdx.module.css';
+
+const documentResourceExtension = /\.(?:md|txt)$/;
+
+const getHrefPathname = (href: string) => href.split(/[?#]/, 1)[0] ?? href;
+
+const shouldUseDocumentNavigation = (href: string) => {
+	if (href.startsWith('#')) return true;
+
+	return documentResourceExtension.test(getHrefPathname(href));
+};
+
+const MdxLink = ({
+	href = '',
+	children,
+	className,
+	...props
+}: ComponentProps<'a'>) => {
+	if (href.startsWith('/') && !shouldUseDocumentNavigation(href)) {
+		return (
+			<Link
+				to={href}
+				prefetch="intent"
+				className={cx(docsMdxClasses.link, className)}
+				{...props}
+			>
+				{children}
+			</Link>
+		);
+	}
+
+	const externalProps = href.startsWith('http')
+		? { target: '_blank', rel: 'noreferrer' }
+		: {};
+
+	return (
+		<a
+			href={href}
+			className={cx(docsMdxClasses.link, className)}
+			{...externalProps}
+			{...props}
+		>
+			{children}
+		</a>
+	);
+};
+
+const MdxTable = (props: TableProps) => (
+	<Table.ScrollContainer minWidth="max-content" type="native" tabIndex={0}>
+		<Table fz="sm" {...props} />
+	</Table.ScrollContainer>
+);
+
+const MdxExternalLinkIcon = (
+	props: ComponentProps<typeof IconExternalLink>,
+) => <IconExternalLink size={14} stroke={1.8} aria-hidden="true" {...props} />;
+
+const mdxComponents = {
+	// Typography
+	h1: () => null,
+	h2: ({ className, ...props }: BoxProps) => (
+		<Title
+			order={2}
+			fw={700}
+			fz={24}
+			lh={1.25}
+			mt={42}
+			mb="sm"
+			className={cx(docsMdxClasses.heading, className)}
+			{...props}
+		/>
+	),
+	h3: ({ className, ...props }: TitleProps) => (
+		<Title
+			order={3}
+			fw={700}
+			fz={19}
+			lh={1.35}
+			mt="xl"
+			mb="sm"
+			className={cx(docsMdxClasses.heading, className)}
+			{...props}
+		/>
+	),
+	h4: ({ className, ...props }: TitleProps) => (
+		<Title
+			order={4}
+			fw={700}
+			fz={17}
+			lh={1.4}
+			mt="lg"
+			mb="xs"
+			className={cx(docsMdxClasses.heading, className)}
+			{...props}
+		/>
+	),
+	p: (props: TextProps) => (
+		<Text fw={400} fz={16} lh={1.75} my="md" {...props} />
+	),
+
+	// Lists
+	ol: (props: ListProps) => <List type="ordered" {...props} />,
+	ul: (props: ListProps) => <List {...props} />,
+	li: (props: ListItemProps) => <List.Item fz={16} {...props} />,
+
+	// Code
+	pre: (props: ComponentProps<'pre'>) => <CodePre {...props} />,
+	code: (props: CodeProps) => <CodeMdx {...props} />,
+
+	// Table
+	table: MdxTable,
+	thead: (props: TableTheadProps) => <Table.Thead {...props} />,
+	tbody: (props: TableTbodyProps) => <Table.Tbody {...props} />,
+	tr: (props: TableTrProps) => <Table.Tr {...props} />,
+	th: (props: TableThProps) => <Table.Th {...props} />,
+	td: (props: TableTdProps) => <Table.Td {...props} />,
+	caption: (props: ComponentProps<'caption'>) => <caption {...props} />,
+	tfoot: (props: TableTfootProps) => <Table.Tfoot {...props} />,
+
+	// Other
+	hr: (props: DividerProps) => <Divider mb="md" {...props} />,
+	blockquote: (props: BlockquoteProps) => <Blockquote fz={16} {...props} />,
+	a: MdxLink,
+	DocsLink: MdxLink,
+	DocsExternalLinkIcon: MdxExternalLinkIcon,
+	PackageManagerCode,
+};
+
+export { mdxComponents };

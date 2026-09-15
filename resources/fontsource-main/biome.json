@@ -1,0 +1,56 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.4/schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!**/coverage",
+			"!**/__snapshots__",
+			"!**/dist",
+			"!**/build",
+			"!**/.source",
+			"!**/.wrangler",
+			"!**/worker-configuration.d.ts",
+			"!**/.react-router",
+			"!registry/data",
+			"!website/app/generated/api",
+			"!website/app/bones/*.bones.json",
+			"!website/app/bones/registry.js",
+			"!website/app/bones/registry.ts",
+			"!website/public/**/*.svg"
+		]
+	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"css": {
+		"formatter": {
+			"enabled": false
+		},
+		"linter": {
+			"enabled": false
+		},
+		"parser": {
+			"cssModules": true
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single"
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"domains": {
+			"react": "recommended"
+		},
+		"rules": {
+			"preset": "recommended",
+			"correctness": {
+				"useUniqueElementIds": "off",
+				"noUnknownMediaFeatureName": "off",
+				"noUnknownProperty": "off"
+			},
+			"suspicious": {
+				"noUnknownAtRules": "off"
+			}
+		}
+	}
+}

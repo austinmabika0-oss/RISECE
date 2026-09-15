@@ -1,0 +1,15 @@
+/* PackageManagerCode */
+
+.wrapper {
+	margin: 16px 0 20px;
+
+	.tab {
+		&[data-active] {
+			border-bottom: 2px solid var(--mantine-color-purple);
+		}
+	}
+}
+
+.panels {
+	margin-top: -1px;
+}

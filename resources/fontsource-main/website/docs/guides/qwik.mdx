@@ -1,0 +1,74 @@
+---
+title: Qwik
+description: Install and use Fontsource packages in a Qwik City application.
+---
+
+# Qwik
+
+Qwik uses Vite, so Fontsource CSS imports and their referenced font files are
+processed by the existing application build.
+
+## 1. Install the font
+
+<PackageManagerCode cmd="@fontsource-variable/open-sans" />
+
+## 2. Import it from the root layout
+
+Add the package import to `src/routes/layout.tsx` to make the font available
+throughout the application:
+
+```tsx
+import { component$, Slot } from "@builder.io/qwik";
+import "@fontsource-variable/open-sans/wght.css";
+
+export default component$(() => {
+  return (
+    <main>
+      <Slot />
+    </main>
+  );
+});
+```
+
+Qwik City renders every page inside this root layout. You can instead import a
+font from a nested layout or component when only that part of the application
+needs it.
+
+## 3. Apply the font
+
+Add the family to `src/global.css`, which a Qwik starter imports from its root
+component:
+
+```css
+body {
+  font-family: "Open Sans Variable", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+```
+
+For component-only styles, the same family can be used with
+`useStylesScoped$()`:
+
+```tsx
+import { component$, useStylesScoped$ } from "@builder.io/qwik";
+import "@fontsource-variable/open-sans/wght.css";
+
+export default component$(() => {
+  useStylesScoped$(`
+    .heading {
+      font-family: "Open Sans Variable", sans-serif;
+      font-weight: 600;
+    }
+  `);
+
+  return <h1 class="heading">Hello Qwik</h1>;
+});
+```
+
+See Qwik City's
+[project structure](https://qwik.dev/docs/project-structure/) and
+[layout documentation](https://qwik.dev/docs/layout/) for more about these
+files.

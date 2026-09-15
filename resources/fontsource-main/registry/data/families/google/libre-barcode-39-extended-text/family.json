@@ -1,0 +1,62 @@
+{
+	"classifications": [
+		"display",
+		"symbols"
+	],
+	"dateAdded": "2017-08-21",
+	"designer": "Lasse Fister",
+	"family": "Libre Barcode 39 Extended Text",
+	"languages": [],
+	"license": {
+		"attribution": "Copyright 2017-2020 The Libre Barcode Project Authors (https://github.com/graphicore/librebarcode)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"project": {
+		"repository": "https://github.com/graphicore/librebarcode",
+		"revision": "f9864c42b2c467f255659c8851c124e4cd56c67a"
+	},
+	"provenance": {
+		"directory": "ofl/librebarcode39extendedtext",
+		"repository": "google/fonts",
+		"revision": "ec208e29b8feb7a1ae075904114c485b54809164",
+		"type": "github"
+	},
+	"sampleText": {
+		"short": "*Hello World*"
+	},
+	"sourceModified": "2026-03-27",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 132,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": [
+						"calt"
+					]
+				},
+				"fontVersion": "Version 1.005; ttfautohint (v1.8.3)",
+				"glyphs": 272,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000-007F, U+00A0, U+00C2, U+200B-200C",
+				"weight": 400
+			},
+			"path": "ofl/librebarcode39extendedtext/LibreBarcode39ExtendedText-Regular.ttf",
+			"sha256": "d7b50101f16c4dc3eae0bd1bab254c1fda6b69a1396db72b1767be229a0cec2b",
+			"size": 35280,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"expressive/futuristic",
+		"special-use/barcode"
+	]
+}

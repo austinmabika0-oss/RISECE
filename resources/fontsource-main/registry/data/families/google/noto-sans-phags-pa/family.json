@@ -1,0 +1,60 @@
+{
+	"classifications": [
+		"sans-serif"
+	],
+	"dateAdded": "2020-11-19",
+	"designer": "Google",
+	"family": "Noto Sans Phags Pa",
+	"languages": [
+		"lzh_Phag",
+		"mn_Phag",
+		"sa_Phag",
+		"zh_Phag"
+	],
+	"license": {
+		"attribution": "Copyright 2017 Google Inc. All Rights Reserved.",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"provenance": {
+		"directory": "ofl/notosansphagspa",
+		"repository": "google/fonts",
+		"revision": "2ad41cdc116dc19982d5af55d0407018679f5d75",
+		"type": "github"
+	},
+	"sourceModified": "2022-05-24",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 94,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": [
+						"calt",
+						"ccmp",
+						"fina",
+						"init",
+						"medi"
+					]
+				},
+				"fontVersion": "Version 2.000",
+				"glyphs": 379,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000, U+000D, U+0020, U+00A0, U+1801-1803, U+1805, U+200B-200F, U+2025-2026, U+25CC, U+3001-3002, U+3007-3011, U+3014-301B, U+A840-A877, U+FE00",
+				"weight": 400
+			},
+			"path": "ofl/notosansphagspa/NotoSansPhagsPa-Regular.ttf",
+			"sha256": "26e1100003585ae36f3e88569626e4e0d99af3f835cb118fe27919d76351047b",
+			"size": 39292,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "deprecated",
+	"tags": []
+}

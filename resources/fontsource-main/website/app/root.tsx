@@ -1,0 +1,209 @@
+import '@fontsource-variable/ibm-plex-sans/wght.css';
+import '@fontsource-variable/source-code-pro/wght.css';
+import '@/bones/registry';
+import 'fallback-font/fallback-outline.css';
+
+// Mantine core
+import '@mantine/core/styles/baseline.css';
+import '@mantine/core/styles/default-css-variables.css';
+import '@mantine/core/styles/global.css';
+
+// Mantine shared dependencies
+import '@mantine/core/styles/ScrollArea.css';
+import '@mantine/core/styles/UnstyledButton.css';
+import '@mantine/core/styles/VisuallyHidden.css';
+import '@mantine/core/styles/Paper.css';
+import '@mantine/core/styles/Popover.css';
+import '@mantine/core/styles/CloseButton.css';
+import '@mantine/core/styles/Group.css';
+import '@mantine/core/styles/Loader.css';
+import '@mantine/core/styles/Overlay.css';
+import '@mantine/core/styles/ModalBase.css';
+import '@mantine/core/styles/Input.css';
+import '@mantine/core/styles/InlineInput.css';
+import '@mantine/core/styles/Flex.css';
+import '@mantine/core/styles/FloatingIndicator.css';
+import '@mantine/core/styles/ActionIcon.css';
+import '@mantine/core/styles/ColorSwatch.css';
+import '@mantine/core/styles/ColorPicker.css';
+
+// Layout
+import '@mantine/core/styles/Center.css';
+import '@mantine/core/styles/Container.css';
+import '@mantine/core/styles/Grid.css';
+import '@mantine/core/styles/SimpleGrid.css';
+import '@mantine/core/styles/Stack.css';
+
+// Inputs
+import '@mantine/core/styles/Checkbox.css';
+import '@mantine/core/styles/ColorInput.css';
+import '@mantine/core/styles/Combobox.css';
+import '@mantine/core/styles/SegmentedControl.css';
+import '@mantine/core/styles/Slider.css';
+
+// Buttons
+import '@mantine/core/styles/Button.css';
+
+// Navigation
+import '@mantine/core/styles/Burger.css';
+import '@mantine/core/styles/NavLink.css';
+import '@mantine/core/styles/Tabs.css';
+
+// Feedback
+import '@mantine/core/styles/Alert.css';
+import '@mantine/core/styles/Progress.css';
+
+// Overlays
+import '@mantine/core/styles/Menu.css';
+import '@mantine/core/styles/Modal.css';
+import '@mantine/core/styles/Tooltip.css';
+
+// Typography
+import '@mantine/core/styles/Code.css';
+import '@mantine/core/styles/List.css';
+import '@mantine/core/styles/Table.css';
+
+// Misc
+import '@mantine/core/styles/Badge.css';
+import '@mantine/core/styles/Card.css';
+import '@mantine/core/styles/Divider.css';
+import '@mantine/core/styles/Text.css';
+import '@mantine/core/styles/Title.css';
+
+// Extensions
+import '@mantine/code-highlight/styles.css';
+import '@mantine/dropzone/styles.css';
+import '@/styles/global.css';
+
+import ibmLatinURL from '@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2?url';
+import {
+	ColorSchemeScript,
+	MantineProvider,
+	mantineHtmlProps,
+} from '@mantine/core';
+import { ReactRouterProvider } from 'fumadocs-core/framework/react-router';
+import type {
+	HeadersFunction,
+	LinksFunction,
+	MetaFunction,
+} from 'react-router';
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+	useLocation,
+} from 'react-router';
+
+import { ErrorBoundary as ErrorBoundaryComponent } from '@/components/ErrorBoundary';
+import { AppShell } from '@/components/layout/AppShell';
+import { CollectionsProvider } from '@/features/collections/CollectionsProvider';
+import { theme } from '@/styles/theme';
+import { cacheHeaders } from '@/utils/cache';
+import { getCanonicalUrl, ogMeta } from '@/utils/meta';
+
+export const meta: MetaFunction = () => {
+	return ogMeta({});
+};
+
+export const headers: HeadersFunction = ({ errorHeaders }) =>
+	errorHeaders ?? cacheHeaders.document;
+
+export const links: LinksFunction = () => [
+	{
+		rel: 'preconnect',
+		href: 'https://cdn.jsdelivr.net/',
+	},
+	{
+		rel: 'preload',
+		as: 'font',
+		type: 'font/woff2',
+		crossOrigin: 'anonymous',
+		href: ibmLatinURL,
+	},
+	{
+		rel: 'apple-touch-icon',
+		sizes: '180x180',
+		href: '/apple-touch-icon.png',
+	},
+	{
+		rel: 'icon',
+		type: 'image/png',
+		sizes: '32x32',
+		href: '/favicon-32x32.png',
+	},
+	{
+		rel: 'icon',
+		type: 'image/png',
+		sizes: '16x16',
+		href: '/favicon-16x16.png',
+	},
+	{
+		rel: 'icon',
+		href: '/favicon.ico',
+	},
+	{
+		rel: 'manifest',
+		href: '/site.webmanifest',
+	},
+	{
+		rel: 'search',
+		type: 'application/opensearchdescription+xml',
+		title: 'Fontsource',
+		href: '/opensearch.xml',
+	},
+];
+
+interface DocumentProps {
+	children: React.ReactNode;
+}
+
+export const Document = ({ children }: DocumentProps) => {
+	const { pathname } = useLocation();
+	const canonical = getCanonicalUrl(pathname);
+
+	return (
+		<html lang="en" {...mantineHtmlProps}>
+			<head>
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width,initial-scale=1" />
+				<link rel="canonical" href={canonical} />
+				<meta property="og:url" content={canonical} />
+				<Meta />
+				<Links />
+				<ColorSchemeScript
+					defaultColorScheme="light"
+					suppressHydrationWarning
+				/>
+			</head>
+			<body>
+				<MantineProvider theme={theme}>
+					<ReactRouterProvider>
+						<CollectionsProvider>
+							<AppShell>{children}</AppShell>
+						</CollectionsProvider>
+					</ReactRouterProvider>
+					<ScrollRestoration />
+					<Scripts />
+				</MantineProvider>
+			</body>
+		</html>
+	);
+};
+
+export default function App() {
+	return (
+		<Document>
+			<Outlet />
+		</Document>
+	);
+}
+
+export function ErrorBoundary() {
+	return (
+		<Document>
+			<ErrorBoundaryComponent />
+		</Document>
+	);
+}

@@ -1,0 +1,90 @@
+html {
+	color-scheme: light dark;
+}
+
+:root {
+	--mantine-color-purple: #625bf8;
+	--mantine-color-purple-hover: rgba(98, 91, 248, 0.02);
+	--mantine-color-button-hover: rgba(98, 91, 248, 0.1);
+	--mantine-color-purple-dark: #473ef6;
+
+	line-height: 1.5;
+	-webkit-text-size-adjust: 100%;
+	-moz-tab-size: 4;
+	tab-size: 4;
+	font-family:
+		"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-feature-settings: normal;
+	font-variation-settings: normal;
+	-webkit-tap-highlight-color: transparent;
+}
+
+[data-mantine-color-scheme='light'] {
+	color-scheme: light;
+}
+
+[data-mantine-color-scheme='dark'] {
+	color-scheme: dark;
+	--mantine-color-dark-0: #f3f5fa;
+	--mantine-color-dark-1: #d8deea;
+	--mantine-color-dark-2: #aeb8cb;
+	--mantine-color-dark-3: #7e8ca8;
+	--mantine-color-dark-4: var(--mantine-color-border-1);
+	--mantine-color-dark-5: #26334e;
+	--mantine-color-dark-6: #1a2540;
+	--mantine-color-dark-7: var(--mantine-color-background-4);
+	--mantine-color-dark-8: var(--mantine-color-background-5);
+	--mantine-color-dark-9: #0b101c;
+	--mantine-color-purple: #7c76ff;
+	--mantine-color-purple-0: var(--mantine-color-purple);
+	--mantine-color-purple-1: var(--mantine-color-purple);
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	font-size: var(--mantine-font-size-md);
+
+	color: light-dark(var(--mantine-color-text-1), var(--mantine-color-text-0));
+	background-color: light-dark(
+		var(--mantine-color-background-0),
+		var(--mantine-color-background-4)
+	);
+}
+
+a {
+	color: light-dark(var(--mantine-color-text-7), var(--mantine-color-text-0));
+}
+
+/* CarbonAds */
+
+#carbonads > span {
+	text-align: center;
+	display: grid;
+	padding: 1em;
+	box-sizing: border-box;
+	border-radius: 4px;
+	width: 238px;
+}
+
+#carbonads .carbon-wrap {
+	display: grid;
+	row-gap: 8px;
+}
+
+#carbonads .carbon-text {
+	font-size: 12px;
+	margin-bottom: 4px;
+}
+
+#carbonads .carbon-poweredby {
+	font-size: 0.75em;
+	opacity: 0.5;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+}

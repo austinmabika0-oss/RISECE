@@ -1,0 +1,22 @@
+/* Dropdown */
+
+.input {
+	background-color: light-dark(transparent, var(--mantine-color-background-4));
+	border: light-dark(1px solid var(--mantine-color-border-0), 1px solid var(--mantine-color-border-1));
+
+	&[data-no-border="true"] {
+		border: none;
+	}
+
+	&:hover:not(:disabled) {
+		background-color: light-dark(var(--mantine-color-purple-hover), var(--mantine-color-background-6));
+	}
+}
+
+.option {
+	text-transform: capitalize;
+}
+
+.count {
+	margin-left: auto;
+}

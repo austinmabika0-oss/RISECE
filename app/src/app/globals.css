@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Outfit:wght@400..700&family=Plus+Jakarta+Sans:wght@400..800&display=swap');
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "Outfit", sans-serif;
+}
+
+@layer base {
+  :root {
+    /* LIGHT THEME (White Blueprint Mode) */
+    --background: 210 40% 98%; /* #F8FAFC */
+    --foreground: 216 65% 11%; /* #0A192F Navy text */
+    
+    --card: 210 40% 98%;
+    --card-foreground: 216 65% 11%;
+    --popover: 210 40% 98%;
+    --popover-foreground: 216 65% 11%;
+    
+    /* Structural Cyan Accent */
+    --primary: 195 100% 40%; /* Deeper cyan for visibility on white */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 92%;
+    --secondary-foreground: 216 65% 11%;
+    
+    --muted: 210 40% 92%;
+    --muted-foreground: 215 25% 40%; 
+    
+    --accent: 195 100% 40%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214 32% 80%; /* Prominent lines for drawing */
+    --input: 214 32% 80%;
+    --ring: 195 100% 40%;
+    --radius: 0px; /* Strict rigid edges */
+  }
+
+  .dark {
+    /* DARK THEME (Deep Navy Blueprint) */
+    --background: 216 65% 11%; /* #0A192F */
+    --foreground: 210 40% 98%; /* #F8FAFC */
+    
+    --card: 217 60% 14%; /* Slightly lighter navy for panels */
+    --card-foreground: 210 40% 98%;
+    --popover: 217 60% 14%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* Electric Blueprint Cyan */
+    --primary: 186 100% 50%; /* #00E5FF */
+    --primary-foreground: 216 65% 11%;
+    
+    --secondary: 217 60% 20%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217 60% 20%;
+    --muted-foreground: 215 20% 65%;
+    
+    --accent: 186 100% 50%;
+    --accent-foreground: 216 65% 11%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217 60% 25%; /* Structural grid lines */
+    --input: 217 60% 25%;
+    --ring: 186 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+    /* Removed transition-colors to allow the clip-path wave to handle theme transitions instantly */
+  }
+}
+
+/* Custom utilities for the blueprint wave transition */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+}

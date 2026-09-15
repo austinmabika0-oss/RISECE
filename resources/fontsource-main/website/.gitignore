@@ -1,0 +1,15 @@
+node_modules
+
+/.react-router
+/.source
+/.wrangler
+/.cache
+/build
+/public/build
+/app/bones/registry.js
+
+# Local design artifacts
+/.impeccable/
+
+.env
+.dev.vars

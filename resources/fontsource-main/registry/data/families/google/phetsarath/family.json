@@ -1,0 +1,88 @@
+{
+	"classifications": [
+		"sans-serif"
+	],
+	"dateAdded": "2012-05-18",
+	"designer": "Danh Hong",
+	"family": "Phetsarath",
+	"languages": [
+		"lo_Laoo"
+	],
+	"license": {
+		"attribution": "Copyright (c) 2010-2012, Ministry of Posts and Telecommunications, Laos (www.phetsarath.gov.la)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"primaryScript": "Laoo",
+	"project": {
+		"repository": "https://github.com/googlefonts/googlefontdirectory-hg",
+		"revision": "52f780bc9d197280a9f430574e179a5f233c56b6"
+	},
+	"provenance": {
+		"directory": "ofl/phetsarath",
+		"repository": "google/fonts",
+		"revision": "fe89588cf742d9691bee4b4c32de177ee622c949",
+		"type": "github"
+	},
+	"sourceModified": "2026-03-25",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 116,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": [
+						"liga",
+						"rlig"
+					]
+				},
+				"fontVersion": "Version 1.01",
+				"glyphs": 162,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0001-000F, U+0020-0040, U+00A0, U+00AD, U+037E, U+0E81-0E82, U+0E84, U+0E87-0E88, U+0E8A, U+0E8D, U+0E94-0E97, U+0E99-0E9F, U+0EA1-0EA3, U+0EA5, U+0EA7, U+0EAA-0EAB, U+0EAD-0EB9, U+0EBB-0EBD, U+0EC0-0EC4, U+0EC6, U+0EC8-0ECD, U+0ED0-0ED9, U+0EDC-0EDD",
+				"weight": 700
+			},
+			"path": "ofl/phetsarath/Phetsarath-Bold.ttf",
+			"sha256": "3b8cced65a9b4a49da487c4abb6c36c9dafb2c11e3c75a16b7da32a28bc2ecab",
+			"size": 156840,
+			"variant": {
+				"style": "normal",
+				"weight": 700
+			}
+		},
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 101,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": [
+						"liga",
+						"rlig"
+					]
+				},
+				"fontVersion": "Version 1.01",
+				"glyphs": 162,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020-0040, U+00A0, U+00AD, U+037E, U+0E81-0E82, U+0E84, U+0E87-0E88, U+0E8A, U+0E8D, U+0E94-0E97, U+0E99-0E9F, U+0EA1-0EA3, U+0EA5, U+0EA7, U+0EAA-0EAB, U+0EAD-0EB9, U+0EBB-0EBD, U+0EC0-0EC4, U+0EC6, U+0EC8-0ECD, U+0ED0-0ED9, U+0EDC-0EDD",
+				"weight": 400
+			},
+			"path": "ofl/phetsarath/Phetsarath-Regular.ttf",
+			"sha256": "0d0328c2036319a06ae4e0093d1ea32b6d849069f624cf6dd67e1f6ebc4635a8",
+			"size": 40544,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"sans/rounded"
+	]
+}

@@ -1,0 +1,58 @@
+{
+	"classifications": [
+		"display",
+		"symbols"
+	],
+	"dateAdded": "2017-07-31",
+	"designer": "Lasse Fister",
+	"family": "Libre Barcode 128",
+	"languages": [],
+	"license": {
+		"attribution": "Copyright 2017-2020 The Libre Barcode Project Authors (https://github.com/graphicore/librebarcode)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"project": {
+		"repository": "https://github.com/graphicore/librebarcode",
+		"revision": "f9864c42b2c467f255659c8851c124e4cd56c67a"
+	},
+	"provenance": {
+		"directory": "ofl/librebarcode128",
+		"repository": "google/fonts",
+		"revision": "8ace0e6bb7f4c2f06b74319c20d2f3fa9d33735b",
+		"type": "github"
+	},
+	"sourceModified": "2026-03-27",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 113,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": [
+						"calt"
+					]
+				},
+				"fontVersion": "Version 1.005; ttfautohint (v1.8.3)",
+				"glyphs": 221,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000, U+000D, U+0020-007E, U+00A0, U+00C2-00CE, U+200B-200C",
+				"weight": 400
+			},
+			"path": "ofl/librebarcode128/LibreBarcode128-Regular.ttf",
+			"sha256": "bece6b8695cf29f04ce1c706f0f508a65545f3b6240a03cef302b70f846630a7",
+			"size": 22380,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"special-use/barcode"
+	]
+}

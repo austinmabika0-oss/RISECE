@@ -1,0 +1,52 @@
+---
+title: Remix
+description: Install and use Fontsource packages in a Remix application built with Vite.
+---
+
+# Remix
+
+Remix applications built with Vite can import Fontsource CSS directly. Vite
+bundles the CSS and emits its font files as versioned application assets.
+
+> Starting a new project? Remix's current framework features now live in React
+> Router. See the [React Router guide](/docs/guides/react-router) for that
+> setup.
+
+## 1. Install the font
+
+<PackageManagerCode cmd="@fontsource-variable/open-sans" />
+
+## 2. Import it from the root route
+
+```tsx
+// app/root.tsx
+import "@fontsource-variable/open-sans/wght.css";
+import "./app.css";
+
+// Keep the rest of your root route unchanged.
+```
+
+CSS side-effect imports work without the former
+`@remix-run/css-bundle` package when using Remix Vite. Importing from
+`app/root.tsx` makes the font available to every route.
+
+## 3. Apply the font
+
+```css
+/* app/app.css */
+body {
+  font-family: "Open Sans Variable", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+```
+
+Import only the weights, styles, or variable axes you use. The
+[package installation guide](/docs/getting-started/install) lists the available
+entry points.
+
+See Remix's
+[CSS import documentation](https://v2.remix.run/docs/styling/css-imports) for
+more about Vite CSS handling.

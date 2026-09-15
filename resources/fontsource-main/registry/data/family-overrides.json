@@ -1,0 +1,378 @@
+{
+	"bravura": {
+		"sampleText": {
+			"short": "♩♪♫♬♭♮♯"
+		}
+	},
+	"bravura-text": {
+		"sampleText": {
+			"short": "♩♪♫♬♭♮♯"
+		}
+	},
+	"chiron-goround-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"chiron-sung-hk": {
+		"previewSubset": "chinese-hongkong"
+	},
+	"dejavu-math": {
+		"sampleText": {
+			"short": "∑ ∫ √ π ≈ ∞"
+		}
+	},
+	"dseg-weather": {
+		"sampleText": {
+			"short": "0123456789ABCabc"
+		}
+	},
+	"dseg14-classic": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg14-classic-mini": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg14-modern": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg14-modern-mini": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg7-classic": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg7-classic-mini": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg7-modern": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg7-modern-mini": {
+		"sampleText": {
+			"short": "0123456789 ABCDEF"
+		}
+	},
+	"dseg7-segg-chan": {
+		"sampleText": {
+			"short": "0123456789"
+		}
+	},
+	"dseg7-segg-chan-mini": {
+		"sampleText": {
+			"short": "0123456789"
+		}
+	},
+	"flow-block": {
+		"languages": [],
+		"sampleText": {
+			"short": "Wireframe content"
+		}
+	},
+	"flow-circular": {
+		"languages": [],
+		"sampleText": {
+			"short": "Wireframe content"
+		}
+	},
+	"flow-rounded": {
+		"languages": [],
+		"sampleText": {
+			"short": "Wireframe content"
+		}
+	},
+	"ibm-plex-sans-jp": {
+		"previewSubset": "japanese"
+	},
+	"ibm-plex-sans-kr": {
+		"previewSubset": "korean"
+	},
+	"jsmath-cmbx10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"jsmath-cmex10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"jsmath-cmmi10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"jsmath-cmr10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"jsmath-cmsy10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"jsmath-cmti10": {
+		"languages": [],
+		"sampleText": {
+			"short": "ABC xyz 123"
+		}
+	},
+	"libertinus-math": {
+		"languages": [],
+		"sampleText": {
+			"short": "∑ ∫ √ π ≈ ∞"
+		}
+	},
+	"libre-barcode-128": {
+		"languages": []
+	},
+	"libre-barcode-128-text": {
+		"languages": []
+	},
+	"libre-barcode-39": {
+		"languages": [],
+		"sampleText": {
+			"short": "*HELLO WORLD*"
+		}
+	},
+	"libre-barcode-39-extended": {
+		"languages": [],
+		"sampleText": {
+			"short": "*Hello World*"
+		}
+	},
+	"libre-barcode-39-extended-text": {
+		"languages": [],
+		"sampleText": {
+			"short": "*Hello World*"
+		}
+	},
+	"libre-barcode-39-text": {
+		"languages": [],
+		"sampleText": {
+			"short": "*HELLO WORLD*"
+		}
+	},
+	"libre-barcode-ean13-text": {
+		"sampleText": {
+			"short": "001234567890?"
+		}
+	},
+	"lxgw-wenkai-mono-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"lxgw-wenkai-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"material-icons": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-icons-outlined": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-icons-round": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-icons-sharp": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-icons-two-tone": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-symbols-outlined": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-symbols-rounded": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"material-symbols-sharp": {
+		"sampleText": {
+			"short": "home"
+		}
+	},
+	"noto-color-emoji-compat-test": {
+		"sampleText": {
+			"short": "🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜"
+		}
+	},
+	"noto-music": {
+		"languages": []
+	},
+	"noto-sans-hk": {
+		"previewSubset": "chinese-hongkong"
+	},
+	"noto-sans-jp": {
+		"previewSubset": "japanese"
+	},
+	"noto-sans-kr": {
+		"previewSubset": "korean"
+	},
+	"noto-sans-math": {
+		"languages": [],
+		"previewSubset": "math"
+	},
+	"noto-sans-sc": {
+		"previewSubset": "chinese-simplified"
+	},
+	"noto-sans-symbols": {
+		"previewSubset": "symbols"
+	},
+	"noto-sans-symbols-2": {
+		"previewSubset": "symbols"
+	},
+	"noto-sans-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"noto-serif-hk": {
+		"previewSubset": "chinese-hongkong"
+	},
+	"noto-serif-jp": {
+		"previewSubset": "japanese"
+	},
+	"noto-serif-kr": {
+		"previewSubset": "korean"
+	},
+	"noto-serif-sc": {
+		"previewSubset": "chinese-simplified"
+	},
+	"noto-serif-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"noto-znamenny-musical-notation": {
+		"languages": []
+	},
+	"redacted": {
+		"languages": [],
+		"sampleText": {
+			"short": "Wireframe content"
+		}
+	},
+	"redacted-script": {
+		"languages": [],
+		"sampleText": {
+			"short": "Wireframe content"
+		}
+	},
+	"stix-two-math": {
+		"languages": [],
+		"sampleText": {
+			"short": "∑ ∫ √ π ≈ ∞"
+		}
+	},
+	"wdxl-lubrifont-sc": {
+		"previewSubset": "chinese-simplified"
+	},
+	"wdxl-lubrifont-tc": {
+		"previewSubset": "chinese-traditional"
+	},
+	"yakuhanjp": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	},
+	"yakuhanjps": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	},
+	"yakuhanmp": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	},
+	"yakuhanmps": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	},
+	"yakuhanrp": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	},
+	"yakuhanrps": {
+		"previewContext": {
+			"fallbackFamilies": [
+				"Hiragino Sans",
+				"Yu Gothic",
+				"Noto Sans JP",
+				"sans-serif"
+			]
+		},
+		"sampleText": {
+			"short": "〈〉《》「」『』〔〕【】（）［］｛｝"
+		}
+	}
+}

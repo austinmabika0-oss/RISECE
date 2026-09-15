@@ -1,0 +1,128 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`codepointsToRangeString snapshots > should generate correct range for Latin Basic subset 1`] = `
+"Latin Basic subset codepoint range:
+U+20-7F"
+`;
+
+exports[`codepointsToRangeString snapshots > should generate correct range for Latin Extended-A subset 1`] = `
+"Latin Extended-A subset codepoint range:
+U+100-17F"
+`;
+
+exports[`codepointsToRangeString snapshots > should generate correct range for sparse codepoint distribution 1`] = `
+"Sparse codepoint distribution range:
+U+20-21, U+24, U+2E, U+41-43, U+61-63, U+A2-A5, U+20AC, U+2190-2192, U+2605, U+2665, U+10000-10001, U+1FFFF-20000"
+`;
+
+exports[`codepointsToRangeString snapshots > should generate correct range for typical Latin font subset 1`] = `
+"Typical Latin font subset codepoint range:
+U+20-7E, U+A0-105, U+2013-2014, U+2018-2019, U+201C-201D, U+2026, U+20AC, U+2122"
+`;
+
+exports[`resolveFontFaces > resolves static and variable configs into canonical face records 1`] = `
+{
+  "static": [
+    {
+      "isVariable": false,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-400-normal.woff2",
+          "format": "woff2",
+        },
+        {
+          "filename": "inter-latin-400-normal.woff",
+          "format": "woff",
+        },
+      ],
+      "style": "normal",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": 400,
+    },
+  ],
+  "variable": [
+    {
+      "axisKey": "wght",
+      "isVariable": true,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-wght-italic.woff2",
+          "format": "woff2",
+        },
+      ],
+      "stretch": null,
+      "style": "italic",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": "100 900",
+    },
+    {
+      "axisKey": "wdth",
+      "isVariable": true,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-wdth-italic.woff2",
+          "format": "woff2",
+        },
+      ],
+      "stretch": "75% 100%",
+      "style": "italic",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": "100 900",
+    },
+    {
+      "axisKey": "XTRA",
+      "isVariable": true,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-xtra-italic.woff2",
+          "format": "woff2",
+        },
+      ],
+      "stretch": null,
+      "style": "italic",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": "100 900",
+    },
+    {
+      "axisKey": "standard",
+      "isVariable": true,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-standard-italic.woff2",
+          "format": "woff2",
+        },
+      ],
+      "stretch": "75% 100%",
+      "style": "italic",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": "100 900",
+    },
+    {
+      "axisKey": "full",
+      "isVariable": true,
+      "sliceIndex": 0,
+      "sources": [
+        {
+          "filename": "inter-latin-full-italic.woff2",
+          "format": "woff2",
+        },
+      ],
+      "stretch": "75% 100%",
+      "style": "italic",
+      "subset": "latin",
+      "unicodeRange": "U+0000-00FF",
+      "weight": "100 900",
+    },
+  ],
+}
+`;

@@ -1,0 +1,45 @@
+{
+	"name": "@fontsource-utils/scss",
+	"description": "Fontsource SCSS Mixins",
+	"version": "0.2.4",
+	"author": "Ayuhito <hello@ayuhito.com>",
+	"exports": {
+		".": {
+			"sass": "./src/mixins.scss"
+		}
+	},
+	"files": [
+		"src"
+	],
+	"devDependencies": {
+		"@fontsource-variable/recursive": "5.2.8",
+		"@fontsource/carlito": "5.2.8",
+		"@fontsource/noto-sans-jp": "5.2.9",
+		"@vitest/coverage-v8": "catalog:",
+		"sass": "^1.62.1",
+		"typescript": "catalog:",
+		"vitest": "catalog:"
+	},
+	"homepage": "https://github.com/fontsource/fontsource/tree/main/packages/scss",
+	"keywords": [
+		"fontsource",
+		"fonts",
+		"google fonts",
+		"sass",
+		"scss"
+	],
+	"license": "MIT",
+	"publishConfig": {
+		"access": "public"
+	},
+	"scripts": {
+		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:watch": "vitest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fontsource/fontsource",
+		"directory": "packages/scss"
+	}
+}

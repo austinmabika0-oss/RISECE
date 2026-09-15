@@ -1,0 +1,108 @@
+{
+	"classifications": [
+		"display",
+		"handwriting",
+		"symbols"
+	],
+	"dateAdded": "2013-09-18",
+	"designer": "Christian Naths",
+	"family": "Redacted Script",
+	"languages": [],
+	"license": {
+		"attribution": "Copyright 2013 The Redacted Project Authors (https://github.com/christiannaths/redacted-font)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"project": {
+		"repository": "https://github.com/christiannaths/redacted-font",
+		"revision": "dae1afaa7d96c89825c5e0193f07b4b16ccef4d7"
+	},
+	"provenance": {
+		"directory": "ofl/redactedscript",
+		"repository": "google/fonts",
+		"revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+		"type": "github"
+	},
+	"sampleText": {
+		"short": "Wireframe content"
+	},
+	"sourceModified": "2026-03-12",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 330,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": []
+				},
+				"fontVersion": "Version 1.001; ttfautohint (v1.8.3)",
+				"glyphs": 331,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020-007E, U+00A0-0107, U+010C-0113, U+0116-011B, U+011E-011F, U+0122-0123, U+012A-012B, U+012E-0131, U+0136-0137, U+0139-013E, U+0141-0148, U+014C-014D, U+0150-015B, U+015E-0165, U+016A-016B, U+016E-0173, U+0178-017E, U+0192, U+0218-021B, U+02C6-02C7, U+02C9, U+02D8-02DD, U+03C0, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+2074, U+20AC, U+2113, U+2122, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+FB01-FB02",
+				"weight": 700
+			},
+			"path": "ofl/redactedscript/RedactedScript-Bold.ttf",
+			"sha256": "48ad6a76be6f094893541898d1c9a04e3debe48645c314cf07add92c019e7983",
+			"size": 85240,
+			"variant": {
+				"style": "normal",
+				"weight": 700
+			}
+		},
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 330,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": []
+				},
+				"fontVersion": "Version 1.001; ttfautohint (v1.8.3)",
+				"glyphs": 331,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020-007E, U+00A0-0107, U+010C-0113, U+0116-011B, U+011E-011F, U+0122-0123, U+012A-012B, U+012E-0131, U+0136-0137, U+0139-013E, U+0141-0148, U+014C-014D, U+0150-015B, U+015E-0165, U+016A-016B, U+016E-0173, U+0178-017E, U+0192, U+0218-021B, U+02C6-02C7, U+02C9, U+02D8-02DD, U+03C0, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+2074, U+20AC, U+2113, U+2122, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+FB01-FB02",
+				"weight": 300
+			},
+			"path": "ofl/redactedscript/RedactedScript-Light.ttf",
+			"sha256": "5ff11d7b9510a90cbee1525564457b6991a65e0a413ecc4fdbdde697452fe665",
+			"size": 83316,
+			"variant": {
+				"style": "normal",
+				"weight": 300
+			}
+		},
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 330,
+				"colorTables": [],
+				"features": {
+					"gpos": [],
+					"gsub": []
+				},
+				"fontVersion": "Version 1.001; ttfautohint (v1.8.3)",
+				"glyphs": 331,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0020-007E, U+00A0-0107, U+010C-0113, U+0116-011B, U+011E-011F, U+0122-0123, U+012A-012B, U+012E-0131, U+0136-0137, U+0139-013E, U+0141-0148, U+014C-014D, U+0150-015B, U+015E-0165, U+016A-016B, U+016E-0173, U+0178-017E, U+0192, U+0218-021B, U+02C6-02C7, U+02C9, U+02D8-02DD, U+03C0, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+2074, U+20AC, U+2113, U+2122, U+2126, U+212E, U+2202, U+2206, U+220F, U+2211-2212, U+2215, U+2219-221A, U+221E, U+222B, U+2248, U+2260, U+2264-2265, U+25CA, U+FB01-FB02",
+				"weight": 400
+			},
+			"path": "ofl/redactedscript/RedactedScript-Regular.ttf",
+			"sha256": "1ebaab9642a2f43fa33f449760469903143fd1d08b2433eb6c15e28602d9360d",
+			"size": 86144,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"special-use/redaction"
+	]
+}

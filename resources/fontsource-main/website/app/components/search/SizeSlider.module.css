@@ -1,0 +1,28 @@
+/* SideSlider */
+
+.wrapper {
+	padding: 0 30px;
+	min-height: 54px;
+
+	border-radius: 0 4px 0 0;
+
+	background-color: light-dark(var(--mantine-color-background-0), var(--mantine-color-background-4));
+	border-bottom: light-dark(1px solid #e1e3ec, 1px solid #2c3651);
+
+	&:focus-within {
+		border-color: var(--mantine-color-purple);
+	}
+}
+
+.value {
+	flex: 0 0 auto;
+	min-width: 52px;
+}
+
+.slider {
+	padding-inline: 0;
+}
+
+.bar {
+	background-color: var(--mantine-color-purple-0);
+}

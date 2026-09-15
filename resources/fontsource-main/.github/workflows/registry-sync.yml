@@ -1,0 +1,74 @@
+name: Registry Sync
+
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency: registry-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Create Release Token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          ref: main
+
+      - name: Setup
+        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4.2.1
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate
+        run: |
+          # Keep complete history for provenance while hydrating only adapter inputs.
+          git clone --filter=blob:none --sparse --single-branch https://github.com/google/fonts.git "$RUNNER_TEMP/google-fonts"
+          git -C "$RUNNER_TEMP/google-fonts" sparse-checkout set ofl apache ufl axisregistry tags lang
+          # This repository has millions of paths; the adapter reads its small
+          # font trees directly from Git without populating a working tree.
+          git clone --filter=blob:none --no-checkout --single-branch https://github.com/google/material-design-icons.git "$RUNNER_TEMP/google-icons"
+          git clone --no-checkout --single-branch https://github.com/googlefonts/nam-files.git "$RUNNER_TEMP/nam-files"
+          git clone --filter=blob:none --sparse --single-branch https://github.com/fontsource/font-files.git "$RUNNER_TEMP/font-files"
+          git -C "$RUNNER_TEMP/font-files" sparse-checkout set sources
+          # Record immutable upstream commits instead of moving branch names.
+          pnpm --filter '@fontsource-utils/registry' generate \
+            "$RUNNER_TEMP/google-fonts" \
+            "$(git -C "$RUNNER_TEMP/google-fonts" rev-parse HEAD)" \
+            "$RUNNER_TEMP/google-icons" \
+            "$(git -C "$RUNNER_TEMP/google-icons" rev-parse HEAD)" \
+            "$RUNNER_TEMP/nam-files" \
+            "$(git -C "$RUNNER_TEMP/nam-files" rev-parse HEAD)" \
+            "$RUNNER_TEMP/font-files" \
+            "$(git -C "$RUNNER_TEMP/font-files" rev-parse HEAD)"
+
+      - name: Validate
+        run: |
+          pnpm --filter '@fontsource-utils/registry' validate
+          # Generation owns registry data only.
+          git diff --exit-code -- . ':(exclude)registry/data'
+
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          commit_message: 'chore(registry): update metadata snapshot'
+          file_pattern: registry/data
+          commit_user_name: 'fontsource-release[bot]'
+          commit_user_email: '306564713+fontsource-release[bot]@users.noreply.github.com'
+          commit_author: 'fontsource-release[bot] <306564713+fontsource-release[bot]@users.noreply.github.com>'

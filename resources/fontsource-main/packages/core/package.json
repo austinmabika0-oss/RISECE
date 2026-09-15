@@ -1,0 +1,54 @@
+{
+	"name": "@fontsource-utils/core",
+	"version": "0.4.0",
+	"description": "A library for processing fonts for the Fontsource ecosystem.",
+	"type": "module",
+	"license": "MIT",
+	"homepage": "https://github.com/fontsource/fontsource/tree/main/packages/core#readme",
+	"bugs": {
+		"url": "https://github.com/fontsource/fontsource/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fontsource/fontsource",
+		"directory": "packages/core"
+	},
+	"author": "Ayuhito <hello@ayuhito.com>",
+	"files": [
+		"dist"
+	],
+	"main": "./dist/index.js",
+	"module": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./dist/index.js",
+		"./package.json": "./package.json"
+	},
+	"dependencies": {
+		"@glypht/bundler-utils": "^0.0.9",
+		"@glypht/core": "^0.0.9"
+	},
+	"devDependencies": {
+		"@vitest/coverage-v8": "catalog:",
+		"tsdown": "catalog:",
+		"typescript": "catalog:",
+		"vitest": "catalog:"
+	},
+	"scripts": {
+		"build": "tsdown",
+		"dev": "tsdown --watch",
+		"prepack": "pnpm run build",
+		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:integration": "vitest run tests/integration",
+		"test:unit": "vitest run tests --exclude tests/integration",
+		"test:watch": "vitest",
+		"typecheck": "tsc --noEmit"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=22.0.0"
+	}
+}

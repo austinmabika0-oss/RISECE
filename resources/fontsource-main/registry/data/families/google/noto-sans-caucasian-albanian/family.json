@@ -1,0 +1,75 @@
+{
+	"classifications": [
+		"sans-serif"
+	],
+	"dateAdded": "2020-11-19",
+	"designer": "Google",
+	"family": "Noto Sans Caucasian Albanian",
+	"languages": [
+		"lez_Aghb"
+	],
+	"license": {
+		"attribution": "Copyright 2022 The Noto Project Authors (https://github.com/notofonts/caucasian-albanian)",
+		"id": "OFL-1.1",
+		"url": "https://openfontlicense.org/open-font-license-official-text/"
+	},
+	"primaryScript": "Aghb",
+	"project": {
+		"repository": "https://github.com/notofonts/caucasian-albanian",
+		"revision": "fe112d99202d347b106fe63ebc6b10c3655e00cd"
+	},
+	"provenance": {
+		"directory": "ofl/notosanscaucasianalbanian",
+		"repository": "google/fonts",
+		"revision": "8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5",
+		"type": "github"
+	},
+	"sampleText": {
+		"long": "𐔰𐔱𐔲𐔳𐔴𐔵𐔶 𐕡𐕢𐕣𐔾𐔿𐕀𐕁 𐔻𐔼𐔽𐕌𐕍𐕎𐕏 𐕉𐕊𐕋𐕚𐕛𐕜𐕝 𐕂𐕃𐕄𐕅𐕆𐕇𐕈 𐕗𐕘𐕙𐔷𐔸𐔹𐔺 𐕞𐕟𐕠𐕓𐕔𐕕𐕖",
+		"short": "𐕗𐕘𐕙𐔷𐔸𐔹𐔺 𐔻𐔼𐔽𐕌𐕍𐕎𐕏 𐕂𐕃𐕄𐕅𐕆𐕇𐕈 𐔰𐔱𐔲𐔳𐔴𐔵𐔶 𐕡𐕢𐕣𐔾𐔿𐕀𐕁 𐕉𐕊𐕋𐕚𐕛𐕜𐕝"
+	},
+	"sourceModified": "2026-03-12",
+	"sources": [
+		{
+			"inspection": {
+				"axes": [],
+				"codepoints": 392,
+				"colorTables": [],
+				"features": {
+					"gpos": [
+						"kern",
+						"mark",
+						"mkmk"
+					],
+					"gsub": [
+						"aalt",
+						"ccmp",
+						"locl",
+						"ordn"
+					]
+				},
+				"fontVersion": "Version 2.005; ttfautohint (v1.8.4.7-5d5b)",
+				"glyphs": 499,
+				"outline": "glyf",
+				"style": "normal",
+				"unicodeRange": "U+0000, U+000D, U+0020-007E, U+00A0-00A3, U+00A5, U+00A7-00AB, U+00AE-00B0, U+00B4, U+00B6-00B8, U+00BA-00BB, U+00BF-0107, U+010A-0113, U+0116-011B, U+011E-0123, U+0126-0127, U+012A-012B, U+012E-0131, U+0136-0137, U+0139-013E, U+0141-0148, U+014A-014D, U+0150-015B, U+015E-0161, U+0164-0165, U+016A-017E, U+0218-021B, U+0237, U+02C6-02C7, U+02D8-02DD, U+0300-0304, U+0306-0308, U+030A-030C, U+0312, U+0326-0328, U+0331, U+035E, U+1E80-1E85, U+1E9E, U+1EF2-1EF3, U+2013-2014, U+2018-201A, U+201C-201E, U+2022, U+2026, U+2039-203A, U+20AC, U+2122, U+2212, U+25CC, U+FE24-FE26, U+FE2B-FE2D, U+10530-10563, U+1056F",
+				"weight": 400
+			},
+			"path": "ofl/notosanscaucasianalbanian/NotoSansCaucasianAlbanian-Regular.ttf",
+			"sha256": "7d5a81e7f9f90eb1aaef9935b2c4d68b6300939a2df9dbb9472b38a4fbec50bc",
+			"size": 85120,
+			"variant": {
+				"style": "normal",
+				"weight": 400
+			}
+		}
+	],
+	"status": "active",
+	"tags": [
+		"expressive/business",
+		"expressive/calm",
+		"expressive/competent",
+		"expressive/sincere",
+		"sans/humanist"
+	]
+}

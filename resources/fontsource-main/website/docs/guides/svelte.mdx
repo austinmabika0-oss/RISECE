@@ -1,0 +1,70 @@
+---
+title: SvelteKit
+description: Install and use Fontsource packages across a SvelteKit application.
+---
+
+# SvelteKit
+
+Fontsource packages are handled by SvelteKit's Vite build, keeping the font
+files self-hosted and versioned with the rest of your application.
+
+## 1. Install the font
+
+<PackageManagerCode cmd="@fontsource-variable/inter" />
+
+## 2. Import it from the root layout
+
+For a current SvelteKit application, import the font in
+`src/routes/+layout.svelte`:
+
+```svelte
+<script>
+  import "@fontsource-variable/inter/wght.css";
+
+  let { children } = $props();
+</script>
+
+{@render children()}
+
+<style>
+  :global(body) {
+    margin: 0;
+    font-family: "Inter Variable", sans-serif;
+  }
+</style>
+```
+
+This makes the font available across every page. To limit a font to one section
+of the application, import it from that route's `+layout.svelte` instead.
+
+## Import through a global stylesheet
+
+You can also keep all global typography in one CSS file:
+
+```css
+/* src/styles/global.css */
+@import "@fontsource-variable/inter/wght.css";
+
+body {
+  margin: 0;
+  font-family: "Inter Variable", sans-serif;
+}
+
+h1 {
+  font-weight: 700;
+}
+```
+
+```svelte
+<!-- src/routes/+layout.svelte -->
+<script>
+  import "../styles/global.css";
+
+  let { children } = $props();
+</script>
+
+{@render children()}
+```
+
+Svelte 4 applications can keep their existing `<slot />` layout syntax. In
+Svelte 5, snippets and `{@render children()}` replace legacy slots.

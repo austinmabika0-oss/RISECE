@@ -1,0 +1,29 @@
+{
+	"characters": {
+		"defaultSubset": "latin",
+		"slicing": {
+			"definition": "traditional-chinese-web",
+			"subset": "chinese-traditional"
+		},
+		"subsets": [
+			{
+				"definition": "chinese-traditional",
+				"id": "chinese-traditional"
+			},
+			{
+				"definition": "latin",
+				"id": "latin"
+			},
+			{
+				"definition": "latin-ext",
+				"id": "latin-ext"
+			}
+		]
+	},
+	"static": [
+		{
+			"style": "normal",
+			"weight": 400
+		}
+	]
+}

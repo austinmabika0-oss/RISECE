@@ -1,0 +1,29 @@
+{
+	"name": "@fontsource-utils/registry",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"archive": "pnpm --filter '@fontsource-utils/core' build && node scripts/archive.ts",
+		"generate": "pnpm --filter '@fontsource-utils/core' build && node scripts/generate.ts",
+		"test": "pnpm --filter '@fontsource-utils/core' build && vitest run",
+		"typecheck": "pnpm --filter '@fontsource-utils/core' build && tsc --noEmit",
+		"validate": "pnpm --filter '@fontsource-utils/core' build && node scripts/validator.ts",
+		"check:font-files": "pnpm --filter '@fontsource-utils/core' build && node scripts/check-font-files.ts"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "^3.1090.0",
+		"@fontsource-utils/core": "workspace:*",
+		"consola": "^3.1.0",
+		"csv-parse": "^7.0.1",
+		"fastq": "^1.20.1",
+		"protobufjs": "8.7.1",
+		"turndown": "7.2.4",
+		"zod": "4.4.3"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:node24",
+		"@types/turndown": "5.0.6",
+		"typescript": "catalog:",
+		"vitest": "catalog:"
+	}
+}
