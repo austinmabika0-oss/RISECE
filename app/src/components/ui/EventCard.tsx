@@ -1,10 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { IconArrowRight, IconUsers, IconClock, IconActivity } from "@tabler/icons-react";
-import { createClient } from "@/lib/supabase/client";
+import { IconArrowRight, IconUsers, IconClock } from "@tabler/icons-react";
 import type { Event } from "@/data/events";
 
 interface EventCardProps {
@@ -13,20 +11,6 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, index }: EventCardProps) {
-  const [regCount, setRegCount] = useState<number | null>(null);
-  const supabase = createClient();
-
-  useEffect(() => {
-    const fetchCount = async () => {
-      const { count } = await supabase
-        .from("teams")
-        .select("*", { count: "exact", head: true })
-        .eq("event_id", String(event.id))
-        .neq("status", "rejected");
-      setRegCount(count);
-    };
-    fetchCount();
-  }, [event.id]);
 
   return (
     <motion.div
@@ -94,14 +78,7 @@ export function EventCard({ event, index }: EventCardProps) {
             </p>
 
             {/* Technical Specs Grid */}
-            <div className="grid grid-cols-3 gap-px bg-border/50 border border-border/50 mb-6">
-              <div className="bg-card p-3">
-                <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Registered</div>
-                <div className="flex items-center gap-2 text-sm text-foreground font-medium">
-                  <IconActivity size={14} className="text-primary" />
-                  <span>{regCount !== null ? regCount : "-"} {event.isTeamEvent ? 'Teams' : 'Users'}</span>
-                </div>
-              </div>
+            <div className="grid grid-cols-2 gap-px bg-border/50 border border-border/50 mb-6">
               <div className="bg-card p-3">
                 <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Capacity</div>
                 <div className="flex items-center gap-2 text-sm text-foreground font-medium">
