@@ -3,7 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { Navbar } from "@/components/ui/Navbar";
 import { events } from "@/data/events";
 import Link from "next/link";
-import { IconLogout, IconCalendarEvent, IconUserCircle } from "@tabler/icons-react";
+import { IconLogout, IconCalendarEvent, IconUserCircle, IconCreditCard } from "@tabler/icons-react";
 import { DashboardInbox } from "@/components/ui/DashboardInbox";
 import { ManageTeamModal } from "@/components/ui/ManageTeamModal";
 
@@ -23,6 +23,13 @@ export default async function DashboardPage() {
     .eq("id", user.id)
     .single();
 
+  // Fetch their event registration cart
+  const { data: registration } = await supabase
+    .from("event_registrations")
+    .select("*")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
   // Fetch team memberships
   const { data: teamMemberships } = await supabase
     .from("team_members")
@@ -41,8 +48,10 @@ export default async function DashboardPage() {
   const activeRegistrations = teamMemberships?.filter(tm => tm.status === "accepted") || [];
   const pendingInvites = teamMemberships?.filter(tm => tm.status === "pending") || [];
 
-  const activeEventIds = activeRegistrations.map(r => r.event_id);
-  const myEvents = events.filter(e => activeEventIds.includes(String(e.id)));
+  const registeredEventIds = registration?.event_ids || [];
+  const myEvents = events.filter(e => registeredEventIds.includes(String(e.id)));
+
+  const isVerified = registration?.payment_status === 'VERIFIED';
 
   return (
     <main className="min-h-screen relative flex flex-col pt-24 bg-background">
@@ -91,55 +100,94 @@ export default async function DashboardPage() {
           <section className="flex-1">
             <DashboardInbox invites={pendingInvites} />
 
-            <div className="mb-8">
-              <h1 className="font-display text-4xl font-bold tracking-tight mb-2">MY REGISTRATIONS</h1>
-              <p className="text-muted-foreground font-mono text-sm">Active event clearances and access codes.</p>
+            <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4 border-b border-border/50 pb-4">
+              <div>
+                <h1 className="font-display text-4xl font-bold tracking-tight mb-2">MY REGISTRATIONS</h1>
+                <p className="text-muted-foreground font-mono text-sm">Active event clearances and access codes.</p>
+              </div>
+              {registration && (
+                <div className="text-right">
+                  <div className="font-mono text-xs text-muted-foreground uppercase mb-1">Registration ID</div>
+                  <div className="font-mono font-bold text-primary">{registration.registration_id}</div>
+                </div>
+              )}
             </div>
 
-            {myEvents.length === 0 ? (
+            {!registration ? (
               <div className="p-12 border border-border border-dashed text-center">
                 <div className="text-muted-foreground font-mono mb-4">NO ACTIVE REGISTRATIONS DETECTED</div>
-                <Link href="/events" className="inline-flex px-6 py-3 bg-primary text-primary-foreground font-mono font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors">
-                  Browse Events
+                <Link href="/register" className="inline-flex px-6 py-3 bg-primary text-primary-foreground font-mono font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors shadow-[0_0_15px_rgba(var(--color-primary),0.3)]">
+                  Begin Registration Process
                 </Link>
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {myEvents.map(event => (
-                  <div key={event.id} className="p-6 border border-border bg-card/20 relative group overflow-hidden">
-                    <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
-                      <IconCalendarEvent size={64} />
-                    </div>
-                    
-                    <div className="relative z-10">
-                      <div className="font-mono text-xs font-bold text-primary mb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-1">
-                        <span className="shrink-0">ACCESS GRANTED</span>
-                        <span className="text-muted-foreground break-all sm:break-normal text-right max-w-[60%] line-clamp-2">
-                          {activeRegistrations.find(r => r.event_id === String(event.id))?.teams?.name || "INDIVIDUAL"}
-                        </span>
+                {myEvents.map(event => {
+                  const activeTeamForThisEvent = activeRegistrations.find(r => r.event_id === String(event.id))?.teams;
+                  
+                  return (
+                    <div key={event.id} className={`p-6 border relative group overflow-hidden flex flex-col ${isVerified ? 'border-border bg-card/20' : 'border-amber-500/30 bg-amber-500/5'}`}>
+                      <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
+                        <IconCalendarEvent size={64} />
                       </div>
-                      <h3 className="text-xl font-bold mb-1 pr-12 break-words">{event.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{event.date} • {event.time}</p>
+                      
+                      <div className="relative z-10 flex-1">
+                        <div className="font-mono text-xs font-bold mb-4 flex justify-between items-start gap-1">
+                          <span className={`${isVerified ? 'text-primary' : 'text-amber-500'} shrink-0 uppercase`}>
+                            {isVerified ? "ACCESS GRANTED" : `PAYMENT: ${registration.payment_status}`}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold mb-1 pr-12 break-words">{event.title}</h3>
+                        <p className="text-sm text-muted-foreground mb-4">{event.date} • {event.time}</p>
+                        
+                        <div className="inline-block px-3 py-1 bg-background border border-border text-xs font-mono uppercase mb-4">
+                          ID: {event.code}
+                        </div>
+                        
+                        {event.isTeamEvent && isVerified && (
+                          <div className="mt-2 pt-4 border-t border-border/50">
+                            <div className="text-xs font-mono text-muted-foreground uppercase mb-2">Team Details</div>
+                            {!activeTeamForThisEvent ? (
+                              <div className="text-sm text-foreground/70 mb-4">
+                                You have not joined a team for this event yet.
+                                <br/><br/>
+                                <Link href={`/events/${event.slug}`} className="text-primary hover:underline font-mono">
+                                  Go to event to initialize team →
+                                </Link>
+                              </div>
+                            ) : (
+                              <div className="mb-4">
+                                <div className="font-bold text-sm uppercase">{activeTeamForThisEvent.name}</div>
+                                <div className="text-xs text-muted-foreground">{activeTeamForThisEvent.team_members.length} / {event.maxTeamSize} Members</div>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
+                        {event.isTeamEvent && isVerified && activeTeamForThisEvent && (
+                          <ManageTeamModal 
+                            team={activeTeamForThisEvent} 
+                            event={{
+                              id: String(event.id),
+                              title: event.title,
+                              max_team_size: event.maxTeamSize,
+                              code: event.code
+                            }}
+                            currentUserId={user.id}
+                          />
+                        )}
+
+                        {!isVerified && (
+                          <div className="mt-4 pt-4 border-t border-amber-500/20">
+                            <Link href="/register" className="inline-flex items-center gap-2 text-amber-500 hover:text-amber-400 font-mono text-sm font-bold uppercase">
+                              <IconCreditCard size={16} /> View Payment Status
+                            </Link>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className="inline-block px-3 py-1 bg-background border border-border text-xs font-mono uppercase mb-4">
-                      ID: {event.code}
-                    </div>
-                    
-                    {/* Render Manage Team Modal if it's a team event */}
-                    {event.isTeamEvent && activeRegistrations.find(r => r.event_id === String(event.id))?.teams && (
-                      <ManageTeamModal 
-                        team={activeRegistrations.find(r => r.event_id === String(event.id))?.teams} 
-                        event={{
-                          id: String(event.id),
-                          title: event.title,
-                          max_team_size: event.maxTeamSize,
-                          code: event.code
-                        }}
-                        currentUserId={user.id}
-                      />
-                    )}
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </section>

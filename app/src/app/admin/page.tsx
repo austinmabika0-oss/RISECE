@@ -22,7 +22,6 @@ export default async function AdminDashboardPage() {
     .single();
 
   if (!profile || !profile.admin_role) {
-    // Check old is_admin just in case DB schema wasn't fully migrated yet
     if (!profile?.is_admin) {
       redirect("/dashboard");
     }
@@ -31,59 +30,59 @@ export default async function AdminDashboardPage() {
   // Fetch all events from DB
   const { data: dbEvents } = await supabase.from("events").select("*");
 
-  // Fetch all teams with their members and member profiles
-  // The backend RLS policy automatically filters teams if they are an event_admin
+  // Fetch all registrations/payments
+  const { data: registrations } = await supabase
+    .from("event_registrations")
+    .select(`
+      *,
+      profiles (
+        full_name,
+        roll_number,
+        college_name,
+        phone_number
+      )
+    `)
+    .order('created_at', { ascending: false });
+
+  // Flatten for the table
+  const flatRegistrations: FlatRegistration[] = [];
+  
+  if (registrations) {
+    registrations.forEach(reg => {
+      if (reg.profiles) {
+        flatRegistrations.push({
+          id: reg.registration_id, // Primary key
+          participant_name: reg.profiles.full_name,
+          roll_number: reg.profiles.roll_number,
+          phone: reg.profiles.phone_number,
+          university: reg.profiles.college_name,
+          program: reg.program,
+          event_ids: reg.event_ids,
+          event_count: reg.event_count,
+          total_amount: reg.total_amount,
+          participation_fee: reg.participation_fee,
+          accommodation_required: reg.accommodation_required,
+          accommodation_fee: reg.accommodation_fee,
+          utr_number: reg.utr_number || "N/A",
+          payment_status: reg.payment_status,
+          payment_screenshot: reg.payment_screenshot || null,
+          registration_date: new Date(reg.created_at).toLocaleDateString(),
+        });
+      }
+    });
+  }
+
+  // Also fetch teams for the card view
   const { data: teams } = await supabase
     .from("teams")
     .select(`
       *,
       team_members (
-        id,
-        role,
-        status,
-        created_at,
-        profiles (
-          full_name,
-          roll_number,
-          college_name,
-          branch,
-          year_of_study,
-          phone_number
-        )
+        id, role, status, created_at,
+        profiles ( full_name, roll_number, college_name, branch, year_of_study, phone_number )
       )
     `)
     .order('created_at', { ascending: false });
-
-  // Flatten the teams data into individual registrations for the Table View
-  const flatRegistrations: FlatRegistration[] = [];
-  
-  if (teams && dbEvents) {
-    teams.forEach(team => {
-      const event = dbEvents.find(e => e.id === team.event_id);
-      
-      if (team.team_members) {
-        team.team_members.forEach((member: any) => {
-          if (member.profiles) {
-            flatRegistrations.push({
-              id: member.id,
-              team_id: team.id,
-              registration_id: `IND-${member.profiles.roll_number}`,
-              participant_name: member.profiles.full_name,
-              phone: member.profiles.phone_number,
-              university: member.profiles.college_name,
-              event_name: event?.title || team.event_id,
-              event_code: event?.id || team.event_id,
-              team_name: team.name,
-              team_size: `${team.team_members.length}/${event?.max_team_size || '?'}`,
-              role: member.role,
-              registration_date: new Date(member.created_at || team.created_at).toLocaleDateString(),
-              status: team.status
-            });
-          }
-        });
-      }
-    });
-  }
 
   return (
     <main className="min-h-screen relative flex flex-col pt-24 bg-background">

@@ -3,37 +3,38 @@
 import { useState, useMemo } from "react";
 import { 
   IconChevronDown, IconChevronUp, IconSearch, 
-  IconFilter, IconDotsVertical, IconCheck, IconX, IconEye, IconUsers
+  IconFilter, IconCheck, IconX, IconEye, IconCurrencyRupee
 } from "@tabler/icons-react";
 
 export interface FlatRegistration {
-  id: string; // team_member.id
-  team_id: string;
-  registration_id: string;
+  id: string; // registration_id
   participant_name: string;
+  roll_number: string;
   phone: string;
   university: string;
-  event_name: string;
-  event_code: string;
-  team_name: string;
-  team_size: string;
-  role: string;
+  program: string;
+  event_ids: string[]; // List of event codes/names
+  event_count: number;
+  total_amount: number;
+  participation_fee: number;
+  accommodation_required: boolean;
+  accommodation_fee: number;
+  utr_number: string;
+  payment_status: string;
+  payment_screenshot: string | null;
   registration_date: string;
-  status: string;
 }
 
 interface AdminRegistrationsTableProps {
   data: FlatRegistration[];
-  onManageTeam: (teamId: string) => void;
-  onApprove: (teamId: string) => void;
-  onReject: (teamId: string) => void;
+  onVerify: (id: string) => void;
+  onReject: (id: string) => void;
   loadingId?: string | null;
 }
 
 export function AdminRegistrationsTable({ 
   data, 
-  onManageTeam,
-  onApprove,
+  onVerify,
   onReject,
   loadingId 
 }: AdminRegistrationsTableProps) {
@@ -42,14 +43,15 @@ export function AdminRegistrationsTable({
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState({
-    event_code: "all",
-    status: "all",
-    role: "all"
+    payment_status: "all",
   });
   
   // Pagination
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  
+  // Image Viewer Modal
+  const [viewImage, setViewImage] = useState<string | null>(null);
 
   const handleSort = (field: keyof FlatRegistration) => {
     if (field === sortField) {
@@ -64,24 +66,18 @@ export function AdminRegistrationsTable({
     let result = data;
     
     // Apply Advanced Filters
-    if (filters.event_code !== "all") {
-      result = result.filter(item => item.event_code === filters.event_code);
-    }
-    if (filters.status !== "all") {
-      result = result.filter(item => item.status === filters.status);
-    }
-    if (filters.role !== "all") {
-      result = result.filter(item => item.role === filters.role);
+    if (filters.payment_status !== "all") {
+      result = result.filter(item => item.payment_status === filters.payment_status);
     }
 
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       result = result.filter(item => 
         item.participant_name.toLowerCase().includes(q) ||
-        item.registration_id.toLowerCase().includes(q) ||
+        item.id.toLowerCase().includes(q) ||
         item.university.toLowerCase().includes(q) ||
-        item.event_name.toLowerCase().includes(q) ||
-        item.team_name.toLowerCase().includes(q) ||
+        item.roll_number.toLowerCase().includes(q) ||
+        (item.utr_number && item.utr_number.toLowerCase().includes(q)) ||
         item.phone.includes(q)
       );
     }
@@ -99,216 +95,217 @@ export function AdminRegistrationsTable({
     });
     
     return result;
-  }, [data, sortField, sortDir, searchQuery, filters]);
+  }, [data, searchQuery, sortField, sortDir, filters]);
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
   const paginatedData = filteredData.slice((page - 1) * rowsPerPage, page * rowsPerPage);
 
-  // Extract unique events for the filter dropdown
-  const uniqueEvents = useMemo(() => {
-    const events = new Map();
-    data.forEach(d => events.set(d.event_code, d.event_name));
-    return Array.from(events.entries());
-  }, [data]);
-
-  const SortIcon = ({ field }: { field: keyof FlatRegistration }) => {
-    if (sortField !== field) return <div className="w-4 h-4 opacity-0 group-hover:opacity-30 inline-block align-middle ml-1"><IconChevronDown size={14} /></div>;
-    return sortDir === "asc" ? <IconChevronUp size={14} className="text-primary inline-block align-middle ml-1" /> : <IconChevronDown size={14} className="text-primary inline-block align-middle ml-1" />;
+  const renderSortIcon = (field: keyof FlatRegistration) => {
+    if (sortField !== field) return null;
+    return sortDir === "asc" ? <IconChevronUp size={14} className="inline ml-1" /> : <IconChevronDown size={14} className="inline ml-1" />;
   };
 
-  const thClass = "px-4 py-3 text-left font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold cursor-pointer hover:text-foreground group whitespace-nowrap";
-
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="bg-card/50 border border-border overflow-hidden">
       
       {/* Toolbar */}
-      <div className="flex flex-col md:flex-row justify-between items-center gap-4 bg-card/50 p-4 border border-border">
-        <div className="relative w-full md:w-96">
-          <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+      <div className="p-4 border-b border-border flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+        <div className="relative w-full sm:w-96">
+          <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
           <input 
             type="text" 
-            placeholder="Search name, ID, university..." 
-            className="w-full bg-background border border-border/50 pl-10 pr-4 py-3 min-h-[44px] text-sm font-mono focus:outline-none focus:border-primary/50 transition-colors"
+            placeholder="Search by ID, Name, Roll No, UTR..." 
             value={searchQuery}
-            onChange={(e) => { setSearchQuery(e.target.value); setPage(1); }}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 bg-background border border-border focus:border-primary font-mono text-sm outline-none"
           />
         </div>
         
-        <div className="flex items-center gap-4 w-full md:w-auto relative">
+        <div className="flex gap-2 w-full sm:w-auto">
           <button 
             onClick={() => setShowFilters(!showFilters)}
-            className={`flex items-center justify-center gap-2 px-4 py-3 min-h-[44px] flex-1 md:flex-none border font-mono text-xs uppercase transition-colors ${showFilters ? 'bg-primary/10 border-primary text-primary' : 'bg-background border-border/50 hover:text-primary'}`}
+            className={`flex items-center gap-2 px-4 py-2 font-mono text-xs uppercase tracking-widest border transition-colors flex-1 sm:flex-none justify-center ${showFilters ? 'bg-primary text-primary-foreground border-primary' : 'bg-background border-border hover:border-primary'}`}
           >
-            <IconFilter size={14} /> Filters
+            <IconFilter size={16} /> Filters
           </button>
-          
-          <select 
-            className="bg-background border border-border/50 px-2 py-3 min-h-[44px] flex-1 md:flex-none text-sm font-mono focus:outline-none"
-            value={rowsPerPage}
-            onChange={(e) => { setRowsPerPage(Number(e.target.value)); setPage(1); }}
-          >
-            <option value={10}>10 rows</option>
-            <option value={25}>25 rows</option>
-            <option value={50}>50 rows</option>
-            <option value={100}>100 rows</option>
-          </select>
         </div>
       </div>
 
       {/* Advanced Filters Panel */}
       {showFilters && (
-        <div className="p-4 border border-border bg-secondary/30 flex flex-col md:flex-row flex-wrap gap-4 md:gap-6 md:items-end">
-          <div className="flex flex-col gap-2 w-full md:w-auto">
-            <label className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Event</label>
+        <div className="p-4 bg-background border-b border-border grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label className="block font-mono text-xs text-muted-foreground uppercase mb-1">Payment Status</label>
             <select 
-              value={filters.event_code}
-              onChange={(e) => { setFilters(f => ({ ...f, event_code: e.target.value })); setPage(1); }}
-              className="w-full bg-background border border-border/50 px-3 py-3 min-h-[44px] text-sm font-mono focus:outline-none focus:border-primary/50"
-            >
-              <option value="all">All Events</option>
-              {uniqueEvents.map(([code, name]) => (
-                <option key={code} value={code}>{name} ({code})</option>
-              ))}
-            </select>
-          </div>
-          
-          <div className="flex flex-col gap-2 w-full md:w-auto">
-            <label className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Status</label>
-            <select 
-              value={filters.status}
-              onChange={(e) => { setFilters(f => ({ ...f, status: e.target.value })); setPage(1); }}
-              className="w-full bg-background border border-border/50 px-3 py-3 min-h-[44px] text-sm font-mono focus:outline-none focus:border-primary/50"
+              value={filters.payment_status}
+              onChange={(e) => setFilters(f => ({ ...f, payment_status: e.target.value }))}
+              className="w-full p-2 bg-card border border-border text-sm font-mono outline-none"
             >
               <option value="all">All Statuses</option>
-              <option value="approved">Approved</option>
-              <option value="pending">Pending</option>
-              <option value="rejected">Rejected</option>
-              <option value="draft">Draft</option>
+              <option value="PENDING PAYMENT">Pending Payment</option>
+              <option value="UNDER VERIFICATION">Under Verification</option>
+              <option value="VERIFIED">Verified</option>
+              <option value="REJECTED">Rejected</option>
             </select>
           </div>
-
-          <div className="flex flex-col gap-2 w-full md:w-auto">
-            <label className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Role</label>
-            <select 
-              value={filters.role}
-              onChange={(e) => { setFilters(f => ({ ...f, role: e.target.value })); setPage(1); }}
-              className="w-full bg-background border border-border/50 px-3 py-3 min-h-[44px] text-sm font-mono focus:outline-none focus:border-primary/50"
-            >
-              <option value="all">All Roles</option>
-              <option value="leader">Leader</option>
-              <option value="member">Member</option>
-            </select>
-          </div>
-          
-          <button 
-            onClick={() => {
-              setFilters({ event_code: "all", status: "all", role: "all" });
-              setSearchQuery("");
-              setPage(1);
-            }}
-            className="w-full md:w-auto px-6 py-3 min-h-[44px] text-xs font-mono border border-border/50 hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 transition-colors"
-          >
-            Clear Filters
-          </button>
         </div>
       )}
 
-      {/* Table Container - Desktop */}
-      <div className="hidden md:block w-full overflow-x-auto border border-border bg-card/30">
-        <table className="w-full text-sm">
-          <thead className="bg-background/50 border-b border-border">
-            <tr>
-              <th className={thClass} onClick={() => handleSort("registration_id")}>
-                Reg ID <SortIcon field="registration_id" />
+      {/* Image Viewer Modal */}
+      {viewImage && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-background/90 backdrop-blur-sm p-4">
+          <div className="relative max-w-4xl w-full bg-card border border-border p-2">
+            <button 
+              onClick={() => setViewImage(null)}
+              className="absolute top-4 right-4 z-10 p-2 bg-destructive text-destructive-foreground rounded-full hover:bg-destructive/90"
+            >
+              <IconX size={20} />
+            </button>
+            <div className="w-full aspect-auto flex justify-center max-h-[80vh] overflow-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={viewImage} alt="Payment Evidence" className="max-w-full h-auto object-contain" />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="bg-muted/30 border-b border-border">
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("id")}>
+                Reg ID {renderSortIcon("id")}
               </th>
-              <th className={thClass} onClick={() => handleSort("participant_name")}>
-                Participant <SortIcon field="participant_name" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("participant_name")}>
+                Participant {renderSortIcon("participant_name")}
               </th>
-              <th className={thClass} onClick={() => handleSort("university")}>
-                University <SortIcon field="university" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("event_count")}>
+                Events {renderSortIcon("event_count")}
               </th>
-              <th className={thClass} onClick={() => handleSort("event_name")}>
-                Event <SortIcon field="event_name" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("total_amount")}>
+                Payment {renderSortIcon("total_amount")}
               </th>
-              <th className={thClass} onClick={() => handleSort("team_name")}>
-                Team <SortIcon field="team_name" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("utr_number")}>
+                UTR {renderSortIcon("utr_number")}
               </th>
-              <th className={thClass} onClick={() => handleSort("role")}>
-                Role <SortIcon field="role" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground cursor-pointer hover:text-primary whitespace-nowrap" onClick={() => handleSort("payment_status")}>
+                Status {renderSortIcon("payment_status")}
               </th>
-              <th className={thClass} onClick={() => handleSort("status")}>
-                Status <SortIcon field="status" />
+              <th className="p-3 font-mono text-xs uppercase text-muted-foreground text-center whitespace-nowrap">
+                Actions
               </th>
-              <th className="px-4 py-3 text-right font-mono text-[10px] uppercase tracking-wider text-muted-foreground font-bold">Actions</th>
             </tr>
           </thead>
           <tbody>
             {paginatedData.length === 0 ? (
               <tr>
-                <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground font-mono text-sm">
-                  No registrations found
+                <td colSpan={7} className="p-8 text-center text-muted-foreground font-mono">
+                  NO REGISTRATIONS FOUND
                 </td>
               </tr>
             ) : paginatedData.map((row) => (
               <tr key={row.id} className="border-b border-border/50 hover:bg-muted/10 transition-colors">
-                <td className="px-4 py-3 font-mono text-xs">{row.registration_id}</td>
-                <td className="px-4 py-3">
-                  <div className="font-bold whitespace-nowrap">{row.participant_name}</div>
-                  <div className="text-[10px] text-muted-foreground font-mono">{row.phone}</div>
+                
+                {/* ID & Date */}
+                <td className="p-3 align-top whitespace-nowrap">
+                  <div className="font-mono text-sm font-bold text-primary">{row.id}</div>
+                  <div className="font-mono text-[10px] text-muted-foreground mt-1">{row.registration_date}</div>
                 </td>
-                <td className="px-4 py-3 text-xs max-w-[150px] truncate" title={row.university}>{row.university}</td>
-                <td className="px-4 py-3 text-xs whitespace-nowrap">
-                  <span className="text-primary font-mono text-[10px] uppercase block">{row.event_code}</span>
-                  {row.event_name}
+                
+                {/* Participant Info */}
+                <td className="p-3 align-top">
+                  <div className="font-bold text-sm uppercase">{row.participant_name}</div>
+                  <div className="font-mono text-xs text-muted-foreground mt-0.5">{row.roll_number}</div>
+                  <div className="text-xs mt-1 text-foreground/70">{row.university}</div>
+                  <div className="text-[10px] uppercase text-muted-foreground mt-0.5">{row.program}</div>
                 </td>
-                <td className="px-4 py-3">
-                  <div className="text-xs font-bold whitespace-nowrap">{row.team_name}</div>
-                  <div className="text-[10px] text-muted-foreground font-mono">Size: {row.team_size}</div>
-                </td>
-                <td className="px-4 py-3">
-                  <span className={`text-[10px] font-mono px-2 py-0.5 uppercase border ${row.role === 'leader' ? 'border-primary/50 text-primary' : 'border-border text-muted-foreground'}`}>
-                    {row.role}
-                  </span>
-                </td>
-                <td className="px-4 py-3">
-                  <span className={`text-[10px] font-mono px-2 py-0.5 uppercase border ${
-                    row.status === 'approved' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/30' :
-                    row.status === 'rejected' ? 'bg-destructive/10 text-destructive border-destructive/30' :
-                    'bg-amber-500/10 text-amber-500 border-amber-500/30'
-                  }`}>
-                    {row.status}
-                  </span>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button 
-                      onClick={() => onManageTeam(row.team_id)}
-                      className="p-1.5 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
-                      title="View Team"
-                    >
-                      <IconEye size={16} />
-                    </button>
-                    {row.role === 'leader' && (
-                      <>
-                        <button 
-                          onClick={() => onApprove(row.team_id)}
-                          disabled={row.status === 'approved' || loadingId === row.team_id}
-                          className="p-1.5 text-muted-foreground hover:text-emerald-500 hover:bg-emerald-500/10 transition-colors disabled:opacity-30"
-                          title="Approve Team"
-                        >
-                          <IconCheck size={16} />
-                        </button>
-                        <button 
-                          onClick={() => onReject(row.team_id)}
-                          disabled={row.status === 'rejected' || loadingId === row.team_id}
-                          className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors disabled:opacity-30"
-                          title="Reject Team"
-                        >
-                          <IconX size={16} />
-                        </button>
-                      </>
-                    )}
+                
+                {/* Events */}
+                <td className="p-3 align-top">
+                  <div className="font-mono text-sm font-bold">{row.event_count} Events</div>
+                  <div className="flex flex-wrap gap-1 mt-1 max-w-[200px]">
+                    {row.event_ids.map(eid => (
+                      <span key={eid} className="inline-block px-1.5 py-0.5 border border-border text-[10px] font-mono bg-background">
+                        {eid}
+                      </span>
+                    ))}
                   </div>
+                </td>
+                
+                {/* Payment & Accommodation */}
+                <td className="p-3 align-top whitespace-nowrap">
+                  <div className="font-display font-bold text-lg text-primary flex items-center gap-1">
+                    <IconCurrencyRupee size={16} /> {row.total_amount}
+                  </div>
+                  <div className="font-mono text-[10px] text-muted-foreground mt-1">
+                    Fee: ₹{row.participation_fee}
+                  </div>
+                  {row.accommodation_required && (
+                    <div className="font-mono text-[10px] text-amber-500 mt-0.5 border border-amber-500/30 px-1 py-0.5 inline-block">
+                      +₹{row.accommodation_fee} (ACC)
+                    </div>
+                  )}
+                </td>
+                
+                {/* UTR */}
+                <td className="p-3 align-top">
+                  <div className="font-mono text-sm">{row.utr_number}</div>
+                  {row.payment_screenshot && (
+                    <button 
+                      onClick={() => setViewImage(row.payment_screenshot)}
+                      className="mt-2 flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-widest text-primary hover:underline"
+                    >
+                      <IconEye size={12} /> View Proof
+                    </button>
+                  )}
+                </td>
+                
+                {/* Status */}
+                <td className="p-3 align-top whitespace-nowrap">
+                  <span className={`inline-block px-2 py-1 border text-[10px] font-mono uppercase tracking-widest ${
+                    row.payment_status === 'VERIFIED' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/50' :
+                    row.payment_status === 'UNDER VERIFICATION' ? 'bg-amber-500/10 text-amber-500 border-amber-500/50' :
+                    row.payment_status === 'REJECTED' ? 'bg-destructive/10 text-destructive border-destructive/50' :
+                    'bg-secondary text-muted-foreground border-border'
+                  }`}>
+                    {row.payment_status}
+                  </span>
+                </td>
+                
+                {/* Actions */}
+                <td className="p-3 align-top text-center whitespace-nowrap">
+                  {loadingId === row.id ? (
+                    <IconLoader2 className="animate-spin mx-auto text-primary" size={20} />
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      {row.payment_status === 'UNDER VERIFICATION' && (
+                        <>
+                          <button 
+                            onClick={() => onVerify(row.id)}
+                            className="px-3 py-1 bg-emerald-500 text-white font-mono text-xs font-bold uppercase hover:bg-emerald-600 flex items-center justify-center gap-1"
+                          >
+                            <IconCheck size={14} /> Verify
+                          </button>
+                          <button 
+                            onClick={() => onReject(row.id)}
+                            className="px-3 py-1 bg-destructive text-white font-mono text-xs font-bold uppercase hover:bg-destructive/90 flex items-center justify-center gap-1"
+                          >
+                            <IconX size={14} /> Reject
+                          </button>
+                        </>
+                      )}
+                      
+                      {row.payment_status === 'VERIFIED' && (
+                         <button 
+                         onClick={() => onReject(row.id)}
+                         className="px-3 py-1 border border-border text-muted-foreground hover:bg-destructive/10 hover:text-destructive font-mono text-xs font-bold uppercase transition-colors"
+                       >
+                         Revoke
+                       </button>
+                      )}
+                    </div>
+                  )}
                 </td>
               </tr>
             ))}
@@ -316,104 +313,49 @@ export function AdminRegistrationsTable({
         </table>
       </div>
 
-      {/* Card Container - Mobile */}
-      <div className="block md:hidden space-y-4">
-        {paginatedData.length === 0 ? (
-          <div className="p-8 text-center text-muted-foreground font-mono text-sm border border-border bg-card">
-            No registrations found
+      {/* Pagination Footer */}
+      <div className="p-4 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4 bg-muted/10">
+        <div className="font-mono text-xs text-muted-foreground">
+          Showing {(page - 1) * rowsPerPage + 1} to {Math.min(page * rowsPerPage, filteredData.length)} of {filteredData.length} entries
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-xs text-muted-foreground">Rows per page:</span>
+            <select 
+              value={rowsPerPage} 
+              onChange={(e) => { setRowsPerPage(Number(e.target.value)); setPage(1); }}
+              className="p-1 bg-background border border-border font-mono text-xs outline-none"
+            >
+              <option value={10}>10</option>
+              <option value={25}>25</option>
+              <option value={50}>50</option>
+              <option value={100}>100</option>
+            </select>
           </div>
-        ) : (
-          paginatedData.map(row => (
-            <div key={row.id} className="p-4 border border-border bg-card shadow-sm flex flex-col gap-3 relative overflow-hidden">
-              <div className={`absolute left-0 top-0 bottom-0 w-1 ${row.status === 'approved' ? 'bg-emerald-500' : row.status === 'pending' ? 'bg-amber-500' : 'bg-destructive'}`} />
-              
-              <div className="flex justify-between items-start pl-2 border-b border-border/50 pb-3">
-                <div>
-                  <div className="font-bold text-foreground text-lg">{row.participant_name}</div>
-                  <div className="text-xs font-mono text-muted-foreground tracking-wider">{row.registration_id}</div>
-                </div>
-                <div className={`text-[10px] font-mono px-2 py-1 border uppercase ${row.status === 'approved' ? 'bg-emerald-500/10 text-emerald-500 border-emerald-500/50' : row.status === 'pending' ? 'bg-amber-500/10 text-amber-500 border-amber-500/50' : 'bg-destructive/10 text-destructive border-destructive/50'}`}>
-                  {row.status}
-                </div>
-              </div>
-              
-              <div className="pl-2 space-y-3">
-                <div className="text-sm font-medium">
-                  <span className="text-muted-foreground font-normal text-xs uppercase tracking-widest block mb-1">University</span>
-                  {row.university}
-                </div>
-                <div className="text-sm font-medium">
-                  <span className="text-muted-foreground font-normal text-xs uppercase tracking-widest block mb-1">Event</span>
-                  {row.event_name}
-                </div>
-                <div className="text-sm font-medium">
-                  <span className="text-muted-foreground font-normal text-xs uppercase tracking-widest block mb-1">Team Details</span>
-                  {row.team_name ? (
-                    <span>{row.team_name} <span className="text-xs text-muted-foreground">({row.role})</span></span>
-                  ) : 'Individual'}
-                </div>
-              </div>
-              
-              <div className="flex flex-col gap-2 pt-3 border-t border-border/50 mt-2 pl-2">
-                {row.team_id && (
-                  <button 
-                    onClick={() => onManageTeam(row.team_id)}
-                    className="w-full py-3 min-h-[44px] text-xs font-mono border border-primary/50 text-primary hover:bg-primary/10 transition-colors text-center flex items-center justify-center gap-2"
-                  >
-                    <IconUsers size={16} /> Manage Team
-                  </button>
-                )}
-                
-                {row.role === 'leader' && row.status === 'pending' && (
-                  <div className="flex gap-2">
-                    <button 
-                      onClick={() => onApprove(row.team_id)}
-                      disabled={loadingId === row.team_id}
-                      className="flex-1 py-3 min-h-[44px] text-xs font-mono border border-emerald-500/50 text-emerald-500 hover:bg-emerald-500/10 transition-colors text-center flex items-center justify-center gap-2"
-                    >
-                      <IconCheck size={16} /> Approve
-                    </button>
-                    <button 
-                      onClick={() => onReject(row.team_id)}
-                      disabled={loadingId === row.team_id}
-                      className="flex-1 py-3 min-h-[44px] text-xs font-mono border border-destructive/50 text-destructive hover:bg-destructive/10 transition-colors text-center flex items-center justify-center gap-2"
-                    >
-                      <IconX size={16} /> Reject
-                    </button>
-                  </div>
-                )}
-              </div>
+          
+          <div className="flex gap-1">
+            <button 
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="p-1 border border-border bg-background disabled:opacity-50 hover:bg-muted"
+            >
+              <IconChevronDown className="rotate-90" size={16} />
+            </button>
+            <div className="px-3 py-1 border border-border bg-background font-mono text-xs flex items-center">
+              {page} / {totalPages || 1}
             </div>
-          ))
-        )}
-      </div>
-
-      {/* Pagination Controls */}
-      <div className="flex items-center justify-between text-xs font-mono text-muted-foreground p-2">
-        <div>
-          Showing {Math.min(filteredData.length, (page - 1) * rowsPerPage + 1)} - {Math.min(filteredData.length, page * rowsPerPage)} of {filteredData.length} registrations
-        </div>
-        <div className="flex gap-1">
-          <button 
-            disabled={page === 1}
-            onClick={() => setPage(p => Math.max(1, p - 1))}
-            className="px-3 py-1 border border-border hover:border-primary disabled:opacity-50 disabled:hover:border-border"
-          >
-            PREV
-          </button>
-          <span className="px-3 py-1 border border-border bg-card/50">
-            {page} / {totalPages || 1}
-          </span>
-          <button 
-            disabled={page >= totalPages}
-            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-            className="px-3 py-1 border border-border hover:border-primary disabled:opacity-50 disabled:hover:border-border"
-          >
-            NEXT
-          </button>
+            <button 
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages || totalPages === 0}
+              className="p-1 border border-border bg-background disabled:opacity-50 hover:bg-muted"
+            >
+              <IconChevronDown className="-rotate-90" size={16} />
+            </button>
+          </div>
         </div>
       </div>
-
+      
     </div>
   );
 }

@@ -16,6 +16,9 @@ export function EventRegistrationPanel({ event }: { event: Event }) {
   const [myTeam, setMyTeam] = useState<any>(null);
   const [myTeamMembers, setMyTeamMembers] = useState<any[]>([]);
   
+  const [hasVerifiedAccess, setHasVerifiedAccess] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState<string | null>(null);
+
   // Forms
   const [teamName, setTeamName] = useState("");
   const [inviteRoll, setInviteRoll] = useState("");
@@ -32,6 +35,20 @@ export function EventRegistrationPanel({ event }: { event: Event }) {
       
       const { data: prof } = await supabase.from("profiles").select("*").eq("id", user.id).single();
       setProfile(prof);
+
+      // Check if user has paid for this event
+      const { data: reg } = await supabase
+        .from("event_registrations")
+        .select("*")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (reg && reg.event_ids.includes(String(event.id))) {
+        setPaymentStatus(reg.payment_status);
+        if (reg.payment_status === 'VERIFIED') {
+          setHasVerifiedAccess(true);
+        }
+      }
 
       // Check if user is in a team for this event
       const { data: tm } = await supabase
@@ -194,7 +211,35 @@ export function EventRegistrationPanel({ event }: { event: Event }) {
     );
   }
 
-  // Not registered yet
+  // Not registered yet (Team Creation logic if verified, otherwise redirect to payment)
+  if (!hasVerifiedAccess) {
+    return (
+      <div className="w-full max-w-md">
+        {paymentStatus && paymentStatus !== 'REJECTED' ? (
+          <div className="p-6 border border-amber-500/50 bg-amber-500/10 text-amber-500 font-mono text-sm uppercase text-center">
+            PAYMENT STATUS: {paymentStatus}
+            <br/><br/>
+            Please check your dashboard. You can form a team once your payment is verified.
+          </div>
+        ) : (
+          <>
+            {error && <div className="p-2 mb-4 bg-destructive/10 text-destructive text-xs font-mono border border-destructive/50">{error}</div>}
+            <button 
+              onClick={() => router.push(`/register?events=${event.id}`)}
+              className="w-full min-h-[44px] px-8 py-4 bg-primary text-primary-foreground font-mono text-sm font-bold tracking-widest uppercase hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(var(--color-primary),0.3)] flex justify-center items-center gap-2"
+            >
+              PROCEED TO REGISTRATION CART →
+            </button>
+            <p className="text-xs text-muted-foreground mt-4 text-center">
+              Register for this event securely. Team formation unlocks after payment verification.
+            </p>
+          </>
+        )}
+      </div>
+    );
+  }
+
+  // Verified access but no team yet
   return (
     <div className="w-full max-w-md">
       {error && <div className="p-2 mb-4 bg-destructive/10 text-destructive text-xs font-mono border border-destructive/50">{error}</div>}
@@ -206,7 +251,7 @@ export function EventRegistrationPanel({ event }: { event: Event }) {
           className="w-full min-h-[44px] px-8 py-4 bg-primary text-primary-foreground font-mono text-sm font-bold tracking-widest uppercase hover:bg-primary/90 transition-all shadow-[0_0_20px_rgba(var(--color-primary),0.3)] flex justify-center items-center gap-2"
         >
           {actionLoading && <IconLoader2 className="animate-spin" size={16} />}
-          ENTER THE CHALLENGE →
+          INITIALIZE INDIVIDUAL ENTRY →
         </button>
       ) : (
         <form onSubmit={handleCreateTeamOrRegister} className="p-6 border border-border bg-card/50 backdrop-blur-sm">

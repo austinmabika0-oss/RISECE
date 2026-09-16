@@ -127,19 +127,17 @@ export default function LoginPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Branch</label>
+                    <label className="text-xs font-mono uppercase tracking-widest text-muted-foreground">Program / Course</label>
                     <select 
                       required value={branch} onChange={e => setBranch(e.target.value)}
-                      className="w-full p-3 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-sans appearance-none"
+                      className="w-full p-3 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-sans appearance-none text-sm"
                     >
-                      <option value="" disabled>Select Branch</option>
-                      <option value="CSE">CSE</option>
-                      <option value="ECE">ECE</option>
-                      <option value="CIVIL">CIVIL</option>
-                      <option value="MECH">MECH</option>
-                      <option value="IT">IT</option>
-                      <option value="AI&ML">AI & ML</option>
-                      <option value="OTHER">Other</option>
+                      <option value="" disabled>Select Program</option>
+                      <option value="B.Tech — Civil Engineering">B.Tech — Civil Engineering</option>
+                      <option value="M.Tech — Structural Engineering">M.Tech — Structural Engineering</option>
+                      <option value="M.Tech — Construction Technology">M.Tech — Construction Technology</option>
+                      <option value="M.Tech — Transportation Engineering">M.Tech — Transportation Engineering</option>
+                      <option value="Diploma — Civil Engineering">Diploma — Civil Engineering</option>
                     </select>
                   </div>
                   <div className="space-y-2">

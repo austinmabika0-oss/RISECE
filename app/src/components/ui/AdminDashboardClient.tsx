@@ -26,25 +26,31 @@ export function AdminDashboardClient({ flatRegistrations, teams, events }: Admin
     setManagingTeamId(teamId);
   };
   
-  const handleApproveReject = async (teamId: string, action: 'approved' | 'rejected') => {
-    setLoadingId(teamId);
+  const handleVerifyPayment = async (registrationId: string, action: 'VERIFIED' | 'REJECTED') => {
+    setLoadingId(registrationId);
     try {
-      const { error } = await supabase.from("teams").update({ status: action }).eq("id", teamId);
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      const { error } = await supabase.from("event_registrations").update({ 
+        payment_status: action,
+        payment_verified_at: new Date().toISOString(),
+        payment_verified_by: session?.user?.id || null
+      }).eq("registration_id", registrationId);
+      
       if (error) throw error;
       
       // Attempt to log audit event
-      const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         await supabase.from("admin_audit_logs").insert({
           admin_id: session.user.id,
-          action: `team_${action}`,
-          target_id: teamId,
-          details: { action, team_id: teamId }
+          action: `payment_${action.toLowerCase()}`,
+          target_id: registrationId,
+          details: { action, registration_id: registrationId }
         });
       }
     } catch (err) {
       console.error("Action failed", err);
-      alert("Failed to update team status");
+      alert("Failed to update payment status");
     } finally {
       setLoadingId(null);
       router.refresh();
@@ -77,9 +83,8 @@ export function AdminDashboardClient({ flatRegistrations, teams, events }: Admin
       {view === "table" ? (
         <AdminRegistrationsTable 
           data={flatRegistrations} 
-          onManageTeam={handleManageTeam}
-          onApprove={(id) => handleApproveReject(id, 'approved')}
-          onReject={(id) => handleApproveReject(id, 'rejected')}
+          onVerify={(id) => handleVerifyPayment(id, 'VERIFIED')}
+          onReject={(id) => handleVerifyPayment(id, 'REJECTED')}
           loadingId={loadingId}
         />
       ) : (
