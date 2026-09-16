@@ -12,7 +12,7 @@ import { BlueprintGrid } from "@/components/svg/BlueprintGrid";
 import { BridgeDrawing } from "@/components/svg/BridgeDrawing";
 import { events } from "@/data/events";
 import { EventCard } from "@/components/ui/EventCard";
-// RegistrationSteps removed
+import { RegistrationInfo } from "@/components/ui/RegistrationInfo";
 import { IconArrowRight } from "@tabler/icons-react";
 
 // Lazy load SVG illustrations for performance
@@ -171,8 +171,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How to Register Section */}
-      {/* Registration steps have been removed as per the Google Forms migration */}
+      {/* Registration & Payment Section */}
+      <RegistrationInfo />
 
       {/* Brochure Content: Why Participate & Focus Themes */}
       <section 
