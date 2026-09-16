@@ -133,11 +133,11 @@ export default function LoginPage() {
                       className="w-full p-3 bg-background border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-sans appearance-none text-sm"
                     >
                       <option value="" disabled>Select Program</option>
-                      <option value="B.Tech — Civil Engineering">B.Tech — Civil Engineering</option>
-                      <option value="M.Tech — Structural Engineering">M.Tech — Structural Engineering</option>
-                      <option value="M.Tech — Construction Technology">M.Tech — Construction Technology</option>
-                      <option value="M.Tech — Transportation Engineering">M.Tech — Transportation Engineering</option>
-                      <option value="Diploma — Civil Engineering">Diploma — Civil Engineering</option>
+                      <option value="B.Tech - Civil Engineering">B.Tech - Civil Engineering</option>
+                      <option value="M.Tech - Structural Engineering">M.Tech - Structural Engineering</option>
+                      <option value="M.Tech - Construction Technology">M.Tech - Construction Technology</option>
+                      <option value="M.Tech - Transportation Engineering">M.Tech - Transportation Engineering</option>
+                      <option value="Diploma - Civil Engineering">Diploma - Civil Engineering</option>
                     </select>
                   </div>
                   <div className="space-y-2">
