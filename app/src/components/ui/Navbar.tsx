@@ -6,8 +6,8 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useThemeWave } from "@/components/ui/ThemeWaveProvider";
 import { motion } from "framer-motion";
-import { IconSun, IconMoonStars, IconMenu2, IconX, IconUserCircle } from "@tabler/icons-react";
-import { createClient } from "@/lib/supabase/client";
+import { IconSun, IconMoonStars, IconMenu2, IconX } from "@tabler/icons-react";
+import { REGISTRATION_CONFIG } from "@/config/registration";
 
 const NAV_LINKS = [
   { name: "Home", href: "/" },
@@ -22,27 +22,12 @@ export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
-  const [profile, setProfile] = useState<any>(null);
   const { theme } = useTheme();
   const { toggleTheme } = useThemeWave();
   const pathname = usePathname();
-  const supabase = createClient();
 
   // Avoid hydration mismatch
   useEffect(() => setMounted(true), []);
-
-  useEffect(() => {
-    async function checkAuth() {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        setUser(user);
-        const { data: prof } = await supabase.from("profiles").select("full_name, roll_number").eq("id", user.id).single();
-        if (prof) setProfile(prof);
-      }
-    }
-    checkAuth();
-  }, [supabase]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,23 +91,15 @@ export function Navbar() {
             </button>
           )}
 
-          {/* Auth Action */}
-          {user ? (
-            <Link
-              href="/dashboard"
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full shadow-sm hover:border-primary transition-all group"
-            >
-              <IconUserCircle size={20} className="text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-mono font-bold uppercase tracking-widest">{profile?.roll_number || 'OPERATIVE'}</span>
-            </Link>
-          ) : (
-            <Link
-              href="/login"
-              className="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full shadow-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 uppercase font-mono tracking-widest"
-            >
-              Login / Register
-            </Link>
-          )}
+          {/* External Registration Action */}
+          <a
+            href={REGISTRATION_CONFIG.PARTICIPANT_REGISTRATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full shadow-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 uppercase font-mono tracking-widest"
+          >
+            Register Now
+          </a>
 
           {/* Mobile Menu Button */}
           <button
@@ -145,37 +122,28 @@ export function Navbar() {
         >
           <div className="flex flex-col p-6 space-y-6 h-full pb-safe">
             {NAV_LINKS.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`text-2xl font-display font-bold py-3 border-b border-border/50 ${
-                  pathname === link.href ? "text-primary" : "text-foreground"
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {link.name}
-              </Link>
+               <Link
+                 key={link.name}
+                 href={link.href}
+                 className={`text-2xl font-display font-bold py-3 border-b border-border/50 ${
+                   pathname === link.href ? "text-primary" : "text-foreground"
+                 }`}
+                 onClick={() => setIsMobileMenuOpen(false)}
+               >
+                 {link.name}
+               </Link>
             ))}
             
             <div className="pt-8 flex flex-col gap-4">
-              {user ? (
-                <Link
-                  href="/dashboard"
-                  className="w-full py-4 px-6 text-center text-primary bg-primary/10 border border-primary/50 rounded-lg font-bold uppercase font-mono flex items-center justify-center gap-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  <IconUserCircle size={24} />
-                  Dashboard ({profile?.roll_number})
-                </Link>
-              ) : (
-                <Link
-                  href="/login"
-                  className="w-full py-4 px-6 text-center text-primary-foreground bg-primary rounded-lg font-bold uppercase font-mono text-lg shadow-lg active:scale-95 transition-transform"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Login / Register
-                </Link>
-              )}
+              <a
+                href={REGISTRATION_CONFIG.PARTICIPANT_REGISTRATION_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 px-6 text-center text-primary-foreground bg-primary rounded-lg font-bold uppercase font-mono text-lg shadow-lg active:scale-95 transition-transform"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Register Now
+              </a>
             </div>
           </div>
         </motion.div>
