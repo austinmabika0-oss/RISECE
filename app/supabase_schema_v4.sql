@@ -7,14 +7,14 @@
 -- ROLES & USERS (CMS)
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.cms_roles (
+CREATE TABLE IF NOT EXISTS public.cms_roles (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name text UNIQUE NOT NULL,
   permissions jsonb NOT NULL,
   created_at timestamp with time zone DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE public.cms_users (
+CREATE TABLE IF NOT EXISTS public.cms_users (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   role_id bigint NOT NULL REFERENCES public.cms_roles(id),
   name text NOT NULL,
@@ -30,7 +30,7 @@ CREATE TABLE public.cms_users (
 -- EVENTS
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.events (
+CREATE TABLE IF NOT EXISTS public.events (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   slug text UNIQUE NOT NULL,
   code text NOT NULL,
@@ -57,14 +57,14 @@ CREATE TABLE public.events (
   updated_at timestamp with time zone DEFAULT timezone('utc'::text, now())
 );
 
-CREATE TABLE public.event_rules (
+CREATE TABLE IF NOT EXISTS public.event_rules (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   event_id bigint NOT NULL REFERENCES public.events(id) ON DELETE CASCADE,
   rule_text text NOT NULL,
   display_order integer DEFAULT 0
 );
 
-CREATE TABLE public.judging_criteria (
+CREATE TABLE IF NOT EXISTS public.judging_criteria (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   event_id bigint NOT NULL REFERENCES public.events(id) ON DELETE CASCADE,
   name text NOT NULL,
@@ -74,7 +74,7 @@ CREATE TABLE public.judging_criteria (
   display_order integer DEFAULT 0
 );
 
-CREATE TABLE public.event_coordinators (
+CREATE TABLE IF NOT EXISTS public.event_coordinators (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   event_id bigint NOT NULL REFERENCES public.events(id) ON DELETE CASCADE,
   name text NOT NULL,
@@ -87,7 +87,7 @@ CREATE TABLE public.event_coordinators (
 -- SPONSORS
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.sponsors (
+CREATE TABLE IF NOT EXISTS public.sponsors (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name text NOT NULL,
   category text DEFAULT 'Bronze Sponsor' CHECK (category IN ('Title Sponsor','Gold Sponsor','Silver Sponsor','Bronze Sponsor','Academic Partner','Technical Partner','Industry Partner','Media Partner')),
@@ -105,7 +105,7 @@ CREATE TABLE public.sponsors (
 -- ANNOUNCEMENTS
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.announcements (
+CREATE TABLE IF NOT EXISTS public.announcements (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   title text NOT NULL,
   body text NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE public.announcements (
 -- GALLERY
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.gallery (
+CREATE TABLE IF NOT EXISTS public.gallery (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   title text DEFAULT '',
   file_path text NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE public.gallery (
 -- DOWNLOADS
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.downloads (
+CREATE TABLE IF NOT EXISTS public.downloads (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   title text NOT NULL,
   description text,
@@ -154,7 +154,7 @@ CREATE TABLE public.downloads (
 -- MEDIA LIBRARY
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.media (
+CREATE TABLE IF NOT EXISTS public.media (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   original_name text NOT NULL,
   file_path text NOT NULL,
@@ -170,7 +170,7 @@ CREATE TABLE public.media (
 -- GLOBAL SETTINGS
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.settings (
+CREATE TABLE IF NOT EXISTS public.settings (
   setting_key text PRIMARY KEY,
   setting_value text NOT NULL,
   setting_type text DEFAULT 'text' CHECK (setting_type IN ('text','json','boolean','url','html')),
@@ -181,7 +181,7 @@ CREATE TABLE public.settings (
 -- AUDIT LOG
 -- ────────────────────────────────────────────
 
-CREATE TABLE public.audit_logs (
+CREATE TABLE IF NOT EXISTS public.audit_logs (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   user_id bigint REFERENCES public.cms_users(id) ON DELETE SET NULL,
   action text NOT NULL,
@@ -211,7 +211,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TABLE public.event_registrations (
+CREATE TABLE IF NOT EXISTS public.event_registrations (
   registration_id text PRIMARY KEY,
   user_id uuid REFERENCES public.profiles(id) ON DELETE CASCADE NOT NULL,
   event_ids text[] NOT NULL DEFAULT '{}',
@@ -235,20 +235,25 @@ CREATE TABLE public.event_registrations (
 
 ALTER TABLE public.event_registrations ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Users can view their own registrations" ON public.event_registrations;
 CREATE POLICY "Users can view their own registrations" ON public.event_registrations 
   FOR SELECT USING (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Admins can view all registrations" ON public.event_registrations;
 CREATE POLICY "Admins can view all registrations" ON public.event_registrations 
   FOR SELECT USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND admin_role IS NOT NULL)
   );
 
+DROP POLICY IF EXISTS "Users can insert their own registration" ON public.event_registrations;
 CREATE POLICY "Users can insert their own registration" ON public.event_registrations 
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
+DROP POLICY IF EXISTS "Users can update their own pending registrations" ON public.event_registrations;
 CREATE POLICY "Users can update their own pending registrations" ON public.event_registrations 
   FOR UPDATE USING (auth.uid() = user_id AND payment_status IN ('PENDING PAYMENT', 'REJECTED'));
 
+DROP POLICY IF EXISTS "Admins can update all registrations" ON public.event_registrations;
 CREATE POLICY "Admins can update all registrations" ON public.event_registrations 
   FOR UPDATE USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND admin_role = 'super_admin')
