@@ -34,7 +34,15 @@ export default function ContactPage() {
                 <div className="p-3 bg-primary/10 text-primary rounded-xl"><IconPhone /></div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">Helpdesk</h3>
-                  <p className="text-muted-foreground">Student Coord: +91 98765 43210<br/>Faculty Coord: +91 98765 43211</p>
+                  <div className="text-muted-foreground">
+                    0863-2344700, +91 9182426301
+                    <div className="mt-3 text-sm">
+                        <strong className="text-foreground">Student Coords:</strong><br/>
+                        Tadiwa: +91 86391 95200<br/>
+                        Koushik: +91 88854 24673<br/>
+                        Indra: +91 7989899501
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -42,7 +50,7 @@ export default function ContactPage() {
                 <div className="p-3 bg-primary/10 text-primary rounded-xl"><IconMail /></div>
                 <div>
                   <h3 className="font-bold text-lg mb-1">Email Us</h3>
-                  <p className="text-muted-foreground">risece2k26@vignan.ac.in</p>
+                  <p className="text-muted-foreground">deocivil@vignan.ac.in<br/>hodcivil@vignan.ac.in</p>
                 </div>
               </div>
             </div>
@@ -68,6 +76,19 @@ export default function ContactPage() {
                 </button>
               </form>
             </div>
+          </div>
+
+          {/* Map */}
+          <div className="mt-16 rounded-2xl border bg-card overflow-hidden h-[400px]">
+            <iframe 
+                src="https://www.google.com/maps?q=U+Block,+Vignan+University,+Vadlamudi,+Guntur&output=embed" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade">
+            </iframe>
           </div>
         </div>
       </section>

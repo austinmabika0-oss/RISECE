@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeWaveProvider } from "@/components/ui/ThemeWaveProvider";
+import Footer from "@/components/ui/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,6 +41,7 @@ export default function RootLayout({
             <img src="/back_dark.png" alt="Blueprint Dark" className="absolute inset-0 w-full h-full object-cover hidden dark:block" />
           </div>
           {children}
+          <Footer />
         </ThemeWaveProvider>
       </body>
     </html>

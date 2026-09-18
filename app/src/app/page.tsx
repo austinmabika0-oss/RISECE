@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -10,10 +10,10 @@ import { Navbar } from "@/components/ui/Navbar";
 import { CountdownTimer } from "@/components/ui/CountdownTimer";
 import { BlueprintGrid } from "@/components/svg/BlueprintGrid";
 import { BridgeDrawing } from "@/components/svg/BridgeDrawing";
-import { events } from "@/data/events";
 import { EventCard } from "@/components/ui/EventCard";
 import { RegistrationInfo } from "@/components/ui/RegistrationInfo";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconBuilding, IconRuler2, IconBrain, IconClipboardCheck, IconCode, IconPuzzle } from "@tabler/icons-react";
+import { createClient } from "@/lib/supabase/client";
 
 // Lazy load SVG illustrations for performance
 const IllustrationBlueprint = dynamic(() => import("@/components/svg/IllustrationBlueprint").then(mod => mod.IllustrationBlueprint), { ssr: false });
@@ -25,8 +25,35 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const contentRef = useRef<HTMLDivElement>(null);
+  const [featuredEvents, setFeaturedEvents] = useState<any[]>([]);
 
   useEffect(() => {
+    const fetchEvents = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from('events').select('*').order('display_order').limit(3);
+      
+      if (data) {
+        const mapped = data.map(ev => {
+          let IconCmp = IconBuilding;
+          switch (ev.icon_name) {
+            case 'ruler2': IconCmp = IconRuler2; break;
+            case 'brain': IconCmp = IconBrain; break;
+            case 'clipboard-check': IconCmp = IconClipboardCheck; break;
+            case 'code': IconCmp = IconCode; break;
+            case 'puzzle': IconCmp = IconPuzzle; break;
+          }
+          return {
+            ...ev,
+            teamSize: ev.team_size_text,
+            icon: <IconCmp size={32} stroke={1.5} />,
+            image: ev.image_path?.replace('/assets', ''),
+          };
+        });
+        setFeaturedEvents(mapped);
+      }
+    };
+    fetchEvents();
+
     // Hero reveal sequence
     const tl = gsap.timeline({ delay: 0.2 });
     tl.fromTo(
@@ -53,46 +80,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
         
-        {/* Institutional Recognition Strip - Top of Hero */}
-        <div className="absolute top-[100px] left-0 w-full z-20 px-4">
-          <div className="container mx-auto flex flex-wrap justify-center items-center gap-x-5 gap-y-4 md:gap-[28px] opacity-80 hover:opacity-100 transition-opacity">
-            <div className="flex items-center gap-x-5 md:gap-[28px]">
-              <Image 
-                src="/logos/vignan logo.png" 
-                alt="Vignan's" 
-                width={320} height={80} 
-                className="w-auto h-[68px] md:h-[76px] object-contain" 
-              />
-              {/* Subtle separator */}
-              <div className="w-[1px] h-[20px] bg-foreground/10 hidden md:block" />
-              <Image 
-                src="/logos/nirf rank.png" 
-                alt="NIRF 70" 
-                width={240} height={80} 
-                className="w-auto h-[64px] md:h-[72px] object-contain" 
-              />
-            </div>
-            
-            <div className="w-[1px] h-[20px] bg-foreground/10 hidden md:block" />
-            
-            <div className="flex items-center gap-x-5 md:gap-[28px]">
-              <Image 
-                src="/logos/naac acredation.png" 
-                alt="NAAC A+" 
-                width={200} height={80} 
-                className="w-auto h-[76px] md:h-[84px] object-contain" 
-              />
-              {/* Subtle separator */}
-              <div className="w-[1px] h-[20px] bg-foreground/10 hidden md:block" />
-              <Image 
-                src="/logos/nbr accredation.png" 
-                alt="NBA" 
-                width={200} height={80} 
-                className="w-auto h-[76px] md:h-[84px] object-contain" 
-              />
-            </div>
-          </div>
-        </div>
+
         {/* Background Bridge SVG */}
         <div className="absolute inset-y-0 right-0 z-0 flex items-center justify-end translate-x-[5%] lg:translate-x-[5%] w-[120%] lg:w-[65%] opacity-60 pointer-events-none">
           <BridgeDrawing />
@@ -103,12 +91,7 @@ export default function HomePage() {
             
             {/* Left Content */}
             <div className="pt-24 lg:pt-0">
-              <div className="mb-6 flex items-center gap-4 hero-content opacity-0">
-                <span className="h-px w-12 bg-primary"></span>
-                <span className="font-mono text-xs font-bold tracking-widest text-primary uppercase">
-                  Project Name: RISECE 2K26
-                </span>
-              </div>
+
               
               <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground leading-[0.9] mb-8">
                 <div className="hero-word opacity-0 [perspective:1000px]">DESIGN.</div>
@@ -137,7 +120,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                 </Link>
                 <Link
-                  href="https://www.canva.com/design/DAHHdw0QC9Y/6jjxAwMQAsuaHBN63SWAWg/edit"
+                  href="https://drive.google.com/file/d/1hyVoIZm7a7OH48h21DMY_rYJkSI6yFKs/view?usp=drivesdk"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 font-mono font-bold text-foreground border border-border hover:border-primary hover:text-primary transition-all bg-card/50 backdrop-blur-sm"
@@ -290,7 +273,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.slice(0, 3).map((event, index) => (
+            {featuredEvents.map((event, index) => (
               <EventCard key={event.id} event={event} index={index} />
             ))}
           </div>

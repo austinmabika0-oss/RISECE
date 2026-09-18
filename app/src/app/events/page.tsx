@@ -1,11 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/ui/Navbar";
 import { EventCard } from "@/components/ui/EventCard";
-import { events } from "@/data/events";
-import { IconSearch } from "@tabler/icons-react";
+import { createClient } from "@/lib/supabase/client";
+import { 
+  IconSearch, IconLoader2, IconBuilding, IconRuler2, IconBrain, 
+  IconClipboardCheck, IconCode, IconPuzzle, IconCamera, IconMessageCircle 
+} from "@tabler/icons-react";
 
 const CATEGORIES = [
   { id: "all", label: "All Events" },
@@ -18,6 +21,39 @@ const CATEGORIES = [
 export default function EventsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const supabase = createClient();
+      const { data } = await supabase.from('events').select('*').order('display_order');
+      if (data) {
+        // Map database fields to EventCard props
+        const mappedData = data.map(ev => {
+          let IconCmp = IconBuilding;
+          switch (ev.icon_name) {
+            case 'ruler2': IconCmp = IconRuler2; break;
+            case 'brain': IconCmp = IconBrain; break;
+            case 'clipboard-check': IconCmp = IconClipboardCheck; break;
+            case 'code': IconCmp = IconCode; break;
+            case 'puzzle': IconCmp = IconPuzzle; break;
+            case 'camera': IconCmp = IconCamera; break;
+            case 'message-circle': IconCmp = IconMessageCircle; break;
+          }
+          return {
+            ...ev,
+            teamSize: ev.team_size_text,
+            icon: <IconCmp size={32} stroke={1.5} />,
+            image: ev.image_path?.replace('/assets', ''),
+          };
+        });
+        setEvents(mappedData);
+      }
+      setLoading(false);
+    };
+    fetchEvents();
+  }, []);
 
   const filteredEvents = events.filter((event) => {
     const matchesCategory = activeCategory === "all" || event.category === activeCategory;
@@ -92,16 +128,22 @@ export default function EventsPage() {
           </div>
 
           {/* Events Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredEvents.map((event, index) => (
-                <EventCard key={event.id} event={event} index={index} />
-              ))}
-            </AnimatePresence>
-          </div>
+          {loading ? (
+            <div className="flex justify-center items-center py-20 text-muted-foreground">
+              <IconLoader2 className="animate-spin mr-2" /> Loading DB Records...
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <AnimatePresence mode="popLayout">
+                {filteredEvents.map((event, index) => (
+                  <EventCard key={event.id} event={event} index={index} />
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Empty State */}
-          {filteredEvents.length === 0 && (
+          {!loading && filteredEvents.length === 0 && (
             <div className="text-center py-20 border border-border bg-card/30 border-dashed">
               <p className="font-mono text-sm text-muted-foreground">ERR: NO_MATCHING_RECORDS_FOUND</p>
               <button

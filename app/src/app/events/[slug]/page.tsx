@@ -5,8 +5,7 @@ import { notFound, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
-import { IconArrowLeft, IconMapPin, IconCalendar, IconClock, IconPhone, IconChevronRight } from "@tabler/icons-react";
-import { events } from "@/data/events";
+import { IconArrowLeft, IconMapPin, IconCalendar, IconClock, IconPhone, IconChevronRight, IconLoader2, IconBuilding, IconRuler2, IconBrain, IconClipboardCheck, IconCode, IconPuzzle } from "@tabler/icons-react";
 import { Navbar } from "@/components/ui/Navbar";
 import { FestivalTicker } from "@/components/ui/FestivalTicker";
 import { EventRulesAccordion } from "@/components/ui/EventRulesAccordion";
@@ -15,17 +14,99 @@ import { EventRegistrationPanel } from "@/components/ui/EventRegistrationPanel";
 
 export default function EventDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = use(params);
-  const eventIndex = events.findIndex((e) => e.slug === resolvedParams.slug);
-  const event = events[eventIndex];
+  const [event, setEvent] = useState<any>(null);
+  const [prevEvent, setPrevEvent] = useState<any>(null);
+  const [nextEvent, setNextEvent] = useState<any>(null);
+  const [moreEvents, setMoreEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEventData = async () => {
+      const supabase = createClient();
+      
+      // Fetch event
+      const { data: eventData, error: eventError } = await supabase
+        .from('events')
+        .select('*')
+        .eq('slug', resolvedParams.slug)
+        .single();
+        
+      if (eventError || !eventData) {
+        setLoading(false);
+        return;
+      }
+      
+      // Fetch related data
+      const [rules, criteria, coordinators] = await Promise.all([
+        supabase.from('event_rules').select('*').eq('event_id', eventData.id).order('display_order'),
+        supabase.from('judging_criteria').select('*').eq('event_id', eventData.id).order('display_order'),
+        supabase.from('event_coordinators').select('*').eq('event_id', eventData.id).order('display_order')
+      ]);
+      
+      // Map DB fields to UI expected fields
+      eventData.teamSize = eventData.team_size_text;
+      eventData.date = eventData.event_date;
+      eventData.time = eventData.event_time;
+      eventData.image = eventData.image_path?.replace('/assets', '');
+      
+      eventData.rules = rules.data?.map(r => r.rule_text) || [];
+      eventData.judgingCriteria = criteria.data?.map(c => ({ criteria: c.name, detail: c.detail, maxMarks: c.max_marks })) || [];
+      eventData.coordinators = coordinators.data?.map(c => ({ name: c.name, role: c.role, phone: c.phone })) || [];
+      
+      setEvent(eventData);
+
+      // Fetch all events to determine prev/next and more events
+      const { data: allEvents } = await supabase.from('events').select('*').order('display_order');
+      if (allEvents && allEvents.length > 0) {
+        const currentIndex = allEvents.findIndex(e => e.slug === resolvedParams.slug);
+        if (currentIndex !== -1) {
+          const prevIndex = (currentIndex - 1 + allEvents.length) % allEvents.length;
+          const nextIndex = (currentIndex + 1) % allEvents.length;
+          
+          setPrevEvent(allEvents[prevIndex]);
+          setNextEvent(allEvents[nextIndex]);
+
+          // Pick 3 related/other events to display
+          const more = [];
+          for (let i = 1; i <= 3; i++) {
+            const idx = (currentIndex + i + 1) % allEvents.length; 
+            const ev = allEvents[idx];
+            let IconCmp = IconBuilding;
+            switch (ev.icon_name) {
+              case 'ruler2': IconCmp = IconRuler2; break;
+              case 'brain': IconCmp = IconBrain; break;
+              case 'clipboard-check': IconCmp = IconClipboardCheck; break;
+              case 'code': IconCmp = IconCode; break;
+              case 'puzzle': IconCmp = IconPuzzle; break;
+            }
+            more.push({
+              ...ev,
+              teamSize: ev.team_size_text,
+              icon: <IconCmp size={32} stroke={1.5} />,
+              image: ev.image_path?.replace('/assets', '')
+            });
+          }
+          setMoreEvents(more);
+        }
+      }
+
+      setLoading(false);
+    };
+    
+    fetchEventData();
+  }, [resolvedParams.slug]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background text-primary">
+        <IconLoader2 className="animate-spin" size={48} />
+      </div>
+    );
+  }
 
   if (!event) {
     notFound();
   }
-
-  // Get next and previous events for navigation
-  const prevEvent = eventIndex > 0 ? events[eventIndex - 1] : null;
-  const nextEvent = eventIndex < events.length - 1 ? events[eventIndex + 1] : null;
-  const moreEvents = events.filter((e) => e.id !== event.id).slice(0, 3);
 
   // Registration state moved to EventRegistrationPanel component
 
@@ -151,7 +232,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
               </h2>
               <div className="grid gap-8">
                 {event.judgingCriteria.map((crit, idx) => {
-                  const percentage = Math.round(100 / event.judgingCriteria.length);
+                  const percentage = crit.maxMarks || Math.round(100 / event.judgingCriteria.length);
                   return (
                     <div key={idx} className="relative">
                       <div className="flex justify-between items-end mb-2">

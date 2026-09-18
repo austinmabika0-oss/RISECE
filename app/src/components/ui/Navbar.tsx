@@ -14,7 +14,6 @@ const NAV_LINKS = [
   { name: "About", href: "/about" },
   { name: "Events", href: "/events" },
   { name: "Schedule", href: "/schedule" },
-  { name: "Sponsors", href: "/sponsors" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -46,12 +45,15 @@ export function Navbar() {
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="font-display text-2xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary">
-            RISECE<span className="text-primary">2K26</span>
-          </div>
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link href="/" className="flex items-center gap-4">
+            <img src="/logos/vignan logo.png" alt="Vignan Logo" className="h-[43px] w-auto object-contain" />
+            <img src="/logos/custom_logo.png" alt="RISE CE" className="h-12 w-auto object-contain" />
+            <img src="/logos/nbr accredation.png" alt="NBA" className="h-12 w-auto object-contain" />
+            <img src="/logos/naac acredation.png" alt="NAAC A+" className="h-12 w-auto object-contain" />
+            <img src="/logos/nirf rank.png" alt="NIRF 70" className="h-12 w-auto object-contain" />
+          </Link>
+        </div>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-8">
@@ -61,7 +63,7 @@ export function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative font-medium text-sm transition-colors hover:text-primary"
+                className="relative font-semibold text-sm transition-colors hover:text-primary uppercase tracking-widest"
               >
                 <span className={isActive ? "text-primary" : "text-muted-foreground"}>
                   {link.name}
@@ -91,15 +93,12 @@ export function Navbar() {
             </button>
           )}
 
-          {/* External Registration Action */}
-          <a
-            href={REGISTRATION_CONFIG.PARTICIPANT_REGISTRATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/register"
             className="hidden md:inline-flex items-center justify-center px-5 py-2 text-sm font-medium text-primary-foreground bg-primary rounded-full shadow-lg hover:bg-primary/90 transition-all hover:scale-105 active:scale-95 uppercase font-mono tracking-widest"
           >
             Register Now
-          </a>
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -135,15 +134,13 @@ export function Navbar() {
             ))}
             
             <div className="pt-8 flex flex-col gap-4">
-              <a
-                href={REGISTRATION_CONFIG.PARTICIPANT_REGISTRATION_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/register"
                 className="w-full py-4 px-6 text-center text-primary-foreground bg-primary rounded-lg font-bold uppercase font-mono text-lg shadow-lg active:scale-95 transition-transform"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Register Now
-              </a>
+              </Link>
             </div>
           </div>
         </motion.div>

@@ -1,3 +1,18 @@
+-- DROP OLD TABLES TO AVOID SCHEMA CONFLICTS
+DROP TABLE IF EXISTS public.event_registrations CASCADE;
+DROP TABLE IF EXISTS public.audit_logs CASCADE;
+DROP TABLE IF EXISTS public.settings CASCADE;
+DROP TABLE IF EXISTS public.media CASCADE;
+DROP TABLE IF EXISTS public.downloads CASCADE;
+DROP TABLE IF EXISTS public.gallery CASCADE;
+DROP TABLE IF EXISTS public.announcements CASCADE;
+DROP TABLE IF EXISTS public.sponsors CASCADE;
+DROP TABLE IF EXISTS public.event_coordinators CASCADE;
+DROP TABLE IF EXISTS public.judging_criteria CASCADE;
+DROP TABLE IF EXISTS public.event_rules CASCADE;
+DROP TABLE IF EXISTS public.events CASCADE;
+DROP TABLE IF EXISTS public.cms_users CASCADE;
+DROP TABLE IF EXISTS public.cms_roles CASCADE;
 -- ============================================================
 -- RISECE 2K26 - CMS & Registration Database Schema (Supabase)
 -- Version: 4.0 (Migrated from php_migration)
@@ -258,3 +273,4 @@ CREATE POLICY "Admins can update all registrations" ON public.event_registration
   FOR UPDATE USING (
     EXISTS (SELECT 1 FROM public.profiles WHERE id = auth.uid() AND admin_role = 'super_admin')
   );
+

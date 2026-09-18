@@ -40,7 +40,7 @@ export function ThemeWaveProvider({ children }: { children: ReactNode }) {
   useEffect(() => setMounted(true), []);
 
   return (
-    <NextThemesProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
+    <NextThemesProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
       {mounted ? (
         <ThemeWaveWrapper>{children}</ThemeWaveWrapper>
       ) : (
