@@ -185,10 +185,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
               className="flex flex-col sm:flex-row items-start sm:items-center gap-6"
             >
               <EventRegistrationPanel event={event} />
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="font-mono text-xs tracking-widest uppercase text-muted-foreground">Registration Open</span>
-              </div>
+
             </motion.div>
           </div>
         </div>
@@ -231,7 +228,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
                 How You're Judged
               </h2>
               <div className="grid gap-8">
-                {event.judgingCriteria.map((crit, idx) => {
+                {event.judgingCriteria.map((crit: any, idx: number) => {
                   const percentage = crit.maxMarks || Math.round(100 / event.judgingCriteria.length);
                   return (
                     <div key={idx} className="relative">
@@ -289,7 +286,7 @@ export default function EventDetailPage({ params }: { params: Promise<{ slug: st
               <div className="p-8 border border-border bg-card/30 backdrop-blur-md">
                 <h3 className="font-mono text-xs text-primary tracking-[0.2em] uppercase mb-8">Coordinators</h3>
                 <div className="space-y-6">
-                  {event.coordinators.map((coord, idx) => (
+                  {event.coordinators.map((coord: any, idx: number) => (
                     <div key={idx}>
                       <div className="font-bold text-base mb-1">{coord.name}</div>
                       <div className="text-xs text-primary font-mono tracking-wider mb-2">{coord.role}</div>
