@@ -51,7 +51,7 @@ export const events: Event[] = [
     minTeamSize: 2,
     maxTeamSize: 4,
     duration: "7 Hours",
-    prize: "₹10,000 / ₹7,000 / ₹3,500",
+    prize: "₹7,000",
     overview:
       "Build a bridge using ice-cream sticks on the spot, judged on strength-to-weight ratio.",
     rules: [
@@ -121,7 +121,7 @@ export const events: Event[] = [
     minTeamSize: 2,
     maxTeamSize: 5,
     duration: "Exhibition Format",
-    prize: "₹5,000 / ₹3,000 / ₹1,500",
+    prize: "₹6,000",
     overview:
       "AI Application in all streams of Civil Engineering (Structural, Geotechnical, Transportation, Water resource, Environmental, RSGIS). These should be live demonstration with protype/ working model",
     rules: [
@@ -155,7 +155,7 @@ export const events: Event[] = [
     minTeamSize: 1,
     maxTeamSize: 1,
     duration: "2 Hours",
-    prize: "₹5,000 / ₹3,000 / ₹1,500",
+    prize: "₹6,000",
     overview:
       "Civil engineering concepts, rapid recall. Battle of Brains across all major civil disciplines.",
     rules: [
