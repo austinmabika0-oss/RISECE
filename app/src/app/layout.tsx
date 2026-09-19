@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { ThemeWaveProvider } from "@/components/ui/ThemeWaveProvider";
+import { Navbar } from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
+import { BottomNav } from "@/components/ui/BottomNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning className="antialiased font-sans bg-background text-foreground overflow-x-hidden w-full max-w-[100vw]" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+      <body suppressHydrationWarning className="antialiased font-sans bg-background text-foreground overflow-x-hidden w-full max-w-[100vw] pb-20 md:pb-0" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <ThemeWaveProvider>
           <div className="fixed inset-0 z-[-1] pointer-events-none opacity-15">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -42,6 +44,7 @@ export default function RootLayout({
           </div>
           {children}
           <Footer />
+          <BottomNav />
         </ThemeWaveProvider>
       </body>
     </html>

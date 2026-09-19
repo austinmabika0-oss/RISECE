@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useThemeWave } from "@/components/ui/ThemeWaveProvider";
 import { motion } from "framer-motion";
-import { IconSun, IconMoonStars, IconMenu2, IconX } from "@tabler/icons-react";
+import { IconSun, IconMoonStars } from "@tabler/icons-react";
 import { REGISTRATION_CONFIG } from "@/config/registration";
 
 const NAV_LINKS = [
@@ -20,7 +20,6 @@ const NAV_LINKS = [
 export function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme } = useTheme();
   const { toggleTheme } = useThemeWave();
   const pathname = usePathname();
@@ -82,11 +81,11 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          {/* Theme Toggle */}
+          {/* Theme Toggle (Desktop Only) */}
           {mounted && (
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
+              className="hidden md:flex p-2 rounded-full bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-colors"
               aria-label="Toggle theme"
             >
               {theme === "dark" ? <IconSun size={18} /> : <IconMoonStars size={18} />}
@@ -99,52 +98,8 @@ export function Navbar() {
           >
             Register Now
           </Link>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <IconX size={24} /> : <IconMenu2 size={24} />}
-          </button>
         </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, x: "100%" }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: "100%" }}
-          transition={{ type: "spring", damping: 25, stiffness: 200 }}
-          className="fixed inset-0 top-[60px] md:hidden bg-background/95 backdrop-blur-xl border-t border-border z-40 overflow-y-auto"
-        >
-          <div className="flex flex-col p-6 space-y-6 h-full pb-safe">
-            {NAV_LINKS.map((link) => (
-               <Link
-                 key={link.name}
-                 href={link.href}
-                 className={`text-2xl font-display font-bold py-3 border-b border-border/50 ${
-                   pathname === link.href ? "text-primary" : "text-foreground"
-                 }`}
-                 onClick={() => setIsMobileMenuOpen(false)}
-               >
-                 {link.name}
-               </Link>
-            ))}
-            
-            <div className="pt-8 flex flex-col gap-4">
-              <Link
-                href="/register"
-                className="w-full py-4 px-6 text-center text-primary-foreground bg-primary rounded-lg font-bold uppercase font-mono text-lg shadow-lg active:scale-95 transition-transform"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Register Now
-              </Link>
-            </div>
-          </div>
-        </motion.div>
-      )}
     </header>
   );
 }
