@@ -339,17 +339,17 @@ export function AboutScrollStory() {
         {/* Legacy Counters */}
         <div className="panel-legacy absolute bottom-20 left-1/2 -translate-x-1/2 w-[90vw] max-w-4xl z-10 pointer-events-none opacity-0">
           <div className="grid grid-cols-3 bg-card/95 backdrop-blur-md border border-border shadow-2xl">
-            <div className="text-center p-8 border-r border-border/50">
-              <div className="font-display text-5xl md:text-6xl font-bold text-primary mb-2">5000+</div>
-              <div className="font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest">Students</div>
+            <div className="text-center p-4 md:p-8 border-r border-border/50">
+              <div className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-primary mb-1 md:mb-2">5000+</div>
+              <div className="font-mono text-[9px] sm:text-[10px] md:text-sm text-muted-foreground uppercase tracking-widest">Students</div>
             </div>
-            <div className="text-center p-8 border-r border-border/50">
-              <div className="font-display text-5xl md:text-6xl font-bold text-primary mb-2">100+</div>
-              <div className="font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest">Colleges</div>
+            <div className="text-center p-4 md:p-8 border-r border-border/50">
+              <div className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-primary mb-1 md:mb-2">100+</div>
+              <div className="font-mono text-[9px] sm:text-[10px] md:text-sm text-muted-foreground uppercase tracking-widest">Colleges</div>
             </div>
-            <div className="text-center p-8">
-              <div className="font-display text-5xl md:text-6xl font-bold text-primary mb-2">10+</div>
-              <div className="font-mono text-xs md:text-sm text-muted-foreground uppercase tracking-widest">Years</div>
+            <div className="text-center p-4 md:p-8">
+              <div className="font-display text-3xl sm:text-4xl md:text-6xl font-bold text-primary mb-1 md:mb-2">10+</div>
+              <div className="font-mono text-[9px] sm:text-[10px] md:text-sm text-muted-foreground uppercase tracking-widest">Years</div>
             </div>
           </div>
         </div>
