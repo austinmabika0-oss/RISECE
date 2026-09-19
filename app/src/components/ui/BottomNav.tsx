@@ -11,7 +11,8 @@ import {
   IconTicket, 
   IconListDetails,
   IconSun,
-  IconMoonStars
+  IconMoonStars,
+  IconInfoCircle
 } from "@tabler/icons-react";
 
 export function BottomNav() {
@@ -24,13 +25,14 @@ export function BottomNav() {
 
   const navItems = [
     { name: "Home", href: "/", icon: <IconHome size={22} stroke={1.5} /> },
+    { name: "About", href: "/about", icon: <IconInfoCircle size={22} stroke={1.5} /> },
     { name: "Events", href: "/events", icon: <IconCalendarEvent size={22} stroke={1.5} /> },
     { name: "Register", href: "/register", icon: <IconTicket size={22} stroke={1.5} /> },
     { name: "Schedule", href: "/schedule", icon: <IconListDetails size={22} stroke={1.5} /> },
   ];
 
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[100] bg-background/90 backdrop-blur-xl border-t border-border/50 pb-4 pt-1 shadow-[0_-10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-xl border-t border-border/50 pb-safe shadow-[0_-10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
       <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           const isActive = pathname === item.href || (pathname.startsWith(item.href) && item.href !== "/");
