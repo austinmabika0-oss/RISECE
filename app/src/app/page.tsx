@@ -120,7 +120,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
                 </Link>
                 <Link
-                  href="https://drive.google.com/file/d/1hyVoIZm7a7OH48h21DMY_rYJkSI6yFKs/view?usp=drivesdk"
+                  href="https://drive.google.com/file/d/1qpsyoMdt6fSsvJuZDSvYHCQZmFws4nTm/view?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 font-mono font-bold text-foreground border border-border hover:border-primary hover:text-primary transition-all bg-card/50 backdrop-blur-sm"
