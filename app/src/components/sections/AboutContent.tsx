@@ -18,13 +18,25 @@ export function AboutContent() {
             The fest brings together engineering minds from institutions across the state to compete, collaborate, and innovate - all under one roof. With events spanning structural engineering, geotechnical engineering, AutoCAD design, model making, paper presentations, and technical quizzes, RISECE 2K26 promises an electrifying experience for every participant. This fest also challenges students to demonstrate engineering skills essential for their careers.
           </p>
 
-          <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight mb-4 mt-8 uppercase">About the Tech Fest</h3>
-          <p className="text-muted-foreground leading-relaxed md:text-lg mb-4">
-            In an era of rapid urbanization and large-scale infrastructure development, the role of civil engineers has evolved beyond conventional construction to encompass the planning and development of smart, resilient, and sustainable built environments. The Department of Civil Engineering at Vignan&apos;s Foundation for Science, Technology & Research (VFSTR) is organizing this National-Level Technical Fest as a platform for the next generation of builders, planners, and innovators from engineering institutions across India.
-          </p>
-          <p className="text-muted-foreground leading-relaxed md:text-lg mb-8">
-            The rationale behind this national-level convergence is to bridge the gap between academic knowledge and real-world industry applications. The fest provides students with an opportunity to move beyond conventional classroom learning and engage in an environment that promotes technical problem-solving, hands-on experimentation, innovation, and creative thinking. It also provides a valuable platform for students to exchange ideas, showcase innovative designs and solutions, and receive constructive feedback from peers, faculty members, and industry professionals from across the country.
-          </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center my-16">
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight mb-4 uppercase">About the Tech Fest</h3>
+              <p className="text-muted-foreground leading-relaxed md:text-lg mb-4">
+                In an era of rapid urbanization and large-scale infrastructure development, the role of civil engineers has evolved beyond conventional construction to encompass the planning and development of smart, resilient, and sustainable built environments. The Department of Civil Engineering at Vignan&apos;s Foundation for Science, Technology & Research (VFSTR) is organizing this National-Level Technical Fest as a platform for the next generation of builders, planners, and innovators from engineering institutions across India.
+              </p>
+              <p className="text-muted-foreground leading-relaxed md:text-lg">
+                The rationale behind this national-level convergence is to bridge the gap between academic knowledge and real-world industry applications. The fest provides students with an opportunity to move beyond conventional classroom learning and engage in an environment that promotes technical problem-solving, hands-on experimentation, innovation, and creative thinking. It also provides a valuable platform for students to exchange ideas, showcase innovative designs and solutions, and receive constructive feedback from peers, faculty members, and industry professionals from across the country.
+              </p>
+            </div>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border/50 group">
+              <div className="absolute inset-0 bg-primary/20 mix-blend-overlay group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none"></div>
+              <img 
+                src="/images/about-tech-fest.png" 
+                alt="About Tech Fest" 
+                className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700" 
+              />
+            </div>
+          </div>
 
           <h3 className="font-display text-2xl md:text-3xl font-bold tracking-tight mb-4 mt-8 uppercase">Expected Outcomes</h3>
           <p className="text-muted-foreground leading-relaxed md:text-lg mb-6">
