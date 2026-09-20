@@ -1,13 +1,78 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { IconId, IconChecklist, IconMail, IconExternalLink, IconAlertTriangle, IconHome, IconTicket } from "@tabler/icons-react";
 import { REGISTRATION_CONFIG } from "@/config/registration";
+import { useTheme } from "next-themes";
+import * as THREE from "three";
+// @ts-expect-error Vanta does not have type definitions
+import NET from "vanta/dist/vanta.net.min";
 
 export function RegistrationInfo() {
+  const { resolvedTheme } = useTheme();
+  const vantaRef = useRef<HTMLDivElement>(null);
+  const vantaEffect = useRef<any>(null);
+
+  useEffect(() => {
+    // Respect reduced motion accessibility
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    if (!vantaEffect.current && vantaRef.current) {
+      // Ensure THREE is globally available for Vanta
+      if (typeof window !== "undefined") {
+        // @ts-expect-error Attaching to window for Vanta compatibility
+        window.THREE = THREE;
+      }
+
+      try {
+        vantaEffect.current = NET({
+          el: vantaRef.current,
+          THREE,
+          color: resolvedTheme === 'dark' ? 0x00c7e8 : 0x4AAFC7,
+          backgroundColor: 0xffffff,
+          backgroundAlpha: 0, // Transparent background
+          points: 12,
+          maxDistance: 22,
+          spacing: 20,
+          showDots: true,
+        });
+      } catch (e) {
+        console.error("[Vanta] Error initializing:", e);
+      }
+    }
+
+    return () => {
+      if (vantaEffect.current) {
+        vantaEffect.current.destroy();
+        vantaEffect.current = null;
+      }
+    };
+  }, []);
+
+  // Update theme colors dynamically
+  useEffect(() => {
+    if (vantaEffect.current) {
+      vantaEffect.current.setOptions({
+        color: resolvedTheme === 'dark' ? 0x00c7e8 : 0x4AAFC7,
+      });
+    }
+  }, [resolvedTheme]);
+
+  // Determine subtle opacity based on theme and viewport size implicitly via CSS classes or inline style
+  const vantaOpacity = resolvedTheme === 'dark' ? 0.20 : 0.12;
+
   return (
-    <section className="py-24 px-4 md:px-6 relative z-10 bg-background border-t border-border">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-24 px-4 md:px-6 relative z-10 bg-background border-t border-border overflow-hidden">
+      {/* Vanta Animated Background Layer */}
+      <div 
+        ref={vantaRef} 
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-opacity duration-700"
+        style={{ opacity: vantaOpacity }}
+      />
+
+      <div className="container mx-auto max-w-6xl relative z-10">
         <div className="text-center mb-16">
           <div className="font-mono text-xs font-bold tracking-widest text-primary uppercase mb-2 flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />

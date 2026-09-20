@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { REGISTRATION_CONFIG } from "@/config/registration";
 import { IconArrowLeft } from "@tabler/icons-react";
+import { VantaDotsBackground } from "@/components/ui/VantaDotsBackground";
 
 export const metadata = {
   title: "Registration - RISECE 2K26",
@@ -12,6 +13,9 @@ export default function RegisterPage() {
   return (
     <main className="min-h-screen relative flex flex-col font-sans bg-background selection:bg-primary/30 pt-32 pb-16">
       <div className="absolute inset-0 bg-ambient-light dark:bg-ambient-dark -z-10 pointer-events-none"></div>
+      
+      {/* Vanta Dots Background Layer */}
+      <VantaDotsBackground />
 
       <div className="container mx-auto max-w-4xl px-4 md:px-6 mb-8 relative z-10">
         <Link href="/" className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors bg-card/30 border border-border px-4 py-2 rounded-full backdrop-blur-sm">
