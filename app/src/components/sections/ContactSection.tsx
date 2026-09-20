@@ -6,7 +6,7 @@ import { IconUserBolt, IconUser, IconHeadset, IconAddressBook } from "@tabler/ic
 const contacts = [
   {
     role: "FACULTY COORDINATOR",
-    name: "Dr. A.V.A. Bharath Kumar",
+    name: "Dr. A.V.A. Bharat Kumar",
     designation: "Assistant Professor, Dept. of Civil Engineering",
     phone: "+91 79899 79510",
     email: "drava_civil@vignan.ac.in",

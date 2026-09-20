@@ -132,7 +132,7 @@ export function BrochureDetails() {
                 <h3 className="font-bold text-lg mb-4 text-primary uppercase tracking-wide border-b border-border pb-2">Chairperson & Convenors</h3>
                 <ul className="space-y-4">
                   <li><p className="font-bold text-foreground">Dr. P. Sundara Kumar</p><p className="text-xs text-muted-foreground">Chairperson | Assoc. Prof & Head - CE</p></li>
-                  <li><p className="font-bold text-foreground">Dr. A.V.A. Bharath Kumar</p><p className="text-xs text-muted-foreground">Convenor | Assistant Professor</p></li>
+                  <li><p className="font-bold text-foreground">Dr. A.V.A. Bharat Kumar</p><p className="text-xs text-muted-foreground">Convenor | Assistant Professor</p></li>
                   <li><p className="font-bold text-foreground">Mr.M.Anirudh</p><p className="text-xs text-muted-foreground">Convenor | Assistant Professor</p></li>
                 </ul>
               </div>
@@ -148,7 +148,7 @@ export function BrochureDetails() {
                   <li className="flex justify-between"><span className="text-foreground">Dr. M.V.Raju</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
                   <li className="flex justify-between"><span className="text-foreground">Dr. P. Parthiban</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
                   <li className="flex justify-between"><span className="text-foreground">Dr. J.Gopala Rao</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
-                  <li className="flex justify-between"><span className="text-foreground">Dr. A.V.A. Bharath Kumar</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
+                  <li className="flex justify-between"><span className="text-foreground">Dr. A.V.A. Bharat Kumar</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
                   <li className="flex justify-between"><span className="text-foreground">Dr. P. Rakesh</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
                   <li className="flex justify-between"><span className="text-foreground">Mr. M.Anirudh</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
                   <li className="flex justify-between"><span className="text-foreground">Mr. D. Ravi Kanth</span><span className="text-muted-foreground text-xs text-right">Assistant Professor</span></li>
