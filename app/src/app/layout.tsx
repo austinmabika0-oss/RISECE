@@ -25,6 +25,9 @@ export const metadata: Metadata = {
       "National Level Civil Engineering Technical Fest · 9–10 October 2026 · Vignan University",
     type: "website",
   },
+  icons: {
+    icon: "/logos/custom_logo.png",
+  },
 };
 
 export default function RootLayout({
