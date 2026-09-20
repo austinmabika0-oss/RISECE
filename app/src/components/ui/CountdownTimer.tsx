@@ -13,7 +13,7 @@ interface TimeLeft {
 // Target date: October 9, 2026 09:00:00
 const TARGET_DATE = new Date("2026-10-09T09:00:00").getTime();
 
-export function CountdownTimer() {
+export function CountdownTimer({ variant = "default" }: { variant?: "default" | "compact" }) {
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [isMounted, setIsMounted] = useState(false);
 
@@ -45,11 +45,36 @@ export function CountdownTimer() {
   }
 
   const timeUnits = [
-    { label: "DAYS", value: timeLeft.days },
-    { label: "HOURS", value: timeLeft.hours },
-    { label: "MINS", value: timeLeft.minutes },
-    { label: "SECS", value: timeLeft.seconds },
+    { label: "DAYS", shortLabel: "D", value: timeLeft.days },
+    { label: "HOURS", shortLabel: "H", value: timeLeft.hours },
+    { label: "MINS", shortLabel: "M", value: timeLeft.minutes },
+    { label: "SECS", shortLabel: "S", value: timeLeft.seconds },
   ];
+
+  if (variant === "compact") {
+    return (
+      <div className="flex items-center justify-between w-full">
+        {timeUnits.map((unit) => (
+          <div key={unit.label} className="flex flex-col items-center">
+            <AnimatePresence mode="popLayout">
+              <motion.div
+                key={unit.value}
+                initial={{ y: 5, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -5, opacity: 0 }}
+                className="font-mono text-xl sm:text-2xl font-bold text-primary tracking-tight"
+              >
+                {unit.value.toString().padStart(2, "0")}
+              </motion.div>
+            </AnimatePresence>
+            <div className="mt-0.5 text-[8px] font-mono font-medium text-muted-foreground/80 uppercase tracking-wide">
+              {unit.shortLabel}
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="flex items-center justify-center gap-1 sm:gap-2 p-4 bg-card/50 backdrop-blur-sm border border-border inline-flex">

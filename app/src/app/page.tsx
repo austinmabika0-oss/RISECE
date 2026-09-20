@@ -10,6 +10,7 @@ import { Navbar } from "@/components/ui/Navbar";
 import { CountdownTimer } from "@/components/ui/CountdownTimer";
 import { BlueprintGrid } from "@/components/svg/BlueprintGrid";
 import { BridgeDrawing } from "@/components/svg/BridgeDrawing";
+import { RiseCELogoAnimation } from "@/components/svg/RiseCELogoAnimation";
 import { EventCard } from "@/components/ui/EventCard";
 import { RegistrationInfo } from "@/components/ui/RegistrationInfo";
 import { IconArrowRight, IconBuilding, IconRuler2, IconBrain, IconClipboardCheck, IconCode, IconPuzzle } from "@tabler/icons-react";
@@ -78,29 +79,53 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center pt-32 overflow-hidden">
+      <section className="relative min-h-screen flex items-center pt-24 lg:pt-32 pb-[calc(100px+env(safe-area-inset-bottom))] lg:pb-0 overflow-hidden">
         
-
-        {/* Background Bridge SVG */}
-        <div className="absolute inset-y-0 right-0 z-0 flex items-center justify-end translate-x-[5%] lg:translate-x-[5%] w-[120%] lg:w-[65%] opacity-60 pointer-events-none">
-          <BridgeDrawing />
+        {/* Desktop Background Bridge & Logo SVG - Hidden on Mobile */}
+        <div className="hidden lg:flex absolute inset-y-0 right-0 z-0 flex-col items-center justify-center translate-x-[5%] w-[65%] pointer-events-none overflow-visible">
+          {/* Logo sits directly above the bridge */}
+          <div className="transform translate-y-12 relative z-10 w-full flex justify-center drop-shadow-lg">
+            <RiseCELogoAnimation />
+          </div>
+          
+          {/* Main Bridge */}
+          <div className="w-full opacity-60 -mt-32">
+            <BridgeDrawing />
+          </div>
         </div>
 
         <div className="container mx-auto px-4 md:px-6 relative z-10" ref={contentRef}>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[70vh]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-center lg:min-h-[70vh]">
             
-            {/* Left Content */}
-            <div className="pt-24 lg:pt-0">
+            {/* Left Content - Flex on mobile for reordering, Block on desktop */}
+            <div className="flex flex-col lg:block">
 
-              
-              <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground leading-[0.9] mb-8">
-                <div className="hero-word opacity-0 [perspective:1000px]">DESIGN.</div>
-                <div className="hero-word opacity-0 [perspective:1000px]">BUILD.</div>
-                <div className="hero-word opacity-0 [perspective:1000px] text-primary">RISE.</div>
-              </h1>
+              {/* 1. Header Text & Mobile Countdown */}
+              <div className="order-1 flex flex-col sm:flex-row flex-wrap items-start justify-between gap-6 mb-4 lg:mb-8 lg:block">
+                <h1 className="font-display text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground leading-[0.9]">
+                  <div className="hero-word opacity-0 [perspective:1000px]">DESIGN.</div>
+                  <div className="hero-word opacity-0 [perspective:1000px]">BUILD.</div>
+                  <div className="hero-word opacity-0 [perspective:1000px] text-primary">RISE.</div>
+                </h1>
 
-              <div className="hero-content opacity-0">
-                <p className="text-xl md:text-2xl text-muted-foreground max-w-lg mb-8 font-light border-l-2 border-primary/50 pl-6">
+                {/* Mobile Countdown (Hidden on Desktop) */}
+                <div className="lg:hidden w-[165px] flex-shrink-0 hero-content opacity-0 mt-2 sm:mt-0 p-3 pb-2.5 border border-primary/40 bg-background/80 backdrop-blur-md shadow-sm relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-primary/70" />
+                  <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-primary/70" />
+                  <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-primary/70" />
+                  <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-primary/70" />
+                  
+                  <h3 className="font-mono text-[10px] font-medium uppercase tracking-widest text-primary/80 mb-2">T-Minus to Execution</h3>
+                  
+                  <div className="w-full flex justify-between items-center border-t border-primary/20 pt-2">
+                     <CountdownTimer variant="compact" />
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. Event Description */}
+              <div className="order-2 hero-content opacity-0 mb-6 lg:mb-8">
+                <p className="text-lg md:text-2xl text-muted-foreground max-w-lg font-light border-l-2 border-primary/50 pl-6">
                   National Level Civil Engineering Technical Fest
                   <br />
                   <span className="font-mono text-sm tracking-widest font-bold text-foreground mt-2 inline-block">
@@ -109,43 +134,60 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="flex flex-wrap items-center gap-4 hero-content opacity-0">
-                <Link
-                  href="/events"
-                  className="group relative inline-flex items-center justify-center px-8 py-4 font-mono font-bold text-background bg-primary hover:bg-primary/90 transition-all overflow-hidden"
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    REGISTER <IconArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
-                </Link>
-                <Link
-                  href="https://drive.google.com/file/d/1qpsyoMdt6fSsvJuZDSvYHCQZmFws4nTm/view?usp=drive_link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 font-mono font-bold text-foreground border border-border hover:border-primary hover:text-primary transition-all bg-card/50 backdrop-blur-sm"
-                >
-                  DOWNLOAD BROCHURE
-                </Link>
+              {/* 3. Mobile Bridge & Logo Layering (Hidden on Desktop) */}
+              <div className="order-3 lg:hidden relative w-full flex items-center justify-center min-h-[220px] my-2 hero-content opacity-0">
+                {/* Bridge (Constructs BEHIND the logo) */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-[45%] w-[160%] max-w-[500px] opacity-[0.25] z-0 pointer-events-none">
+                  <BridgeDrawing />
+                </div>
+                
+                {/* Logo (Foreground Focal Point) */}
+                <div className="relative w-[160px] md:w-[190px] z-10 pointer-events-none">
+                  <RiseCELogoAnimation />
+                </div>
               </div>
 
-              {/* Eligibility Note */}
-              <div className="hero-content opacity-0 mt-8 max-w-lg bg-card/30 p-4 border-l-2 border-primary/30 backdrop-blur-sm text-sm text-muted-foreground">
-                <p className="mb-1"><span className="text-primary font-bold">Eligibility:</span> Open to all Diploma & UG engineering students from any recognised institution.</p>
-                <p>Valid college ID mandatory. Report 30 minutes before event start.</p>
+              {/* 4. CTAs and Eligibility */}
+              <div className="order-4 flex flex-col gap-6 lg:gap-8 mt-2 lg:mt-0">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 hero-content opacity-0">
+                  <Link
+                    href="/events"
+                    className="group relative inline-flex items-center justify-center px-8 py-4 font-mono font-bold text-background bg-primary hover:bg-primary/90 transition-all overflow-hidden w-full sm:w-auto"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      REGISTER <IconArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <div className="absolute inset-0 bg-white/20 translate-y-[100%] group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+                  </Link>
+                  <Link
+                    href="https://drive.google.com/file/d/1qpsyoMdt6fSsvJuZDSvYHCQZmFws4nTm/view?usp=drive_link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-8 py-4 font-mono font-bold text-foreground border border-border hover:border-primary hover:text-primary transition-all bg-card/50 backdrop-blur-sm text-center w-full sm:w-auto"
+                  >
+                    DOWNLOAD BROCHURE
+                  </Link>
+                </div>
+
+                {/* Eligibility Note */}
+                <div className="hero-content opacity-0 max-w-lg bg-card/30 p-4 border-l-2 border-primary/30 backdrop-blur-sm text-sm text-muted-foreground">
+                  <p className="mb-1"><span className="text-primary font-bold">Eligibility:</span> Open to all Diploma & UG engineering students from any recognised institution.</p>
+                  <p>Valid college ID mandatory. Report 30 minutes before event start.</p>
+                </div>
               </div>
+
             </div>
 
-            {/* Right Content: Timer */}
-            <div className="flex justify-start lg:justify-end hero-content opacity-0 mt-12 lg:mt-32 self-center lg:translate-y-8">
-              <div className="relative">
+            {/* Right Content: Timer (Desktop only, hidden on mobile) */}
+            <div className="hidden lg:flex justify-center lg:justify-end hero-content opacity-0 mt-16 lg:mt-32 self-center lg:translate-y-8 w-full max-w-sm mx-auto lg:max-w-none">
+              <div className="relative w-full lg:w-auto">
                 <div className="absolute -inset-4 border border-border/50 bg-card/20 backdrop-blur-sm -z-10" />
                 <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary -translate-x-4 -translate-y-4" />
                 <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary translate-x-4 -translate-y-4" />
                 <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary -translate-x-4 translate-y-4" />
                 <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary translate-x-4 translate-y-4" />
                 
-                <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">T-Minus to Execution</h3>
+                <h3 className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4 text-center lg:text-left">T-Minus to Execution</h3>
                 <CountdownTimer />
               </div>
             </div>
