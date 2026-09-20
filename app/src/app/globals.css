@@ -44,34 +44,34 @@
 
 @layer base {
   :root {
-    /* LIGHT THEME (White Blueprint Mode) */
-    --background: 210 40% 98%; /* #F8FAFC */
-    --foreground: 216 65% 11%; /* #0A192F Navy text */
+    /* LIGHT THEME (Engineering Blueprint Mode) */
+    --background: 200 37.5% 96.9%; /* #F4F8FA */
+    --foreground: 216 64.5% 12.2%; /* #0B1B33 Primary text */
     
-    --card: 210 40% 98%;
-    --card-foreground: 216 65% 11%;
-    --popover: 210 40% 98%;
-    --popover-foreground: 216 65% 11%;
+    --card: 195 50% 98.4%; /* #F9FCFD Card background */
+    --card-foreground: 216 64.5% 12.2%;
+    --popover: 195 50% 98.4%;
+    --popover-foreground: 216 64.5% 12.2%;
     
-    /* Structural Cyan Accent */
-    --primary: 195 100% 40%; /* Deeper cyan for visibility on white */
-    --primary-foreground: 210 40% 98%;
+    /* RISE CE Cyan Accent */
+    --primary: 193 100% 42%; /* #00A6D6 */
+    --primary-foreground: 200 37.5% 96.9%;
     
-    --secondary: 210 40% 92%;
-    --secondary-foreground: 216 65% 11%;
+    --secondary: 198 41.7% 95.3%; /* #EEF5F8 Section background */
+    --secondary-foreground: 216 64.5% 12.2%;
     
-    --muted: 210 40% 92%;
-    --muted-foreground: 215 25% 40%; 
+    --muted: 207 25.7% 93.1%; /* #E9EEF2 Secondary panel */
+    --muted-foreground: 209 22.6% 41.6%; /* #526B82 Secondary text */
     
-    --accent: 195 100% 40%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 196 48.4% 93.9%; /* #E8F3F7 Highlighted light-blue surface */
+    --accent-foreground: 216 64.5% 12.2%;
     
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 200 37.5% 96.9%;
     
-    --border: 214 32% 80%; /* Prominent lines for drawing */
-    --input: 214 32% 80%;
-    --ring: 195 100% 40%;
+    --border: 201 29.3% 80.6%; /* #BFD2DC Borders/dividers */
+    --input: 201 29.3% 80.6%;
+    --ring: 193 100% 42%;
     --radius: 0px; /* Strict rigid edges */
   }
 
