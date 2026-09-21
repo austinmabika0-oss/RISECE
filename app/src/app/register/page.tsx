@@ -1,8 +1,13 @@
 import React from "react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { REGISTRATION_CONFIG } from "@/config/registration";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { VantaDotsBackground } from "@/components/ui/VantaDotsBackground";
+
+const VantaDotsBackground = dynamic(
+  () => import("@/components/ui/VantaDotsBackground").then(mod => mod.VantaDotsBackground),
+  { ssr: false }
+);
 
 export const metadata = {
   title: "Registration - RISECE 2K26",
