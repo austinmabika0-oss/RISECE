@@ -271,9 +271,14 @@ export default function HomePage() {
           {/* Focus Themes */}
           <div>
             <h2 className="font-display text-4xl font-bold tracking-tight mb-2">FOCUS THEMES</h2>
-            <div className="font-mono text-xs font-bold tracking-widest text-primary uppercase mb-8 flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse" />
-              ALIGNED WITH VIKSIT BHARAT
+            <div className="font-mono text-xs font-bold tracking-widest text-primary uppercase mb-8 flex flex-col md:flex-row md:items-center gap-2">
+              <div className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-pulse shrink-0" />
+                <span>ALIGNED WITH VIKSIT BHARAT</span>
+              </div>
+              <span className="text-muted-foreground/80 md:normal-case font-sans font-normal ml-3 md:ml-0">
+                (Paper Presentation and AI Project – Prototype/Live Model Challenge)
+              </span>
             </div>
             
             <div className="grid grid-cols-1 gap-4">
