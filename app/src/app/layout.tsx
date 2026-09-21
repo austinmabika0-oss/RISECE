@@ -6,9 +6,14 @@ import { BottomNav } from "@/components/ui/BottomNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.risece.in"),
   title: "RISECE 2K26 — National Level Civil Engineering Technical Fest",
   description:
     "Resilience, Innovation, Strength & Excellence in Civil Engineering. A national-level technical fest organized by the Department of Civil Engineering, Vignan University. 8 events, 2 days, 9–10 October 2026.",
+  robots: {
+    index: true,
+    follow: true,
+  },
   keywords: [
     "RISECE 2K26",
     "civil engineering fest",
