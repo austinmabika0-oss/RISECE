@@ -5,21 +5,23 @@ TRUNCATE TABLE judging_criteria CASCADE;
 TRUNCATE TABLE event_coordinators CASCADE;
 
 INSERT INTO events (id,slug,code,title,subtitle,icon_name,category,domain,team_size_text,is_team_event,min_team_size,max_team_size,duration,prize,overview,venue,event_date,event_time,color,image_path,status,display_order) OVERRIDING SYSTEM VALUE VALUES
-(1,'bridgemania','EVT-01','Bridgemania','From Sticks to Strength','building','structural','Structural Engineering','2-3 Members',true,2,3,'7 Hours','₹7,000','On-spot bridge-making competition where participants design and construct a bridge model using permitted materials that can bear the maximum possible load. Tests structural creativity, engineering judgment, and load-bearing efficiency.','Civil Lab 1 (Block B)','Oct 9, 2026','10:00 AM','#06b6d4','/images/events/bridgemania.png','Published',1);
+(1,'bridgemania','EVT-01','Bridgemania','From Sticks to Strength','building','structural','Structural Engineering','2–4 Members',true,2,4,'4 Hours','₹7,000','On-spot bridge-making competition challenging undergraduate engineering students to apply structural mechanics, material science, and physics principles to design and construct an efficient scale model bridge. Participants may choose any foundational structural typology including Truss, Arch, Cantilever, Suspension, or Cable-Stayed configurations. The overarching objective is to optimize the Structural Efficiency Ratio (SER = Ultimate Load Capacity / Mass of Bridge), simulating real-world engineering constraints. Organized by Vignan''s Foundation for Science, Technology & Research (Deemed to be University) – Estd. u/s 3 of UGC Act 1956.','Civil Lab 1 (Block B)','Oct 9, 2026','10:00 AM','#06b6d4','/images/events/bridgemania.png','Published',1);
 INSERT INTO event_rules (event_id,rule_text,display_order) VALUES
-(1,'Model built on event days only - 4 hours on day 1, 3 hours on day 2',1),
-(1,'Ice cream sticks/popsicle sticks and bamboo skewers (primary structural material) - provided',2),
-(1,'Anabond glue only - provided on the spot',3),
-(1,'Participants must bring their own scale',4),
-(1,'No metal wires, tapes, thermocol, M-seals, or threads permitted',5),
-(1,'Bridge must span a minimum clear span of 500mm to 800mm between two supports',6),
-(1,'Total model width must not exceed 150 mm',7),
-(1,'Bridge deck (load surface) must be flat and level',8);
+(1,'Model should be prepared on event days only — participants are allotted 4 hours on Day 1 to build the bridge and must demonstrate and test it on Day 2',1),
+(1,'All structural elements must be built exclusively using materials provided by the organizers — no outside structural materials or modifiers allowed',2),
+(1,'Provided materials (per team): Maximum 150 standard wooden popsicle sticks and 1 bottle of standard commercial Wood Glue',3),
+(1,'Permitted tools to be brought by participants: utility knife or cutter, cutting mat, pencil, sandpaper sheets, and steel ruler only',4),
+(1,'Bridge must span a clear horizontal gap of exactly 400 mm; total length must be between 440 mm and 480 mm',5),
+(1,'Maximum width: 100 mm total; Maximum total height: 250 mm (from lowest chord to highest peak)',6),
+(1,'Bridge must feature a clear, horizontal roadway deck at least 40 mm wide across the entire length, allowing a 40 mm × 40 mm continuous testing block to pass unimpeded',7),
+(1,'Laminating more than 3 sticks face-to-face to create solid heavy beams is strictly prohibited; sticks must not be soaked in chemical agents to facilitate bending',8),
+(1,'Bridges failing to satisfy any dimensional criteria during pre-test inspection will face immediate disqualification',9),
+(1,'No external materials are permitted unless specified; fair play enforced — external assistance and cheating result in immediate disqualification',10),
+(1,'Judges'' decisions are final and binding',11);
 INSERT INTO judging_criteria (event_id,name,detail,max_marks,display_order) VALUES
-(1,'Strength-to-Weight Ratio','Primary criterion — maximum load divided by self-weight of the model',50,1),
-(1,'Construction Quality','Neatness, joint quality, and structural integrity',20,2),
-(1,'Creativity & Design','Aesthetic appeal and innovative structural form',15,3),
-(1,'Presentation','Team''s ability to explain design choices and respond to questions if asked',15,4);
+(1,'Strength-to-Weight Ratio','Primary criterion — Structural Efficiency Ratio (SER) = Ultimate Load Capacity (kg) / Mass of Bridge (kg). Recorded at moment of structural collapse or deflection exceeding 30 mm.',70,1),
+(1,'Creativity & Design','Aesthetic appeal and innovative structural form; choice of typology (Truss, Arch, Cantilever, Suspension, or Cable-Stayed)',15,2),
+(1,'Presentation','Team''s ability to explain design choices and respond to judges'' questions',15,3);
 INSERT INTO event_coordinators (event_id,name,phone,role,display_order) VALUES
 (1,'Mr. M. Anirudh','','Faculty Advisor',1),
 (1,'V. Sudheer','+91 9391833416','Student Coordinator',2),
