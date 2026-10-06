@@ -147,9 +147,9 @@ INSERT INTO event_coordinators (event_id,name,phone,role,display_order) VALUES
 (7,'Chiranjeevi Nayak','+91 6302536557','Student Coordinator',4),
 (7,'Mr. Chaitanya','+91 7075869731','TA Support',5);
 INSERT INTO events (id,slug,code,title,subtitle,icon_name,category,domain,team_size_text,is_team_event,min_team_size,max_team_size,duration,prize,overview,venue,event_date,event_time,color,image_path,status,display_order) OVERRIDING SYSTEM VALUE VALUES
-(8,'model-making','EVT-08','Model Making - Structural Showcase','Scale Models','building-monument','creative','Urban Planning','2-3 Members',true,2,3,'Exhibition & Presentation','₹8,000 / ₹5,000 / ₹2,500','Participants choose one of four world-famous structures and build a scale model of it using any material of choice. Alongside the model, teams deliver a structured presentation.','Exhibition Hall','Oct 10, 2026','All Day','#ec4899','/images/events/model-making.png','Published',8);
+(8,'model-making','EVT-08','Model Making - Structure Showcase','Scale Models','building-monument','creative','Urban Planning','2-3 Members',true,2,3,'Exhibition & Presentation','₹8,000 / ₹5,000 / ₹2,500','Participants choose one of five world-famous structures (or any world-famous structure of their choice) and build a scale model of it using any material of choice. Alongside the model, teams deliver a structured presentation. Assigned Structures Pool: Burj Khalifa, Eiffel Tower, Lotus Temple, Taj Mahal, or any other world-famous structure of your choice.','Exhibition Hall','Oct 10, 2026','All Day','#ec4899','/images/events/model-making.png','Published',8);
 INSERT INTO event_rules (event_id,rule_text,display_order) VALUES
-(8,'Assigned Structures Pool: Burj Khalifa, Eiffel Tower, Lotus Temple, or Taj Mahal',1),
+(8,'Assigned Structures Pool: Burj Khalifa, Eiffel Tower, Lotus Temple, Taj Mahal — or any other world-famous structure of your choice',1),
 (8,'Model dimensions must not exceed 600 mm × 600 mm × 800 mm (L × W × H)',2),
 (8,'Model must be constructed before the event and brought on the day',3),
 (8,'Presentation must strictly follow the provided 10-slide structure focusing on Engineering facts and reasoning',4);

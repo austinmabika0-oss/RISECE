@@ -169,6 +169,23 @@ export default function HomePage() {
                   </Link>
                 </div>
 
+                {/* Rule Book Download */}
+                <div className="hero-content opacity-0">
+                  <Link
+                    href="https://drive.google.com/file/d/1ws6AbUjVAAtKTdctVO2z-lwNhriQjHtT/view?usp=sharing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center gap-3 px-6 py-3 font-mono font-bold text-sm text-primary border border-primary/50 hover:border-primary hover:bg-primary/10 transition-all bg-primary/5 backdrop-blur-sm w-full sm:w-auto justify-center sm:justify-start"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:animate-bounce">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                      <polyline points="7 10 12 15 17 10"/>
+                      <line x1="12" y1="15" x2="12" y2="3"/>
+                    </svg>
+                    DOWNLOAD RULE BOOK
+                  </Link>
+                </div>
+
                 {/* Eligibility Note */}
                 <div className="hero-content opacity-0 max-w-lg bg-card/30 p-4 border-l-2 border-primary/30 backdrop-blur-sm text-sm text-muted-foreground">
                   <p className="mb-1"><span className="text-primary font-bold">Eligibility:</span> Open to all Diploma & UG engineering students from any recognised institution.</p>

@@ -290,7 +290,7 @@ export const events: Event[] = [
     id: 8,
     slug: "model-making",
     code: "EVT-08",
-    title: "Model Making - Structural Showcase",
+    title: "Model Making - Structure Showcase",
     subtitle: "Scale Models",
     icon: <IconBuildingMonument size={32} stroke={1.5} />,
     category: "creative",
@@ -302,10 +302,12 @@ export const events: Event[] = [
     duration: "Exhibition Format",
     prize: "₹8,000 / ₹5,000 / ₹2,500",
     overview:
-      "Pre-build scale model of an iconic world structure + technical presentation.",
+      "Pre-build a scale model of a world-famous structure and deliver a structured technical presentation. Choose from: Burj Khalifa, Eiffel Tower, Lotus Temple, Taj Mahal — or any other world-famous structure of your choice. Models must be built before the event using any material of choice.",
     rules: [
-      "Maximum footprint size: 1m x 1m",
-      "Models must be pre-built before the event",
+      "Assigned Structures Pool: Burj Khalifa, Eiffel Tower, Lotus Temple, Taj Mahal — or any other world-famous structure of your choice",
+      "Model dimensions must not exceed 600 mm × 600 mm × 800 mm (L × W × H)",
+      "Models must be constructed before the event and brought on the day",
+      "Presentation must strictly follow the provided 10-slide structure focusing on engineering facts and reasoning",
     ],
     judgingCriteria: [
       { criteria: "Detailing", detail: "Aesthetic quality and physical craftsmanship" },
