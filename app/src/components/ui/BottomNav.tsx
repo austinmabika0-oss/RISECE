@@ -12,7 +12,8 @@ import {
   IconListDetails,
   IconSun,
   IconMoonStars,
-  IconInfoCircle
+  IconInfoCircle,
+  IconAward
 } from "@tabler/icons-react";
 
 export function BottomNav() {
@@ -25,8 +26,8 @@ export function BottomNav() {
 
   const navItems = [
     { name: "Home", href: "/", icon: <IconHome size={22} stroke={1.5} /> },
-    { name: "About", href: "/about", icon: <IconInfoCircle size={22} stroke={1.5} /> },
     { name: "Events", href: "/events", icon: <IconCalendarEvent size={22} stroke={1.5} /> },
+    { name: "Sponsors", href: "/sponsors", icon: <IconAward size={22} stroke={1.5} /> },
     { name: "Register", href: "/register", icon: <IconTicket size={22} stroke={1.5} /> },
     { name: "Schedule", href: "/schedule", icon: <IconListDetails size={22} stroke={1.5} /> },
   ];

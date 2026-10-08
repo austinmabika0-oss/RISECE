@@ -90,7 +90,7 @@ export function EventCard({ event, index }: EventCardProps) {
                 <div className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider mb-1">Duration</div>
                 <div className="flex items-center gap-2 text-sm text-foreground font-medium">
                   <IconClock size={14} className="text-primary" />
-                  <span>{event.duration.split(" ")[0]}</span>
+                  <span>{event.duration?.split(" ")[0] ?? "—"}</span>
                 </div>
               </div>
             </div>

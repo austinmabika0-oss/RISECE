@@ -27,29 +27,46 @@ export default function EventsPage() {
   useEffect(() => {
     const fetchEvents = async () => {
       const supabase = createClient();
-      const { data } = await supabase.from('events').select('*').order('display_order');
-      if (data) {
-        // Map database fields to EventCard props
-        const mappedData = data.map(ev => {
-          let IconCmp = IconBuilding;
-          switch (ev.icon_name) {
-            case 'ruler2': IconCmp = IconRuler2; break;
-            case 'brain': IconCmp = IconBrain; break;
-            case 'clipboard-check': IconCmp = IconClipboardCheck; break;
-            case 'code': IconCmp = IconCode; break;
-            case 'puzzle': IconCmp = IconPuzzle; break;
-            case 'camera': IconCmp = IconCamera; break;
-            case 'message-circle': IconCmp = IconMessageCircle; break;
-          }
-          return {
-            ...ev,
-            teamSize: ev.team_size_text,
-            icon: <IconCmp size={32} stroke={1.5} />,
-            image: ev.image_path?.replace('/assets', ''),
-          };
-        });
-        setEvents(mappedData);
+      const { data, error } = await supabase.from('events').select('*').order('display_order');
+
+      let rawEvents = data;
+
+      // Full fallback — all 8 events from seed.sql
+      if (!rawEvents || rawEvents.length === 0 || error) {
+        rawEvents = [
+          { id: '1', slug: 'bridgemania', code: 'EVT-01', title: 'Bridgemania', subtitle: 'From Sticks to Strength', icon_name: 'building', category: 'structural', team_size_text: '2–4 Members', prize: '₹7,000', duration: '4 Hours', image_path: '/images/events/bridgemania.png', color: '#06b6d4', venue: 'Civil Lab 1 (Block B)', event_date: 'Oct 9, 2026', event_time: '10:00 AM' },
+          { id: '2', slug: 'autocad', code: 'EVT-02', title: 'AutoCAD', subtitle: '2D Engineering Drawing', icon_name: 'ruler2', category: 'digital', team_size_text: 'Individual', prize: '₹6,000', duration: 'As specified', image_path: '/images/events/cad-drafting.png', color: '#f43f5e', venue: 'CAD Lab (Block B)', event_date: 'Oct 10, 2026', event_time: '02:00 PM' },
+          { id: '3', slug: 'ai-project', code: 'EVT-03', title: 'AI Project', subtitle: 'Prototype/Live Model Challenge', icon_name: 'brain', category: 'digital', team_size_text: '2–3 Members', prize: '₹6,000', duration: 'Exhibition Format', image_path: '/images/events/code-breaker.png', color: '#f59e0b', venue: 'Computing Lab (Block A)', event_date: 'Oct 10, 2026', event_time: '09:30 AM' },
+          { id: '4', slug: 'technical-quiz', code: 'EVT-04', title: 'Technical Quiz', subtitle: 'Rapid Recall', icon_name: 'clipboard-check', category: 'knowledge', team_size_text: '2 Members', prize: '₹6,000', duration: '60-90 minutes', image_path: '/images/events/technical-quiz.png', color: '#10b981', venue: 'Main Auditorium', event_date: 'Oct 9, 2026', event_time: '03:00 PM' },
+          { id: '5', slug: 'paper-presentation', code: 'EVT-05', title: 'Paper Presentation', subtitle: 'Research Symposium', icon_name: 'clipboard-check', category: 'knowledge', team_size_text: '1–2 Members', prize: '₹6,000', duration: '10 mins + 3 mins Q&A', image_path: '/images/events/paper-present.png', color: '#3b82f6', venue: 'Seminar Hall A', event_date: 'Oct 10, 2026', event_time: '11:00 AM' },
+          { id: '6', slug: 'smart-mix', code: 'EVT-06', title: 'Smart Mix', subtitle: 'Lightweight Concrete Challenge', icon_name: 'building', category: 'structural', team_size_text: '2–3 Members', prize: '₹7,500', duration: 'Exhibition / Testing', image_path: '/images/events/smart-mix.png', color: '#8b5cf6', venue: 'Concrete Lab (Block C)', event_date: 'Oct 9, 2026', event_time: '01:30 PM' },
+          { id: '7', slug: 'technical-treasure-hunt', code: 'EVT-07', title: 'Technical Treasure Hunt', subtitle: 'Logic & Spatial Reasoning', icon_name: 'puzzle', category: 'creative', team_size_text: '1–3 Members', prize: '₹3,000', duration: 'Trail based', image_path: '/images/events/puzzle-challenge.png', color: '#eab308', venue: 'Campus Wide', event_date: 'Oct 9, 2026', event_time: '11:30 AM' },
+          { id: '8', slug: 'model-making', code: 'EVT-08', title: 'Model Making', subtitle: 'Structure Showcase', icon_name: 'building', category: 'creative', team_size_text: '2–3 Members', prize: '₹8,000', duration: 'Exhibition & Presentation', image_path: '/images/events/model-making.png', color: '#ec4899', venue: 'Exhibition Hall', event_date: 'Oct 10, 2026', event_time: 'All Day' },
+        ];
       }
+
+      const iconMap: Record<string, any> = {
+        building: IconBuilding,
+        ruler2: IconRuler2,
+        brain: IconBrain,
+        'clipboard-check': IconClipboardCheck,
+        code: IconCode,
+        puzzle: IconPuzzle,
+        camera: IconCamera,
+        'message-circle': IconMessageCircle,
+      };
+
+      const mappedData = rawEvents.map((ev: any) => {
+        const IconCmp = iconMap[ev.icon_name] || IconBuilding;
+        return {
+          ...ev,
+          teamSize: ev.team_size_text,
+          icon: <IconCmp size={32} stroke={1.5} />,
+          image: ev.image_path?.replace('/assets', ''),
+        };
+      });
+
+      setEvents(mappedData);
       setLoading(false);
     };
     fetchEvents();
@@ -58,8 +75,8 @@ export default function EventsPage() {
   const filteredEvents = events.filter((event) => {
     const matchesCategory = activeCategory === "all" || event.category === activeCategory;
     const matchesSearch =
-      event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      event.subtitle.toLowerCase().includes(searchQuery.toLowerCase());
+      event.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.subtitle?.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 

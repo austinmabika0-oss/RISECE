@@ -14,6 +14,7 @@ import { RiseCELogoAnimation } from "@/components/svg/RiseCELogoAnimation";
 import { EventCard } from "@/components/ui/EventCard";
 import { RegistrationInfo } from "@/components/ui/RegistrationInfo";
 import { IconArrowRight, IconBuilding, IconRuler2, IconBrain, IconClipboardCheck, IconCode, IconPuzzle } from "@tabler/icons-react";
+import { SponsorsSection } from "@/components/ui/SponsorsSection";
 import { createClient } from "@/lib/supabase/client";
 
 // Lazy load SVG illustrations for performance
@@ -31,27 +32,63 @@ export default function HomePage() {
   useEffect(() => {
     const fetchEvents = async () => {
       const supabase = createClient();
-      const { data } = await supabase.from('events').select('*').order('display_order').limit(3);
+      const { data, error } = await supabase.from('events').select('*').order('display_order').limit(3);
       
-      if (data) {
-        const mapped = data.map(ev => {
-          let IconCmp = IconBuilding;
-          switch (ev.icon_name) {
-            case 'ruler2': IconCmp = IconRuler2; break;
-            case 'brain': IconCmp = IconBrain; break;
-            case 'clipboard-check': IconCmp = IconClipboardCheck; break;
-            case 'code': IconCmp = IconCode; break;
-            case 'puzzle': IconCmp = IconPuzzle; break;
+      let eventsData = data;
+      
+      // Fallback data if DB fetch fails (e.g., when using dummy credentials)
+      if (!eventsData || eventsData.length === 0 || error) {
+        eventsData = [
+          {
+            id: '1',
+            title: 'Bridgemania',
+            category: 'structural',
+            icon_name: 'building',
+            team_size_text: '2-4 Members',
+            prize: '₹7,000',
+            image_path: '/images/events/bridgemania.png',
+            slug: 'bridgemania'
+          },
+          {
+            id: '2',
+            title: 'AutoCAD',
+            category: 'digital',
+            icon_name: 'ruler2',
+            team_size_text: 'Individual',
+            prize: '₹6,000',
+            image_path: '/images/events/cad-drafting.png',
+            slug: 'autocad'
+          },
+          {
+            id: '3',
+            title: 'Concrete Challenge',
+            category: 'structural',
+            icon_name: 'building',
+            team_size_text: '2-3 Members',
+            prize: '₹5,000',
+            image_path: '/images/events/concrete.png',
+            slug: 'concrete'
           }
-          return {
-            ...ev,
-            teamSize: ev.team_size_text,
-            icon: <IconCmp size={32} stroke={1.5} />,
-            image: ev.image_path?.replace('/assets', ''),
-          };
-        });
-        setFeaturedEvents(mapped);
+        ];
       }
+
+      const mapped = eventsData.map((ev: any) => {
+        let IconCmp = IconBuilding;
+        switch (ev.icon_name) {
+          case 'ruler2': IconCmp = IconRuler2; break;
+          case 'brain': IconCmp = IconBrain; break;
+          case 'clipboard-check': IconCmp = IconClipboardCheck; break;
+          case 'code': IconCmp = IconCode; break;
+          case 'puzzle': IconCmp = IconPuzzle; break;
+        }
+        return {
+          ...ev,
+          teamSize: ev.team_size_text,
+          icon: <IconCmp size={32} stroke={1.5} />,
+          image: ev.image_path?.replace('/assets', ''),
+        };
+      });
+      setFeaturedEvents(mapped);
     };
     fetchEvents();
 
@@ -209,6 +246,11 @@ export default function HomePage() {
               </div>
             </div>
 
+          </div>
+
+          {/* Central Sponsor Block */}
+          <div className="w-full flex justify-center mt-12 lg:mt-24 mb-4 lg:mb-10 relative z-20">
+            <SponsorsSection />
           </div>
         </div>
       </section>
