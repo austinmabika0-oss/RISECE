@@ -11,7 +11,7 @@ export function SponsorsSection() {
   const panelClipPath = "polygon(20px 0, calc(100% - 20px) 0, 100% 20px, 100% calc(100% - 20px), calc(100% - 20px) 100%, 20px 100%, 0 calc(100% - 20px), 0 20px)";
 
   return (
-    <div className="w-full max-w-[720px] flex flex-col items-center z-20">
+    <div className="w-full max-w-[860px] flex flex-col items-center z-20">
       
       {/* -- POWERED BY: label -- */}
       <div className="flex items-center justify-center gap-4 mb-4 w-full">
@@ -24,7 +24,7 @@ export function SponsorsSection() {
 
       {/* -- Geometric Sponsor Wrapper (Outer Border) -- */}
       <div 
-        className="relative w-full max-w-[720px] p-[1px] bg-[#00A9D9]"
+        className="relative w-full max-w-[860px] p-[1px] bg-[#00A9D9]"
         style={{ clipPath: panelClipPath }}
       >
         {/* -- Geometric Sponsor Inner (Translucent Background) -- */}
@@ -37,7 +37,7 @@ export function SponsorsSection() {
           <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-6 bg-[#00A9D9] opacity-70" />
 
           {/* Logos & Divider Container */}
-          <div className="flex items-center justify-center gap-6 sm:gap-12 w-full">
+          <div className="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 w-full">
             {/* KCP LOGO */}
             <div className="flex items-center justify-center w-[140px] sm:w-[190px]">
               <Image
@@ -65,6 +65,20 @@ export function SponsorsSection() {
                 priority
                 unoptimized
               />
+            </div>
+
+            {/* Second Vertical Divider */}
+            <div className="w-[1px] h-[55px] sm:h-[65px] bg-[#00A9D9] opacity-40 shrink-0" />
+
+            {/* ANNANYA MODULARS (Typographic) */}
+            <div className="flex flex-col items-center justify-center w-[120px] sm:w-[160px] text-center">
+              <div className="w-6 h-[1px] bg-[#00A9D9]/50 mb-1" />
+              <div className="font-display font-bold text-[#08264A] dark:text-white text-[16px] sm:text-[22px] tracking-tight leading-none mb-1 uppercase">
+                Annanya
+              </div>
+              <div className="font-sans font-medium text-[#00A9D9] text-[9px] sm:text-[11px] tracking-[0.2em] uppercase leading-none">
+                Modulars
+              </div>
             </div>
           </div>
         </div>

@@ -88,7 +88,7 @@ export default function SponsorsPage() {
           initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.1 }}
-          className="w-full max-w-[780px] relative mb-16"
+          className="w-full max-w-[940px] relative mb-16"
         >
           {/* Outer Border with Clip Path */}
           <div 
@@ -97,7 +97,7 @@ export default function SponsorsPage() {
           >
             {/* Inner Content with Clip Path */}
             <div 
-              className="w-full min-h-[140px] sm:min-h-[170px] bg-white/30 backdrop-blur-[2px] flex flex-col sm:flex-row items-center justify-center gap-10 sm:gap-14 py-6 sm:py-8 px-6 shadow-[inset_0_0_40px_rgba(0,169,217,0.05)]"
+              className="w-full min-h-[140px] sm:min-h-[170px] bg-white/30 backdrop-blur-[2px] flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10 md:gap-14 py-6 sm:py-8 px-6 shadow-[inset_0_0_40px_rgba(0,169,217,0.05)]"
               style={{ clipPath: panelClipPath }}
             >
               {/* Notches decorative */}
@@ -127,6 +127,20 @@ export default function SponsorsPage() {
                   className="w-full h-auto object-contain mix-blend-multiply"
                   unoptimized
                 />
+              </div>
+
+              <div className="w-[1px] h-[60px] bg-[#00A9D9] hidden sm:block opacity-40" />
+              <div className="w-full h-[1px] bg-[#00A9D9] sm:hidden opacity-40" />
+
+              {/* ANNANYA MODULARS (Typographic) */}
+              <div className="flex flex-col items-center justify-center w-[120px] sm:w-[160px] text-center">
+                <div className="w-8 h-[1px] bg-[#00A9D9]/50 mb-1" />
+                <div className="font-display font-bold text-[#08264A] text-[20px] sm:text-[24px] tracking-tight leading-none mb-1 uppercase">
+                  Annanya
+                </div>
+                <div className="font-sans font-medium text-[#00A9D9] text-[10px] sm:text-[12px] tracking-[0.2em] uppercase leading-none">
+                  Modulars
+                </div>
               </div>
             </div>
           </div>
