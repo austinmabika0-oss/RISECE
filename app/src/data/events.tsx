@@ -73,7 +73,7 @@ export const events: Event[] = [
     ],
     venue: "U Block, 1st Floor AFF 12",
     date: "Oct 9, 2026",
-    time: "10:30 AM",
+    time: "01:00 PM",
     coordinators: [
       { name: "Mr. M. Anirudh", phone: "", role: "Faculty Advisor" },
       { name: "V. Sudheer", phone: "+91 9391833416", role: "Student Coordinator" },
@@ -109,8 +109,8 @@ export const events: Event[] = [
       { criteria: "Standardization", detail: "Proper use of layers, line weights, and annotations" },
     ],
     venue: "U Block, 1st Floor CAD Lab AFF8(A)",
-    date: "Oct 9, 2026",
-    time: "02:00 PM",
+    date: "Oct 10, 2026",
+    time: "08:30 AM",
     coordinators: [
       { name: "Younnes Abdullah", phone: "+91 98765 43220", role: "Student Coordinator" },
     ],
@@ -144,7 +144,7 @@ export const events: Event[] = [
     ],
     venue: "U Block, 1st Floor Corridor",
     date: "Oct 9, 2026",
-    time: "10:30 AM",
+    time: "01:00 PM",
     coordinators: [
       { name: "Kasambarare T", phone: "+91 98765 43214", role: "Student Coordinator" },
     ],
@@ -212,7 +212,7 @@ export const events: Event[] = [
     ],
     venue: "U Block, 1st Floor AFF 15",
     date: "Oct 9, 2026",
-    time: "10:30 AM",
+    time: "01:00 PM",
     coordinators: [
       { name: "P Venkat", phone: "+91 98765 43217", role: "Student Coordinator" },
     ],
@@ -279,7 +279,7 @@ export const events: Event[] = [
     ],
     venue: "Reporting at U Block, 1st Floor AFF 11",
     date: "Oct 10, 2026",
-    time: "08:30 AM",
+    time: "10:30 AM",
     coordinators: [
       { name: "Anashe", phone: "+91 98765 43219", role: "Student Coordinator" },
     ],
@@ -315,7 +315,7 @@ export const events: Event[] = [
     ],
     venue: "U Block, 1st Floor Corridor",
     date: "Oct 9, 2026",
-    time: "10:30 AM",
+    time: "01:00 PM",
     coordinators: [
       { name: "Simba C", phone: "+91 98765 43216", role: "Student Coordinator" },
     ],

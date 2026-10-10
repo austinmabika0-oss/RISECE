@@ -26,35 +26,35 @@ type ScheduleItem = {
 
 const DAY1_OPENING: ScheduleItem[] = [
   { id: "d1-r1",    time: "07:30 - 08:50", title: "Registration Desk 1 and Reporting",         subtitle: "All participants",                                                    venue: "Sangamitra Seminar Hall, N Block 2nd Floor",                                                               notes: ["Bring college ID"],                                                                      type: "registration" },
-  { id: "d1-ina",   time: "09:00 - 09:56", title: "Inaugural Ceremony",                       subtitle: "Lamp lighting - Welcome address - Chief guest address",               venue: "Sangamitra Seminar Hall, N Block 2nd Floor",                                                               type: "ceremony" },
-  { id: "d1-photo", time: "09:56 - 10:00", title: "Group Photograph and Tea Break",                                                                                            venue: "Sangamitra Seminar Hall, N Block 2nd Floor",                                                               type: "break" },
-  { id: "d1-r2",    time: "10:00 - 10:30", title: "Registration Desk 2 and Reporting",        subtitle: "All participants -- Move to Event Venues / Event Briefing",           venue: ["Registration Desk 2 - U Block, 1st Floor", "Respective Venues"],                                          type: "registration" },
+  { id: "d1-ina",   time: "09:00 - 11:56", title: "Inaugural Ceremony",                       subtitle: "Lamp lighting - Welcome address - Chief guest address",               venue: "Sangamitra Seminar Hall, N Block 2nd Floor",                                                               type: "ceremony" },
+  { id: "d1-photo", time: "11:56 - 12:00", title: "Group Photograph and Tea Break",                                                                                            venue: "Sangamitra Seminar Hall, N Block 2nd Floor",                                                               type: "break" },
+  { id: "d1-r2",    time: "12:00 - 12:30", title: "Registration Desk 2 and Reporting",        subtitle: "All participants -- Move to Event Venues / Event Briefing",           venue: ["Registration Desk 2 (U Block, 1st Floor)", "Respective Venues"],                                          type: "registration" },
+  { id: "d1-lunch", time: "12:30 - 13:00", title: "Lunch Break",                                                                                                                                                                                                                                  type: "break" },
 ];
 
 const DAY1_EVENTS: ScheduleItem[] = [
-  { id: "d1-paper",   time: "10:30 - 12:30", title: "Paper Presentation",                         venue: "U Block, 1st Floor - AFF 15",                                           notes: ["PPT presentation - submit full paper printed with tape binding"],                                        type: "event", concurrent: true },
-  { id: "d1-bridge",  time: "10:30 - 13:30", title: "BridgeMania - Full Construction",             venue: "U Block, 1st Floor - AFF 12",                                           notes: ["Load testing and judging on Day 2"],                                                                     type: "event", concurrent: true },
-  { id: "d1-exhibit", time: "10:30 - 14:00", title: "Exhibitions: Model Making and AI-Project Display", venue: "U Block, 1st Floor Corridor",                                    notes: ["Only exhibition.", "Evaluation will be done on Day 2."],                                                 type: "event", concurrent: true },
-  { id: "d1-lunch",   time: "13:00 - 13:30", title: "Lunch Break",                                                                                                               type: "break" },
-  { id: "d1-autocad", time: "14:00 - 16:00", title: "AutoCAD",                                     venue: "U Block, 1st Floor - CAD Lab AFF8(A)",                                                                                                                                                             type: "event" },
-  { id: "d1-quiz",    time: "16:00 - 18:00", title: "Technical Quiz: All Rounds",                  venue: "U Block, 1st Floor - AFF 15",                                                                                                                                                                     type: "event" },
+  { id: "d1-exhibit", time: "13:00 - 17:00", title: "EXHIBITIONS: Model Making & AI-Project display", venue: "U Block, 1st Floor Corridor",                                    notes: ["Only exhibition. Evaluation will be done on Day 2"],                                                 type: "event", concurrent: true },
+  { id: "d1-paper",   time: "13:00 - 15:00", title: "Paper Presentation",                         venue: "U Block, 1st Floor AFF 15",                                           notes: ["PPT presentation & submit full paper printed with tape binding"],                                        type: "event", concurrent: true },
+  { id: "d1-bridge",  time: "13:00 - 16:00", title: "BridgeMania - Full Construction",             venue: "U Block, 1st Floor AFF 12",                                           notes: ["Load testing & judging on Day 2"],                                                                     type: "event", concurrent: true },
+  { id: "d1-quiz",    time: "16:00 - 17:30", title: "Technical Quiz: All rounds",                  venue: "U Block, 1st Floor AFF 15",                                                                                                                                                                     type: "event" },
 ];
 
 const DAY2_REGISTRATION: ScheduleItem[] = [
-  { id: "d2-r1", time: "08:00 - 08:30", title: "Registration Desk 2 and Reporting", subtitle: "All participants", venue: ["Registration Desk 2 - U Block, 1st Floor", "Respective Venues"], type: "registration" },
+  { id: "d2-r1", time: "08:00 - 08:30", title: "Registration desk 2 & Reporting", subtitle: "All participants", venue: ["Registration Desk 2 (U Block, 1st Floor)", "Respective Venues"], type: "registration" },
 ];
 
 const DAY2_EVENTS: ScheduleItem[] = [
-  { id: "d2-smartmix",  time: "08:30 - 09:30", title: "Smart Mix - Light Weight Concrete Cube",       venue: "Structural Computational and Research Lab, Opp. Pharmacy Block",                                              type: "event", concurrent: true },
-  { id: "d2-treasure",  time: "08:30 - 09:30", title: "Technical Treasure Hunt",                      venue: "Reporting at U Block, 1st Floor - AFF 11",                                                                    type: "event", concurrent: true },
-  { id: "d2-bridge",    time: "09:30 - 11:30", title: "BridgeMania Final",                             venue: "U Block, 1st Floor - AFF 12",                                           notes: ["1 hr for finishing any incomplete bridges", "1 hr for Testing"],                                         type: "event" },
-  { id: "d2-ai",        time: "11:00 - 12:00", title: "AI Project - Prototype/Live Model Challenge",   venue: "U Block, 1st Floor Corridor",                                           notes: ["Evaluation"],                                                                                           type: "event", concurrent: true },
-  { id: "d2-model",     time: "11:00 - 12:00", title: "Model Making - Structure Showcase",             venue: ["Showcasing: U Block, 1st Floor Corridor", "PPT Presentation: U Block, 1st Floor - AFF 15"],                notes: ["Evaluation.", "Bring PPT in pendrive."],                                                                 type: "event", concurrent: true },
-  { id: "d2-results",   time: "12:00 - 12:30", title: "Compilation of Results and Winner Certificates", venue: "Organising Committee Room, HODs Office, U Block 1st Floor",          notes: ["No competitions running"],                                                                               type: "ceremony" },
+  { id: "d2-autocad",   time: "08:30 - 10:30", title: "AutoCAD",                                      venue: "U Block, 1st Floor CAD Lab AFF8(A)",                                          notes: ["Parallel with Smart Mix till 9:30"],                                                    type: "event", concurrent: true },
+  { id: "d2-smartmix",  time: "08:30 - 10:30", title: "Smart Mix - Light Weight Concrete Cube",       venue: "Structural Computational & Research Lab, Opp. Pharmacy Block",                  notes: ["Parallel with AutoCAD"],                                                                type: "event", concurrent: true },
+  { id: "d2-treasure",  time: "10:30 - 11:30", title: "Technical Treasure Hunt",                      venue: "Reporting at U Block, 1st Floor AFF 11",                                                                                                                                       type: "event" },
+  { id: "d2-ai",        time: "11:30 - 12:30", title: "AI Project - Prototype/Live Model Challenge",   venue: "U Block, 1st Floor Corridor",                                                 notes: ["Evaluation"],                                                                                           type: "event", concurrent: true },
+  { id: "d2-model",     time: "11:30 - 12:30", title: "Model Making - Structure Showcase",             venue: ["Showcasing: U Block, 1st Floor Corridor", "PPT Presentation: U Block, 1st Floor AFF 15"],                notes: ["Evaluation. Bring PPT in pendrive."],                                                                 type: "event", concurrent: true },
+  { id: "d2-bridge",    time: "12:30 - 14:00", title: "Bridgemania Final",                             venue: "U Block, 1st Floor AFF 12",                                           notes: ["12:30 - 13:00: finishing incomplete bridges", "13:00 - 14:00: testing"],                                         type: "event" },
+  { id: "d2-results",   time: "14:00 - 14:30", title: "Compilation of results & winner certificates", venue: "Organising Committee Room, HOD's Office, U Block 1st Floor",          notes: ["No competitions running"],                                                                               type: "ceremony" },
 ];
 
 const DAY2_CLOSING: ScheduleItem[] = [
-  { id: "d2-vale", time: "12:30 - 13:30", title: "Valedictory Ceremony and Prize Distribution", venue: "U Block Ground Floor - AGF04, Seminar Hall", notes: ["Fest concludes"], type: "ceremony" },
+  { id: "d2-vale", time: "14:30 - 15:30", title: "Valedictory Ceremony & Prize Distribution", venue: "U Block Ground Floor AGF04, Seminar Hall", notes: ["Fest concludes"], type: "ceremony" },
 ];
 
 const typeConfig: Record<ScheduleItem["type"], { dot: string; border: string; bg: string }> = {
@@ -203,7 +203,7 @@ export default function SchedulePage() {
                 <SectionHeader label="Day 2 Events" />
                 <div className="mb-4 p-3 border border-[#00A9D9]/20 bg-[#00A9D9]/5 font-mono text-[10px] text-[#08264A]/60 uppercase tracking-widest flex items-start gap-1.5">
                   <IconUsers size={11} className="text-[#00A9D9] shrink-0 mt-0.5" />
-                  <span>Multiple competitions run simultaneously from 08:30 and again from 11:00.</span>
+                  <span>Multiple competitions run simultaneously from 08:30 and again from 11:30.</span>
                 </div>
                 <div className="pl-2">{DAY2_EVENTS.map((item, i) => <ScheduleCard key={item.id} item={item} isLast={i === DAY2_EVENTS.length - 1} />)}</div>
                 <SectionHeader label="Closing Ceremony" />
